@@ -1,0 +1,4 @@
+name:ds1302_demo
+branch:master
+commit:
+repository:https://e.coding.net/axk/m_demo/ds1302_demo.git

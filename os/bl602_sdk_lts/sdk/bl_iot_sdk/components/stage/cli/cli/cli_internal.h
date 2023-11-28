@@ -1,0 +1,10 @@
+#ifndef __CLI_INTERNAL_H__
+#define __CLI_INTERNAL_H__
+
+#ifdef BL_CHIP_NAME
+#define SYSINFO_DEVICE_NAME BL_CHIP_NAME
+#else
+#define SYSINFO_DEVICE_NAME "BL60X"
+#endif
+#define RHINO_CONFIG_USER_PRI_MAX 10
+#endif

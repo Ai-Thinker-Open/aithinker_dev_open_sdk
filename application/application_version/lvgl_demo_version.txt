@@ -1,0 +1,4 @@
+name:lvgl_demo
+branch:master
+commit: 82aa8a825d70d1e92c41812d624ebdddc506ba39
+repository:https://e.coding.net/axk/m_demo/lvgl_demo.git

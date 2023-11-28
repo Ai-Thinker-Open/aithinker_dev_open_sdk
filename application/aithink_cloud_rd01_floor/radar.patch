@@ -1,0 +1,157 @@
+diff --git a/adapter_chip/chip/port/bl602/peripheral_drive/radar/aiio_radar.c b/adapter_chip/chip/port/bl602/peripheral_drive/radar/aiio_radar.c
+index e5af361..7635fbd 100644
+--- a/adapter_chip/chip/port/bl602/peripheral_drive/radar/aiio_radar.c
++++ b/adapter_chip/chip/port/bl602/peripheral_drive/radar/aiio_radar.c
+@@ -194,33 +194,33 @@
+ /*  ========================== 算法参数 =============================	*/
+ #define PARAM_MAX_MOTION_RANGE          600
+ #define PARAM_MAX_MOTIONLESS_RANGE      600
+-#define PARAM_MOTION_MAX                (PARAM_MAX_MOTION_RANGE/PARAM_RANGE_RES)
+-#define PARAM_MOTIONLESS_MAX            (PARAM_MAX_MOTIONLESS_RANGE/PARAM_RANGE_RES)
++#define PARAM_MOTION_MAX                1
++#define PARAM_MOTIONLESS_MAX            1
+ 
+ 
+ /*裸板*/
+-#define PARAM_MOTION_SENSITIBITY_RANG0  (50)
+-#define PARAM_MOTION_SENSITIBITY_RANG1  (50)
+-#define PARAM_MOTION_SENSITIBITY_RANG2  (40)
+-#define PARAM_MOTION_SENSITIBITY_RANG3  (40)
+-#define PARAM_MOTION_SENSITIBITY_RANG4  (40)
+-#define PARAM_MOTION_SENSITIBITY_RANG5  (40)
+-#define PARAM_MOTION_SENSITIBITY_RANG6  (30)
+-#define PARAM_MOTION_SENSITIBITY_RANG7  (30)
+-#define PARAM_MOTION_SENSITIBITY_RANG8  (30)
+-
+-
+-#define PARAM_MOTIONLESS_SENSITIBITY_RANG0    (5500000)//不参与判断
+-#define PARAM_MOTIONLESS_SENSITIBITY_RANG1    (5500000)//不参与判断
++#define PARAM_MOTION_SENSITIBITY_RANG0  (20)
++#define PARAM_MOTION_SENSITIBITY_RANG1  (20)
++#define PARAM_MOTION_SENSITIBITY_RANG2  (20)
++#define PARAM_MOTION_SENSITIBITY_RANG3  (20)
++#define PARAM_MOTION_SENSITIBITY_RANG4  (20)
++#define PARAM_MOTION_SENSITIBITY_RANG5  (20)
++#define PARAM_MOTION_SENSITIBITY_RANG6  (20)
++#define PARAM_MOTION_SENSITIBITY_RANG7  (20)
++#define PARAM_MOTION_SENSITIBITY_RANG8  (20)
++
++
++#define PARAM_MOTIONLESS_SENSITIBITY_RANG0    (40)//不参与判断
++#define PARAM_MOTIONLESS_SENSITIBITY_RANG1    (40)//不参与判断
+ #define PARAM_MOTIONLESS_SENSITIBITY_RANG2 (40)
+ #define PARAM_MOTIONLESS_SENSITIBITY_RANG3 (40)
+ #define PARAM_MOTIONLESS_SENSITIBITY_RANG4 (40)
+ #define PARAM_MOTIONLESS_SENSITIBITY_RANG5 (40)
+-#define PARAM_MOTIONLESS_SENSITIBITY_RANG6 (15)
+-#define PARAM_MOTIONLESS_SENSITIBITY_RANG7 (15)
+-#define PARAM_MOTIONLESS_SENSITIBITY_RANG8 (15)
++#define PARAM_MOTIONLESS_SENSITIBITY_RANG6 (40)
++#define PARAM_MOTIONLESS_SENSITIBITY_RANG7 (40)
++#define PARAM_MOTIONLESS_SENSITIBITY_RANG8 (40)
+ 
+-#define PARAM_OFF_TIME                  5       // s
++#define PARAM_OFF_TIME                  3       // s
+ /*	=================================================================	*/
+ 
+ //========================== CMD相关 =================================//
+@@ -1814,6 +1814,7 @@ void spi_init_task(void *param)
+ 
+ void create_spi_init_task(void (*spi_slave_init_type)(void))
+ {
++#if 0
+     TaskHandle_t handle;
+     handle = xTaskCreateStatic(
+                             spi_init_task,       /* Function that implements the task. */
+@@ -1828,6 +1829,8 @@ void create_spi_init_task(void (*spi_slave_init_type)(void))
+     {
+         printf("create spi_init_task failed\r\n");
+     }
++#endif
++    xTaskCreate(spi_init_task, "spi_init_t", 1024, spi_slave_init_type, 14, NULL);
+ }
+ 
+ static void spi_slave_cfg(void)
+@@ -3197,43 +3200,43 @@ static void InitAlgorithmParam(void)
+ {
+ 
+     /* Read old paras from flash, if there no paras, then set them default */
+-    if (Algo_ReadParameterExistFlag() != 0xffffffff)    // 读取flash判断是否有保存值
+-    {
+-        // 读取数据
+-        printf("read nv parameter\r\n");
+-        Algo_ReadParameter((uint32_t *)&gAlgorithmParam, sizeof(ALGORITHM_PARAM_T));
+-        printf("gAlgorithmParam.nMaxMotionLessRangeBin=%d\r\n", gAlgorithmParam.nMaxMotionLessRangeBin);
+-        printf("ggAlgorithmParam.nMaxMotionRangeBin=%d\r\n", gAlgorithmParam.nMaxMotionRangeBin);
+-        printf("gAlgorithmParam.nThresholdValOfMotion[0]=%d\r\n", gAlgorithmParam.nThresholdValOfMotion[0]);
+-        printf("gAlgorithmParam.nThresholdValOfMotion[1]=%d\r\n", gAlgorithmParam.nThresholdValOfMotion[1]);
+-        printf("gAlgorithmParam.nThresholdValOfMotion[2]=%d\r\n", gAlgorithmParam.nThresholdValOfMotion[2]);
+-        printf("gAlgorithmParam.nThresholdValOfMotionLess[2]=%d\r\n", gAlgorithmParam.nThresholdValOfMotionLess[2]);
+-        printf("gAlgorithmParam.nThresholdValOfMotion[3]=%d\r\n", gAlgorithmParam.nThresholdValOfMotion[3]);
+-        printf("gAlgorithmParam.nThresholdValOfMotionLess[3]=%d\r\n", gAlgorithmParam.nThresholdValOfMotionLess[3]);
+-        printf("gAlgorithmParam.nThresholdValOfMotion[4]=%d\r\n", gAlgorithmParam.nThresholdValOfMotion[4]);
+-        printf("gAlgorithmParam.nThresholdValOfMotionLess[4]=%d\r\n", gAlgorithmParam.nThresholdValOfMotionLess[4]);
+-        printf("gAlgorithmParam.nThresholdValOfMotion[5]=%d\r\n", gAlgorithmParam.nThresholdValOfMotion[5]);
+-        printf("gAlgorithmParam.nThresholdValOfMotionLess[5]=%d\r\n", gAlgorithmParam.nThresholdValOfMotionLess[5]);
+-        printf("gAlgorithmParam.nThresholdValOfMotion[6]=%d\r\n", gAlgorithmParam.nThresholdValOfMotion[6]);
+-        printf("gAlgorithmParam.nThresholdValOfMotionLess[6]=%d\r\n", gAlgorithmParam.nThresholdValOfMotionLess[6]);
+-        printf("gAlgorithmParam.nThresholdValOfMotion[7]=%d\r\n", gAlgorithmParam.nThresholdValOfMotion[7]);
+-        printf("gAlgorithmParam.nThresholdValOfMotionLess[7]=%d\r\n", gAlgorithmParam.nThresholdValOfMotionLess[7]);
+-        printf("gAlgorithmParam.nThresholdValOfMotion[8]=%d\r\n", gAlgorithmParam.nThresholdValOfMotion[8]);
+-        printf("gAlgorithmParam.nThresholdValOfMotionLess[8]=%d\r\n", gAlgorithmParam.nThresholdValOfMotionLess[8]);
+-        printf("gAlgorithmParam.nOffTime=%d\r\n", gAlgorithmParam.nOffTime);
+-    }
+-    else
++    // if (Algo_ReadParameterExistFlag() != 0xffffffff)    // 读取flash判断是否有保存值
++    // {
++    //     // 读取数据
++    //     printf("read nv parameter\r\n");
++    //     Algo_ReadParameter((uint32_t *)&gAlgorithmParam, sizeof(ALGORITHM_PARAM_T));
++    //     printf("gAlgorithmParam.nMaxMotionLessRangeBin=%d\r\n", gAlgorithmParam.nMaxMotionLessRangeBin);
++    //     printf("ggAlgorithmParam.nMaxMotionRangeBin=%d\r\n", gAlgorithmParam.nMaxMotionRangeBin);
++    //     printf("gAlgorithmParam.nThresholdValOfMotion[0]=%d\r\n", gAlgorithmParam.nThresholdValOfMotion[0]);
++    //     printf("gAlgorithmParam.nThresholdValOfMotion[1]=%d\r\n", gAlgorithmParam.nThresholdValOfMotion[1]);
++    //     printf("gAlgorithmParam.nThresholdValOfMotion[2]=%d\r\n", gAlgorithmParam.nThresholdValOfMotion[2]);
++    //     printf("gAlgorithmParam.nThresholdValOfMotionLess[2]=%d\r\n", gAlgorithmParam.nThresholdValOfMotionLess[2]);
++    //     printf("gAlgorithmParam.nThresholdValOfMotion[3]=%d\r\n", gAlgorithmParam.nThresholdValOfMotion[3]);
++    //     printf("gAlgorithmParam.nThresholdValOfMotionLess[3]=%d\r\n", gAlgorithmParam.nThresholdValOfMotionLess[3]);
++    //     printf("gAlgorithmParam.nThresholdValOfMotion[4]=%d\r\n", gAlgorithmParam.nThresholdValOfMotion[4]);
++    //     printf("gAlgorithmParam.nThresholdValOfMotionLess[4]=%d\r\n", gAlgorithmParam.nThresholdValOfMotionLess[4]);
++    //     printf("gAlgorithmParam.nThresholdValOfMotion[5]=%d\r\n", gAlgorithmParam.nThresholdValOfMotion[5]);
++    //     printf("gAlgorithmParam.nThresholdValOfMotionLess[5]=%d\r\n", gAlgorithmParam.nThresholdValOfMotionLess[5]);
++    //     printf("gAlgorithmParam.nThresholdValOfMotion[6]=%d\r\n", gAlgorithmParam.nThresholdValOfMotion[6]);
++    //     printf("gAlgorithmParam.nThresholdValOfMotionLess[6]=%d\r\n", gAlgorithmParam.nThresholdValOfMotionLess[6]);
++    //     printf("gAlgorithmParam.nThresholdValOfMotion[7]=%d\r\n", gAlgorithmParam.nThresholdValOfMotion[7]);
++    //     printf("gAlgorithmParam.nThresholdValOfMotionLess[7]=%d\r\n", gAlgorithmParam.nThresholdValOfMotionLess[7]);
++    //     printf("gAlgorithmParam.nThresholdValOfMotion[8]=%d\r\n", gAlgorithmParam.nThresholdValOfMotion[8]);
++    //     printf("gAlgorithmParam.nThresholdValOfMotionLess[8]=%d\r\n", gAlgorithmParam.nThresholdValOfMotionLess[8]);
++    //     printf("gAlgorithmParam.nOffTime=%d\r\n", gAlgorithmParam.nOffTime);
++    // }
++    // else
+     {
+         printf("write init nv parameter\r\n");
+         // 赋初值然后保存flash
+-        gAlgorithmParam.nMaxMotionLessRangeBin = PARAM_MOTION_MAX ;
+-        gAlgorithmParam.nMaxMotionRangeBin = PARAM_MOTIONLESS_MAX ;
++        gAlgorithmParam.nMaxMotionLessRangeBin = 1 ;
++        gAlgorithmParam.nMaxMotionRangeBin = 1 ;
+ 
+         gAlgorithmParam.nThresholdValOfMotion[0] = PARAM_MOTION_SENSITIBITY_RANG0;
+-//        gAlgorithmParam.nThresholdValOfMotionLess[0] = PARAM_MOTIONLESS_SENSITIBITY_RANG0;
++        gAlgorithmParam.nThresholdValOfMotionLess[0] = PARAM_MOTIONLESS_SENSITIBITY_RANG0;
+ 
+         gAlgorithmParam.nThresholdValOfMotion[1] = PARAM_MOTION_SENSITIBITY_RANG1;
+-//        gAlgorithmParam.nThresholdValOfMotionLess[1] = PARAM_MOTIONLESS_SENSITIBITY_RANG1;
++        gAlgorithmParam.nThresholdValOfMotionLess[1] = PARAM_MOTIONLESS_SENSITIBITY_RANG1;
+ 
+         gAlgorithmParam.nThresholdValOfMotion[2] = PARAM_MOTION_SENSITIBITY_RANG2;
+         gAlgorithmParam.nThresholdValOfMotionLess[2] = PARAM_MOTIONLESS_SENSITIBITY_RANG2;
+@@ -3281,7 +3284,7 @@ static void InitAlgorithmParam(void)
+         printf("gAlgorithmParam.nThresholdValOfMotionLess[8]=%d\r\n", gAlgorithmParam.nThresholdValOfMotionLess[8]);
+         printf("gAlgorithmParam.nOffTime=%d\r\n", gAlgorithmParam.nOffTime);
+ 
+-        Algo_SaveParameter((uint32_t *)&gAlgorithmParam, sizeof(ALGORITHM_PARAM_T));
++        // Algo_SaveParameter((uint32_t *)&gAlgorithmParam, sizeof(ALGORITHM_PARAM_T));
+     }
+ }
+ 

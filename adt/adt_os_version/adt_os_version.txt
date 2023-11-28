@@ -1,0 +1,5 @@
+name:adt_os
+branch:master
+commit:5768bd45b87b94862d4850d7dde9b84f835d37e8
+repository:https://e.coding.net/axk/2023niansdkweihuguihua/adt_os.git
+

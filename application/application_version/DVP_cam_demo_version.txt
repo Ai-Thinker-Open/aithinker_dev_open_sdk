@@ -1,0 +1,4 @@
+name:DVP_cam_demo
+branch:master
+commit:1b84cbfc66a0547cf144580e168560a933755d6c
+repository:https://e.coding.net/axk/m_demo/DVP_cam_demo.git

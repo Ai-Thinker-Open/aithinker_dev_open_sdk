@@ -1,0 +1,20 @@
+menu "application"
+
+    config AXK_WIFI_SSID
+        string "WiFi Connect SSID"
+        default "myssid"
+        help
+            SSID (network name) for the example to connect to.
+
+    config AXK_WIFI_PASS
+        string "WiFi Connect Password"
+        default "mypassword"
+        help
+            WiFi password (WPA or WPA2) for the example to use.
+            
+    config AXK_WIFI_SERVER_IP
+        string "SET WiFi SERVER IP"
+        default "192.168.31.250"      
+
+endmenu
+

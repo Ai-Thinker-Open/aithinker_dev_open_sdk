@@ -1,0 +1,182 @@
+menu "adt"
+
+menu "SPEC Config"
+endmenu
+
+menu "RTOS Config"
+endmenu
+
+menu "MAIN Config"
+config AIIO_MAIN_STACK                        
+	int "AIIO_MAIN_STACK"                     
+	default 4096                                 
+
+config AIIO_HEAP_LOG_EN                        
+	bool "Turn on heap log printing"                     
+	default n                                 
+
+endmenu
+
+menu "TEST Config"
+config RF_TEST                        
+	bool "RF_TEST"                    
+	default y
+config GPIO_TEST                        
+	bool "GPIO_TEST"                    
+	default y  
+config RELIABILITY_TEST                         
+	bool "RELIABILITY_TEST"                    
+	default y
+config DEVELOPMENT_KIT_TEST                         
+	bool "DEVELOPMENT_KIT_TEST"                    
+	default y 
+endmenu
+
+menu "ALOG Config"
+choice LOG_UART                                         
+	bool "Choice Uart"                      
+	default AIIO_LOG_UART0                            
+
+	config AIIO_LOG_UART0
+		bool "UART0"
+
+	config AIIO_LOG_UART1
+		bool "UART1"
+
+	config AIIO_LOG_CUSTOM
+		bool "Custom IO (UART0)"
+
+endchoice
+
+config LOG_UART
+	int
+	default 0 if AIIO_LOG_UART0
+	default 1 if AIIO_LOG_UART1
+
+if AIIO_LOG_CUSTOM
+	config AIIO_CUSTOM_LOG_TX
+		string "Custom UART0 Tx IO"
+		default AIIO_GPIO_NUM_17
+		help 
+		UART0 Select the available IOs based on the multiplexed features supported by the platform
+
+	config AIIO_CUSTOM_LOG_RX
+		string "Custom UART0 Rx IO"
+		default AIIO_GPIO_NUM_7
+		help 
+		UART0 Select the available IOs based on the multiplexed features supported by the platform
+endif
+
+choice LOG_BAUDRATE
+   	bool "Log Baudrate config"
+   	default LOG_BAUDRATE_921600
+
+config LOG_BAUDRATE_9600
+   	bool "9600"
+config LOG_BAUDRATE_57600
+   	bool "57600"
+config LOG_BAUDRATE_115200
+   	bool "115200"
+config LOG_BAUDRATE_230400
+   	bool "230400"
+config LOG_BAUDRATE_460800
+   	bool "460800"
+config LOG_BAUDRATE_921600
+   	bool "921600"
+config LOG_BAUDRATE_2000000
+   	bool "2000000"
+endchoice
+
+config LOG_BAUDRATE
+    	int
+    	default 9600 	if LOG_BAUDRATE_9600
+    	default 57600 	if LOG_BAUDRATE_57600
+    	default 115200  if LOG_BAUDRATE_115200
+    	default 230400	if LOG_BAUDRATE_230400
+    	default 460800	if LOG_BAUDRATE_460800
+    	default 921600  if LOG_BAUDRATE_921600
+    	default 2000000 if LOG_BAUDRATE_2000000
+
+
+choice LOG_DEFAULT_LEVEL
+   	bool "Default log verbosity"
+   	default LOG_DEFAULT_LEVEL_INFO
+
+config LOG_DEFAULT_LEVEL_ASSERT
+   	bool "Assert"
+config LOG_DEFAULT_LEVEL_ERROR
+   	bool "Error"
+config LOG_DEFAULT_LEVEL_WARN
+   	bool "Warning"
+config LOG_DEFAULT_LEVEL_INFO
+   	bool "Info"
+config LOG_DEFAULT_LEVEL_DEBUG
+   	bool "Debug"
+config LOG_DEFAULT_LEVEL_VERBOSE
+   	bool "Verbose"
+endchoice
+
+config LOG_DEFAULT_LEVEL
+    	int
+    	default 0 if LOG_DEFAULT_LEVEL_ASSERT
+    	default 1 if LOG_DEFAULT_LEVEL_ERROR
+    	default 2 if LOG_DEFAULT_LEVEL_WARN
+    	default 3 if LOG_DEFAULT_LEVEL_INFO
+    	default 4 if LOG_DEFAULT_LEVEL_DEBUG
+    	default 5 if LOG_DEFAULT_LEVEL_VERBOSE
+
+config LOG_COLORS
+   	bool "Use ANSI terminal colors in log output"
+   	default y
+
+config LOG_SET_LEVEL
+    	bool "Enable log set level"
+    	default y
+
+endmenu
+
+menu "Cloud Config"
+
+menu "Aithing Cloud"
+config WAN_NETWORK_ENABLE
+   	bool "wan network enable"
+    default y
+config LAN_NETWORK_ENABLE
+   	bool "lan network enable"
+    default n
+config BLE_DISTRIBUTION_NETWORK_ENABLE
+   	bool "ble distribution network enable"
+    default y
+config AP_DISTRIBUTION_NETWORK_ENABLE
+   	bool "ap distribution network enable"
+    default y
+config OTA_ENABLE
+   	bool "ota enable"
+    default y
+endmenu
+
+endmenu
+
+menu "AT Config"
+
+menu "IO"
+config AT_UART_PORT
+   	string "AT port"
+    default AIIO_UART1
+config AT_UART_PIN_TX
+   	int "tx pin"
+    default 4
+config AT_UART_PIN_RX
+   	int "rx pin"
+    default 3
+endmenu
+
+menu "TASK"
+config AIIO_AT_TASK_PRIO
+   	int "AT task prio"
+    default 15
+endmenu
+
+endmenu
+
+endmenu

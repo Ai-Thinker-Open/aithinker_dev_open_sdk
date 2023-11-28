@@ -1,0 +1,33 @@
+menu "application"
+
+menuconfig BSP_USING_PERIPHERAL
+    bool "Enable peripheral"
+    default y
+    if BSP_USING_PERIPHERAL
+        config BSP_USING_CONFIG
+            bool "Use menuconfig to generate the configuration"
+            default y
+    endif
+    if BSP_USING_PERIPHERAL
+        config USER_UART
+            string "The number of the device outside the uart"
+            default AIIO_UART1
+            depends on BSP_USING_CONFIG
+            help 
+              The number of the device outside the uart
+        config USER_UART_TX
+            string "UART data send pin"
+            default AIIO_GPIO_NUM_4
+            depends on BSP_USING_CONFIG
+            help 
+              UART data send pin
+        config USER_UART_RX
+            string "UART data receive pin"
+            default AIIO_GPIO_NUM_3
+            depends on BSP_USING_CONFIG
+            help 
+              UART data receive pin
+    endif
+
+endmenu
+

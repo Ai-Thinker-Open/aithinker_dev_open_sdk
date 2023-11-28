@@ -1,0 +1,5 @@
+name:spi_demo
+branch:master
+commit:
+repository:https://e.coding.net/axk/m_demo/spi_demo.git
+

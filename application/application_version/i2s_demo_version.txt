@@ -1,0 +1,4 @@
+name:i2s_demo		
+branch:master	
+commit:8e25bac9359053b9656e4089a862e577273b4f18		
+repository:https://e.coding.net/axk/m_demo/i2s_demo.git

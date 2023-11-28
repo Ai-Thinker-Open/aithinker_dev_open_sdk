@@ -1,0 +1,17 @@
+menu "application"
+    config AT_WIFI_CMD_ENABLE
+        bool "ENABLE AT WIFI"
+        default y
+    config AT_BLE_CMD_ENABLE
+        bool "ENABLE AT BLE"
+        default y
+    config AT_HTTP_CMD_ENABLE
+        bool "ENABLE AT HTTP"
+        default y
+    config AT_MQTT_CMD_ENABLE
+        bool "ENABLE AT MQTT"
+        default y
+    config AT_SOCKET_CMD_ENABLE
+        bool "ENABLE AT SOCKET"
+        default y
+endmenu

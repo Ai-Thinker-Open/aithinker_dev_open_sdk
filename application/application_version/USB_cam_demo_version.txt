@@ -1,0 +1,4 @@
+name:USB_cam_demo
+branch:master
+commit:6cc13d11367c930df3b88e9e4a279926a71e7715
+repository:https://e.coding.net/axk/m_demo/USB_cam_demo.git

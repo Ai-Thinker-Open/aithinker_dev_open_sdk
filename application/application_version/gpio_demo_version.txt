@@ -1,0 +1,4 @@
+name:gpio_demo		
+branch:master	
+commit:384d6074005be1f1a468832c5cd7d2608b51b5fb		
+repository:https://e.coding.net/axk/m_demo/gpio_demo.git

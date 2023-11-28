@@ -1,0 +1,4 @@
+name:smartconfig_demo
+branch:master
+commit:
+repository:https://e.coding.net/axk/m_demo/smartconfig_demo.git

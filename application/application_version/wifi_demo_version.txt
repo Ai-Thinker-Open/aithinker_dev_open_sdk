@@ -1,0 +1,5 @@
+name:wifi_demo
+branch:master
+commit:9b535db4aee8c0d76b7f55578f2dbf7f15db825f
+repository:https://e.coding.net/axk/m_demo/wifi_demo.git
+

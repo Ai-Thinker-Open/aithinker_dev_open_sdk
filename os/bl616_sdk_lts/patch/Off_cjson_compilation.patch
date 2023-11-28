@@ -1,0 +1,15 @@
+diff --git a/components/utils/CMakeLists.txt b/components/utils/CMakeLists.txt
+index f02477a..dde06bf 100644
+--- a/components/utils/CMakeLists.txt
++++ b/components/utils/CMakeLists.txt
+@@ -94,8 +94,8 @@ sdk_add_include_directories(bflb_mtd/include)
+ endif()
+ 
+ #cjson
+-sdk_library_add_sources(cjson/cJSON.c)
+-sdk_add_include_directories(cjson)
++#sdk_library_add_sources(cjson/cJSON.c)
++#sdk_add_include_directories(cjson)
+ 
+ # math
+ sdk_library_add_sources(math/src/utils_base64.c math/src/utils_crc.c math/src/utils_hex.c)

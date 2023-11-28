@@ -1,0 +1,5 @@
+menu "os"
+menu "bl602 sdk"
+
+endmenu
+endmenu

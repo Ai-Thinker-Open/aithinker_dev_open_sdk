@@ -1,0 +1,4 @@
+name:shock_demo
+branch:master
+commit:
+repository:https://e.coding.net/axk/m_demo/shock_demo.git

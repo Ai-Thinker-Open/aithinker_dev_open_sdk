@@ -1,0 +1,447 @@
+menu "application"
+menu "spi_demo"
+menu "AIIO_SPI_PIN_CFG"
+choice SPI_CS_PORT
+   	bool "aiio_gpio_cs_port"
+   	default SPI_CS_PORTA
+config SPI_CS_PORTA
+   	bool "AIIO_GPIO_A"
+config SPI_CS_PORTB
+   	bool "AIIO_GPIO_B"
+endchoice
+config SPI_CS_PORT
+    	int
+    	default 0 if SPI_CS_PORTA
+    	default 1 if SPI_CS_PORTB
+choice SPI_CS_PIN
+   	bool "aiio_gpio_cs_pin"
+   	default SPI_CS_PIN12
+config SPI_CS_PIN0
+   	bool "AIIO_GPIO_NUM_0"
+config SPI_CS_PIN1
+   	bool "AIIO_GPIO_NUM_1"
+config SPI_CS_PIN2
+   	bool "AIIO_GPIO_NUM_2"
+config SPI_CS_PIN3
+   	bool "AIIO_GPIO_NUM_3"
+config SPI_CS_PIN4
+   	bool "AIIO_GPIO_NUM_4"
+config SPI_CS_PIN5
+   	bool "AIIO_GPIO_NUM_5"
+config SPI_CS_PIN6
+   	bool "AIIO_GPIO_NUM_6"
+config SPI_CS_PIN7
+   	bool "AIIO_GPIO_NUM_7"
+config SPI_CS_PIN8
+   	bool "AIIO_GPIO_NUM_8"
+config SPI_CS_PIN9
+   	bool "AIIO_GPIO_NUM_9"
+config SPI_CS_PIN10
+   	bool "AIIO_GPIO_NUM_10"
+config SPI_CS_PIN11
+   	bool "AIIO_GPIO_NUM_11"
+config SPI_CS_PIN12
+   	bool "AIIO_GPIO_NUM_12"
+config SPI_CS_PIN13
+   	bool "AIIO_GPIO_NUM_13"
+config SPI_CS_PIN14
+   	bool "AIIO_GPIO_NUM_14"
+config SPI_CS_PIN15
+   	bool "AIIO_GPIO_NUM_15"
+config SPI_CS_PIN16
+   	bool "AIIO_GPIO_NUM_16"
+config SPI_CS_PIN17
+   	bool "AIIO_GPIO_NUM_17"
+config SPI_CS_PIN18
+   	bool "AIIO_GPIO_NUM_18"
+config SPI_CS_PIN19
+   	bool "AIIO_GPIO_NUM_19"
+config SPI_CS_PIN20
+   	bool "AIIO_GPIO_NUM_20"
+config SPI_CS_PIN21
+   	bool "AIIO_GPIO_NUM_21"
+config SPI_CS_PIN22
+   	bool "AIIO_GPIO_NUM_22"
+config SPI_CS_PIN23
+   	bool "AIIO_GPIO_NUM_23"
+config SPI_CS_PIN24
+   	bool "AIIO_GPIO_NUM_24"
+config SPI_CS_PIN25
+   	bool "AIIO_GPIO_NUM_25"
+config SPI_CS_PIN26
+   	bool "AIIO_GPIO_NUM_26"
+config SPI_CS_PIN27
+   	bool "AIIO_GPIO_NUM_27"
+config SPI_CS_PIN28
+   	bool "AIIO_GPIO_NUM_28"
+config SPI_CS_PIN29
+   	bool "AIIO_GPIO_NUM_29"
+config SPI_CS_PIN30
+   	bool "AIIO_GPIO_NUM_30"
+endchoice
+config SPI_CS_PIN
+    	int
+    	default 0 if SPI_CS_PIN0
+    	default 1 if SPI_CS_PIN1
+        default 2 if SPI_CS_PIN2
+        default 3 if SPI_CS_PIN3
+        default 4 if SPI_CS_PIN4
+        default 5 if SPI_CS_PIN5
+        default 6 if SPI_CS_PIN6
+        default 7 if SPI_CS_PIN7
+    	default 8 if SPI_CS_PIN8
+    	default 9 if SPI_CS_PIN9
+        default 10 if SPI_CS_PIN10
+        default 11 if SPI_CS_PIN11
+        default 12 if SPI_CS_PIN12
+        default 13 if SPI_CS_PIN13
+        default 14 if SPI_CS_PIN14
+        default 15 if SPI_CS_PIN15
+		default 16 if SPI_CS_PIN16
+        default 17 if SPI_CS_PIN17
+		default 18 if SPI_CS_PIN18
+        default 19 if SPI_CS_PIN19
+		default 20 if SPI_CS_PIN20
+        default 21 if SPI_CS_PIN21
+        default 22 if SPI_CS_PIN22
+        default 23 if SPI_CS_PIN23
+        default 24 if SPI_CS_PIN24
+        default 25 if SPI_CS_PIN25
+        default 26 if SPI_CS_PIN26
+		default 27 if SPI_CS_PIN27
+        default 28 if SPI_CS_PIN28
+		default 29 if SPI_CS_PIN29
+        default 30 if SPI_CS_PIN30
+choice SPI_CLK_PORT
+   	bool "aiio_gpio_clk_port"
+   	default SPI_CLK_PORTA
+config SPI_CLK_PORTA
+   	bool "AIIO_GPIO_A"
+config SPI_CLK_PORTB
+   	bool "AIIO_GPIO_B"
+endchoice
+config SPI_CLK_PORT
+    	int
+    	default 0 if SPI_CLK_PORTA
+    	default 1 if SPI_CLK_PORTB
+choice SPI_CLK_PIN
+   	bool "aiio_gpio_clk_pin"
+   	default SPI_CLK_PIN13
+config SPI_CLK_PIN0
+   	bool "AIIO_GPIO_NUM_0"
+config SPI_CLK_PIN1
+   	bool "AIIO_GPIO_NUM_1"
+config SPI_CLK_PIN2
+   	bool "AIIO_GPIO_NUM_2"
+config SPI_CLK_PIN3
+   	bool "AIIO_GPIO_NUM_3"
+config SPI_CLK_PIN4
+   	bool "AIIO_GPIO_NUM_4"
+config SPI_CLK_PIN5
+   	bool "AIIO_GPIO_NUM_5"
+config SPI_CLK_PIN6
+   	bool "AIIO_GPIO_NUM_6"
+config SPI_CLK_PIN7
+   	bool "AIIO_GPIO_NUM_7"
+config SPI_CLK_PIN8
+   	bool "AIIO_GPIO_NUM_8"
+config SPI_CLK_PIN9
+   	bool "AIIO_GPIO_NUM_9"
+config SPI_CLK_PIN10
+   	bool "AIIO_GPIO_NUM_10"
+config SPI_CLK_PIN11
+   	bool "AIIO_GPIO_NUM_11"
+config SPI_CLK_PIN12
+   	bool "AIIO_GPIO_NUM_12"
+config SPI_CLK_PIN13
+   	bool "AIIO_GPIO_NUM_13"
+config SPI_CLK_PIN14
+   	bool "AIIO_GPIO_NUM_14"
+config SPI_CLK_PIN15
+   	bool "AIIO_GPIO_NUM_15"
+config SPI_CLK_PIN16
+   	bool "AIIO_GPIO_NUM_16"
+config SPI_CLK_PIN17
+   	bool "AIIO_GPIO_NUM_17"
+config SPI_CLK_PIN18
+   	bool "AIIO_GPIO_NUM_18"
+config SPI_CLK_PIN19
+   	bool "AIIO_GPIO_NUM_19"
+config SPI_CLK_PIN20
+   	bool "AIIO_GPIO_NUM_20"
+config SPI_CLK_PIN21
+   	bool "AIIO_GPIO_NUM_21"
+config SPI_CLK_PIN22
+   	bool "AIIO_GPIO_NUM_22"
+config SPI_CLK_PIN23
+   	bool "AIIO_GPIO_NUM_23"
+config SPI_CLK_PIN24
+   	bool "AIIO_GPIO_NUM_24"
+config SPI_CLK_PIN25
+   	bool "AIIO_GPIO_NUM_25"
+config SPI_CLK_PIN26
+   	bool "AIIO_GPIO_NUM_26"
+config SPI_CLK_PIN27
+   	bool "AIIO_GPIO_NUM_27"
+config SPI_CLK_PIN28
+   	bool "AIIO_GPIO_NUM_28"
+config SPI_CLK_PIN29
+   	bool "AIIO_GPIO_NUM_29"
+config SPI_CLK_PIN30
+   	bool "AIIO_GPIO_NUM_30"
+endchoice
+config SPI_CLK_PIN
+    	int
+    	default 0 if SPI_CLK_PIN0
+    	default 1 if SPI_CLK_PIN1
+        default 2 if SPI_CLK_PIN2
+        default 3 if SPI_CLK_PIN3
+        default 4 if SPI_CLK_PIN4
+        default 5 if SPI_CLK_PIN5
+        default 6 if SPI_CLK_PIN6
+        default 7 if SPI_CLK_PIN7
+    	default 8 if SPI_CLK_PIN8
+    	default 9 if SPI_CLK_PIN9
+        default 10 if SPI_CLK_PIN10
+        default 11 if SPI_CLK_PIN11
+        default 12 if SPI_CLK_PIN12
+        default 13 if SPI_CLK_PIN13
+        default 14 if SPI_CLK_PIN14
+        default 15 if SPI_CLK_PIN15
+		default 16 if SPI_CLK_PIN16
+		default 17 if SPI_CLK_PIN17
+		default 18 if SPI_CLK_PIN18
+		default 19 if SPI_CLK_PIN19
+		default 20 if SPI_CLK_PIN20
+        default 21 if SPI_CLK_PIN21
+        default 23 if SPI_CLK_PIN23
+        default 24 if SPI_CLK_PIN24
+        default 25 if SPI_CLK_PIN25
+        default 26 if SPI_CLK_PIN26
+		default 27 if SPI_CLK_PIN27
+		default 28 if SPI_CLK_PIN28
+		default 29 if SPI_CLK_PIN29
+		default 30 if SPI_CLK_PIN30
+choice SPI_MOSI_PORT
+   	bool "aiio_gpio_mosi_port"
+   	default SPI_MOSI_PORTA
+config SPI_MOSI_PORTA
+   	bool "AIIO_GPIO_A"
+config SPI_MOSI_PORTB
+   	bool "AIIO_GPIO_B"
+endchoice
+config SPI_MOSI_PORT
+    	int
+    	default 0 if SPI_MOSI_PORTA
+    	default 1 if SPI_MOSI_PORTB
+choice SPI_MOSI_PIN
+   	bool "aiio_gpio_mosi_pin"
+   	default SPI_MOSI_PIN19
+config SPI_MOSI_PIN0
+   	bool "AIIO_GPIO_NUM_0"
+config SPI_MOSI_PIN1
+   	bool "AIIO_GPIO_NUM_1"
+config SPI_MOSI_PIN2
+   	bool "AIIO_GPIO_NUM_2"
+config SPI_MOSI_PIN3
+   	bool "AIIO_GPIO_NUM_3"
+config SPI_MOSI_PIN4
+   	bool "AIIO_GPIO_NUM_4"
+config SPI_MOSI_PIN5
+   	bool "AIIO_GPIO_NUM_5"
+config SPI_MOSI_PIN6
+   	bool "AIIO_GPIO_NUM_6"
+config SPI_MOSI_PIN7
+   	bool "AIIO_GPIO_NUM_7"
+config SPI_MOSI_PIN8
+   	bool "AIIO_GPIO_NUM_8"
+config SPI_MOSI_PIN9
+   	bool "AIIO_GPIO_NUM_9"
+config SPI_MOSI_PIN10
+   	bool "AIIO_GPIO_NUM_10"
+config SPI_MOSI_PIN11
+   	bool "AIIO_GPIO_NUM_11"
+config SPI_MOSI_PIN12
+   	bool "AIIO_GPIO_NUM_12"
+config SPI_MOSI_PIN13
+   	bool "AIIO_GPIO_NUM_13"
+config SPI_MOSI_PIN14
+   	bool "AIIO_GPIO_NUM_14"
+config SPI_MOSI_PIN15
+   	bool "AIIO_GPIO_NUM_15"
+config SPI_MOSI_PIN16
+   	bool "AIIO_GPIO_NUM_16"
+config SPI_MOSI_PIN17
+   	bool "AIIO_GPIO_NUM_17"
+config SPI_MOSI_PIN18
+   	bool "AIIO_GPIO_NUM_18"
+config SPI_MOSI_PIN19
+   	bool "AIIO_GPIO_NUM_19"
+config SPI_MOSI_PIN20
+   	bool "AIIO_GPIO_NUM_20"
+config SPI_MOSI_PIN21
+   	bool "AIIO_GPIO_NUM_21"
+config SPI_MOSI_PIN22
+   	bool "AIIO_GPIO_NUM_22"
+config SPI_MOSI_PIN23
+   	bool "AIIO_GPIO_NUM_23"
+config SPI_MOSI_PIN24
+   	bool "AIIO_GPIO_NUM_24"
+config SPI_MOSI_PIN25
+   	bool "AIIO_GPIO_NUM_25"
+config SPI_MOSI_PIN26
+   	bool "AIIO_GPIO_NUM_26"
+config SPI_MOSI_PIN27
+   	bool "AIIO_GPIO_NUM_27"
+config SPI_MOSI_PIN28
+   	bool "AIIO_GPIO_NUM_28"
+config SPI_MOSI_PIN29
+   	bool "AIIO_GPIO_NUM_29"
+config SPI_MOSI_PIN30
+   	bool "AIIO_GPIO_NUM_30"
+endchoice
+config SPI_MOSI_PIN
+    	int
+    	default 0 if SPI_MOSI_PIN0
+    	default 1 if SPI_MOSI_PIN1
+        default 2 if SPI_MOSI_PIN2
+        default 3 if SPI_MOSI_PIN3
+        default 4 if SPI_MOSI_PIN4
+        default 5 if SPI_MOSI_PIN5
+        default 6 if SPI_MOSI_PIN6
+        default 7 if SPI_MOSI_PIN7
+    	default 8 if SPI_MOSI_PIN8
+    	default 9 if SPI_MOSI_PIN9
+        default 10 if SPI_MOSI_PIN10
+        default 11 if SPI_MOSI_PIN11
+        default 12 if SPI_MOSI_PIN12
+        default 13 if SPI_MOSI_PIN13
+        default 14 if SPI_MOSI_PIN14
+        default 15 if SPI_MOSI_PIN15
+		default 16 if SPI_MOSI_PIN16
+        default 17 if SPI_MOSI_PIN17
+		default 18 if SPI_MOSI_PIN18
+        default 19 if SPI_MOSI_PIN19
+		default 20 if SPI_MOSI_PIN20
+        default 21 if SPI_MOSI_PIN21
+        default 23 if SPI_MOSI_PIN23
+        default 24 if SPI_MOSI_PIN24
+        default 25 if SPI_MOSI_PIN25
+        default 26 if SPI_MOSI_PIN26
+		default 27 if SPI_MOSI_PIN27
+		default 28 if SPI_MOSI_PIN28
+		default 29 if SPI_MOSI_PIN29
+		default 30 if SPI_MOSI_PIN30
+choice SPI_MISO_PORT
+   	bool "aiio_gpio_miso_port"
+   	default SPI_MISO_PORTA
+config SPI_MISO_PORTA
+   	bool "AIIO_GPIO_A"
+config SPI_MISO_PORTB
+   	bool "AIIO_GPIO_B"
+endchoice
+config SPI_MISO_PORT
+    	int
+    	default 0 if SPI_MISO_PORTA
+    	default 1 if SPI_MISO_PORTB
+choice SPI_MISO_PIN
+   	bool "aiio_gpio_miso_pin"
+   	default SPI_MISO_PIN18
+config SPI_MISO_PIN0
+   	bool "AIIO_GPIO_NUM_0"
+config SPI_MISO_PIN1
+   	bool "AIIO_GPIO_NUM_1"
+config SPI_MISO_PIN2
+   	bool "AIIO_GPIO_NUM_2"
+config SPI_MISO_PIN3
+   	bool "AIIO_GPIO_NUM_3"
+config SPI_MISO_PIN4
+   	bool "AIIO_GPIO_NUM_4"
+config SPI_MISO_PIN5
+   	bool "AIIO_GPIO_NUM_5"
+config SPI_MISO_PIN6
+   	bool "AIIO_GPIO_NUM_6"
+config SPI_MISO_PIN7
+   	bool "AIIO_GPIO_NUM_7"
+config SPI_MISO_PIN8
+   	bool "AIIO_GPIO_NUM_8"
+config SPI_MISO_PIN9
+   	bool "AIIO_GPIO_NUM_9"
+config SPI_MISO_PIN10
+   	bool "AIIO_GPIO_NUM_10"
+config SPI_MISO_PIN11
+   	bool "AIIO_GPIO_NUM_11"
+config SPI_MISO_PIN12
+   	bool "AIIO_GPIO_NUM_12"
+config SPI_MISO_PIN13
+   	bool "AIIO_GPIO_NUM_13"
+config SPI_MISO_PIN14
+   	bool "AIIO_GPIO_NUM_14"
+config SPI_MISO_PIN15
+   	bool "AIIO_GPIO_NUM_15"
+config SPI_MISO_PIN16
+   	bool "AIIO_GPIO_NUM_16"
+config SPI_MISO_PIN17
+   	bool "AIIO_GPIO_NUM_17"
+config SPI_MISO_PIN18
+   	bool "AIIO_GPIO_NUM_18"
+config SPI_MISO_PIN19
+   	bool "AIIO_GPIO_NUM_19"
+config SPI_MISO_PIN20
+   	bool "AIIO_GPIO_NUM_20"
+config SPI_MISO_PIN21
+   	bool "AIIO_GPIO_NUM_21"
+config SPI_MISO_PIN22
+   	bool "AIIO_GPIO_NUM_22"
+config SPI_MISO_PIN23
+   	bool "AIIO_GPIO_NUM_23"
+config SPI_MISO_PIN24
+   	bool "AIIO_GPIO_NUM_24"
+config SPI_MISO_PIN25
+   	bool "AIIO_GPIO_NUM_25"
+config SPI_MISO_PIN26
+   	bool "AIIO_GPIO_NUM_26"
+config SPI_MISO_PIN27
+   	bool "AIIO_GPIO_NUM_27"
+config SPI_MISO_PIN28
+   	bool "AIIO_GPIO_NUM_28"
+config SPI_MISO_PIN29
+   	bool "AIIO_GPIO_NUM_29"
+config SPI_MISO_PIN30
+   	bool "AIIO_GPIO_NUM_30"
+endchoice
+config SPI_MISO_PIN
+    	int
+    	default 0 if SPI_MISO_PIN0
+    	default 1 if SPI_MISO_PIN1
+        default 2 if SPI_MISO_PIN2
+        default 3 if SPI_MISO_PIN3
+        default 4 if SPI_MISO_PIN4
+        default 5 if SPI_MISO_PIN5
+        default 6 if SPI_MISO_PIN6
+        default 7 if SPI_MISO_PIN7
+    	default 8 if SPI_MISO_PIN8
+    	default 9 if SPI_MISO_PIN9
+        default 10 if SPI_MISO_PIN10
+        default 11 if SPI_MISO_PIN11
+        default 12 if SPI_MISO_PIN12
+        default 13 if SPI_MISO_PIN13
+        default 14 if SPI_MISO_PIN14
+        default 15 if SPI_MISO_PIN15
+        default 16 if SPI_MISO_PIN16
+        default 17 if SPI_MISO_PIN17
+		default 18 if SPI_MISO_PIN18
+        default 19 if SPI_MISO_PIN19
+		default 20 if SPI_MISO_PIN20
+        default 21 if SPI_MISO_PIN21
+        default 23 if SPI_MISO_PIN23
+        default 24 if SPI_MISO_PIN24
+        default 25 if SPI_MISO_PIN25
+        default 26 if SPI_MISO_PIN26
+		default 27 if SPI_MISO_PIN27
+		default 28 if SPI_MISO_PIN28
+		default 29 if SPI_MISO_PIN29
+		default 30 if SPI_MISO_PIN30
+endmenu
+endmenu
+endmenu

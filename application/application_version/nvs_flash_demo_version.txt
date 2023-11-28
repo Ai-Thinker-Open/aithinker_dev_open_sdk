@@ -1,0 +1,4 @@
+name:nvs_flash_demo
+branch:master
+commit:
+repository:https://e.coding.net/axk/m_demo/nvs_flash_demo.git

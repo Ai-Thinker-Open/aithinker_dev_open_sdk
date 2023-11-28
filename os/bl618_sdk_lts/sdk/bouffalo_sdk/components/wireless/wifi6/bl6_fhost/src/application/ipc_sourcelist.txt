@@ -1,0 +1,9 @@
+# IPC application source files
+    fhost_ipc.c
+    fhost_tg.c
+    fhost_ping.c
+    fhost_iperf.c
+    fhost_doorbell_demo.c
+    fhost_connect.c
+    wifi_mgmr_cli.c
+

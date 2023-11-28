@@ -1,0 +1,53 @@
+{
+  "version": "1.0",
+  "properties": [
+    {
+      "id": "power_switch",
+      "name": "电灯开关",
+      "desc": "控制电灯开灭",
+      "required": true,
+      "mode": "rw",
+      "define": {
+        "type": "bool",
+        "mapping": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "color",
+      "name": "颜色",
+      "desc": "灯光颜色",
+      "mode": "rw",
+      "define": {
+        "type": "enum",
+        "mapping": {
+          "0": "Red",
+          "1": "Green",
+          "2": "Blue"
+        }
+      }
+    },
+    {
+      "id": "brightness",
+      "name": "亮度",
+      "desc": "灯光亮度",
+      "mode": "rw",
+      "define": {
+        "type": "int",
+        "unit": "%",
+        "step": "1",
+        "min": "0",
+        "max": "100",
+        "start": "1"
+      }
+    }
+  ],
+  "events": [],
+  "actions": [],
+  "profile": {
+    "ProductId": "419MNU7FB7",
+    "CategoryId": "3"
+  }
+}

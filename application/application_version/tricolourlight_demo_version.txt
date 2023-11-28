@@ -1,0 +1,4 @@
+name:tricolourlight_demo
+branch:master
+commit:
+repository:https://e.coding.net/axk/m_demo/tricolourlight_demo.git

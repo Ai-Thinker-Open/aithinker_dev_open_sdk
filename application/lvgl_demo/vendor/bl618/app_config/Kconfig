@@ -1,0 +1,12 @@
+menu "application"
+
+menuconfig BSP_USING_CONFIGGURE
+    bool "Use menuconfig to generate the configuration"
+    default y
+    if BSP_USING_CONFIGGURE
+        config BSP_LVGL_EN_CONFIG
+            bool "Enable LVGL"
+            default y
+    endif
+endmenu
+

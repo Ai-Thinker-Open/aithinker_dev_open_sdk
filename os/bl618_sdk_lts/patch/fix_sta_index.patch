@@ -1,0 +1,29 @@
+diff --git a/components/wireless/wifi6/bl6_fhost/src/fhost_cntrl.c b/components/wireless/wifi6/bl6_fhost/src/fhost_cntrl.c
+index 3d37decf..dc6a138f 100644
+--- a/components/wireless/wifi6/bl6_fhost/src/fhost_cntrl.c
++++ b/components/wireless/wifi6/bl6_fhost/src/fhost_cntrl.c
+@@ -74,6 +74,8 @@ struct fhost_mod_params fhost_params = {
+     COMMON_PARAM(listen_itv, 0)
+ };
+ 
++uint8_t g_sta_idx = 0;
++
+ static void fhost_cntrl_cfgrwnx_resp_send(void const *msg, int msg_len,
+                                           rtos_queue resp_queue);
+ 
+@@ -2249,6 +2251,7 @@ static void fhost_cntrl_cfgrwnx_sta_add(void *msg)
+     wifiMgmr.ap_sta_info[sta_idx].aid = cmd->aid;
+     memcpy(wifiMgmr.ap_sta_info[sta_idx].sta_mac, cmd->addr, 6);
+     wifiMgmr.num_sta++;
++    g_sta_idx=sta_idx;
+     platform_post_event(EV_WIFI, CODE_WIFI_ON_AP_STA_ADD);
+ 
+     resp.status = CFGRWNX_SUCCESS;
+@@ -2299,6 +2302,7 @@ static void fhost_cntrl_cfgrwnx_sta_remove(void *msg)
+ 
+     wifiMgmr.ap_sta_info[sta_idx].is_used = 0;
+     wifiMgmr.num_sta--;
++    g_sta_idx=sta_idx;
+     platform_post_event(EV_WIFI, CODE_WIFI_ON_AP_STA_DEL);
+   send_resp:
+     fhost_cntrl_cfgrwnx_resp_send(&resp, resp.hdr.len, cmd->hdr.resp_queue);

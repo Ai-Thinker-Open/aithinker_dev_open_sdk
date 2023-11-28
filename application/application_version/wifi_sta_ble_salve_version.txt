@@ -1,0 +1,4 @@
+name:wifi_sta_ble_salve
+branch:master
+commit:
+repository:https://e.coding.net/axk/m_demo/wifi_sta_ble_salve.git

@@ -1,0 +1,4 @@
+name:adc_demo
+branch:master
+commit:
+repository:https://e.coding.net/axk/m_demo/adc_demo.git

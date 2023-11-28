@@ -1,0 +1,33 @@
+diff --git a/patch.sh b/patch.sh
+index a9bf588..5c689b4 100755
+--- a/patch.sh
++++ b/patch.sh
+@@ -1 +1,21 @@
+ #!/bin/bash
++
++cd sdk/bouffalo_sdk
++
++function apply_patch(){
++    for element in `ls $1`
++    do  
++        dir_or_file=$1"/"$element
++        if [[ -d $dir_or_file ]]
++        then 
++            apply_patch $dir_or_file 
++        elif [[ $dir_or_file = *".patch" ]]
++        then
++            git apply $dir_or_file >/dev/null 2>&1
++        fi  
++    done
++}
++
++apply_patch ../../patch/
++
++cd ../../
+\ No newline at end of file
+diff --git a/sdk/bouffalo_sdk b/sdk/bouffalo_sdk
+--- a/sdk/bouffalo_sdk
++++ b/sdk/bouffalo_sdk
+@@ -1 +1 @@
+-Subproject commit 9fb4f07615c8b52825044603cac25ffb26023493
++Subproject commit 9fb4f07615c8b52825044603cac25ffb26023493-dirty

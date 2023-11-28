@@ -1,0 +1,7 @@
+diff --git a/sdk/bouffalo_sdk b/sdk/bouffalo_sdk
+index 9fb4f07..9d62c79 160000
+--- a/sdk/bouffalo_sdk
++++ b/sdk/bouffalo_sdk
+@@ -1 +1 @@
+-Subproject commit 9fb4f07615c8b52825044603cac25ffb26023493
++Subproject commit 9d62c79241efc562a98931183b156e6ab5f7c12c-dirty

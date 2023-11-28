@@ -1,0 +1,5 @@
+name:https_demo
+branch:master
+commit:5f3c69d1506b070b851d2ba2df406880d194ccbc
+repository:https://e.coding.net/axk/m_demo/https_demo.git
+

@@ -1,0 +1,4 @@
+name:ir_nec_rx_demo
+branch:master
+commit:
+repository:https://e.coding.net/axk/m_demo/ir_nec_rx_demo.git

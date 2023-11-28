@@ -1,0 +1,72 @@
+menu "application"
+menu "laseremit_demo"
+menu "AIIO_GPIO_CFG"
+choice GPIO_LASEREMIT_PORT
+   	bool "aiio_GPIO_LASEREMIT_PORT"
+   	default GPIO_LASEREMIT_PORTB
+config GPIO_LASEREMIT_PORTA
+   	bool "AIIO_GPIO_A"
+config GPIO_LASEREMIT_PORTB
+   	bool "AIIO_GPIO_B"
+endchoice
+config GPIO_LASEREMIT_PORT
+    	string
+    	default AIIO_GPIO_A if GPIO_LASEREMIT_PORTA
+    	default AIIO_GPIO_B if GPIO_LASEREMIT_PORTB
+choice GPIO_LASEREMIT_PIN
+   	bool "aiio_GPIO_LASEREMIT_PIN"
+   	default GPIO_LASEREMIT_PIN4
+config GPIO_LASEREMIT_PIN0
+   	bool "AIIO_GPIO_NUM_0"
+config GPIO_LASEREMIT_PIN1
+   	bool "AIIO_GPIO_NUM_1"
+config GPIO_LASEREMIT_PIN2
+   	bool "AIIO_GPIO_NUM_2"
+config GPIO_LASEREMIT_PIN3
+   	bool "AIIO_GPIO_NUM_3"
+config GPIO_LASEREMIT_PIN4
+   	bool "AIIO_GPIO_NUM_4"
+config GPIO_LASEREMIT_PIN5
+   	bool "AIIO_GPIO_NUM_5"
+config GPIO_LASEREMIT_PIN6
+   	bool "AIIO_GPIO_NUM_6"
+config GPIO_LASEREMIT_PIN7
+   	bool "AIIO_GPIO_NUM_7"
+config GPIO_LASEREMIT_PIN8
+   	bool "AIIO_GPIO_NUM_8"
+config GPIO_LASEREMIT_PIN9
+   	bool "AIIO_GPIO_NUM_9"
+config GPIO_LASEREMIT_PIN10
+   	bool "AIIO_GPIO_NUM_10"
+config GPIO_LASEREMIT_PIN11
+   	bool "AIIO_GPIO_NUM_11"
+config GPIO_LASEREMIT_PIN12
+   	bool "AIIO_GPIO_NUM_12"
+config GPIO_LASEREMIT_PIN13
+   	bool "AIIO_GPIO_NUM_13"
+config GPIO_LASEREMIT_PIN14
+   	bool "AIIO_GPIO_NUM_14"
+config GPIO_LASEREMIT_PIN15
+   	bool "AIIO_GPIO_NUM_15"
+endchoice
+config GPIO_LASEREMIT_PIN
+    	string
+    	default AIIO_GPIO_NUM_0   if GPIO_LASEREMIT_PIN0
+    	default AIIO_GPIO_NUM_1   if GPIO_LASEREMIT_PIN1
+        default AIIO_GPIO_NUM_2   if GPIO_LASEREMIT_PIN2
+        default AIIO_GPIO_NUM_3   if GPIO_LASEREMIT_PIN3
+        default AIIO_GPIO_NUM_4   if GPIO_LASEREMIT_PIN4
+        default AIIO_GPIO_NUM_5   if GPIO_LASEREMIT_PIN5
+        default AIIO_GPIO_NUM_6   if GPIO_LASEREMIT_PIN6
+        default AIIO_GPIO_NUM_7   if GPIO_LASEREMIT_PIN7
+    	default AIIO_GPIO_NUM_8   if GPIO_LASEREMIT_PIN8
+    	default AIIO_GPIO_NUM_9   if GPIO_LASEREMIT_PIN9
+        default AIIO_GPIO_NUM_10  if GPIO_LASEREMIT_PIN10
+        default AIIO_GPIO_NUM_11  if GPIO_LASEREMIT_PIN11
+        default AIIO_GPIO_NUM_12  if GPIO_LASEREMIT_PIN12
+        default AIIO_GPIO_NUM_13  if GPIO_LASEREMIT_PIN13
+        default AIIO_GPIO_NUM_14  if GPIO_LASEREMIT_PIN14
+        default AIIO_GPIO_NUM_15  if GPIO_LASEREMIT_PIN15
+endmenu
+endmenu
+endmenu

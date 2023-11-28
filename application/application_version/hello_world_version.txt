@@ -1,0 +1,4 @@
+name:hello_world
+branch:master
+commit:20af85b3037548afc151025137b0aef8b2ce56bf
+repository:https://e.coding.net/axk/2023niansdkweihuguihua/hello_world.git

@@ -1,0 +1,47 @@
+
+menu "application"
+
+menuconfig BSP_USING_PERIPHERAL
+    bool "Enable peripheral"
+    default y
+    if BSP_USING_PERIPHERAL
+        config BSP_USING_CONFIG
+            bool "Use menuconfig to generate the configuration"
+            default y
+    endif
+    if BSP_USING_PERIPHERAL
+        config I2C_SCL_PORT
+            string "i2c scl function"
+            default 1
+            depends on BSP_USING_CONFIG
+            help 
+            0 port A, 1 port B
+        config I2C_SCL_PIN
+            string "i2c scl port"
+            default AIIO_GPIO_NUM_4
+            depends on BSP_USING_CONFIG
+            help 
+            test i2c function
+    endif
+    if BSP_USING_PERIPHERAL
+        config I2C_SDA_PORT
+            string "i2c sda function"
+            default 1
+            depends on BSP_USING_CONFIG
+            help 
+            0 port A, 1 port B
+        config I2C_SDA_PIN
+            string "i2c sda port"
+            default AIIO_GPIO_NUM_5
+            depends on BSP_USING_CONFIG
+            help 
+            test i2c function
+    endif
+	config I2C_PERIOD
+		int "i2c period"
+		default 400000
+		depends on BSP_USING_CONFIG
+		help 
+		I2C clock
+
+endmenu

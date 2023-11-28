@@ -1,0 +1,5 @@
+name:aithink_cloud_general
+branch:master
+commit:13023a7ff065e527eafa0aaa371458c19b713823
+repository:https://e.coding.net/axk/m_demo/aithink_cloud_general.git
+

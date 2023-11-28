@@ -1,0 +1,14 @@
+sdk_generate_library()
+
+sdk_library_add_sources(net_al.c)
+sdk_library_add_sources(net_al_ext.c)
+sdk_library_add_sources(net_tg_al.c)
+sdk_library_add_sources(net_iperf_al.c)
+sdk_library_add_sources(wifi_pkt_hooks.c)
+
+sdk_add_include_directories(.)
+
+sdk_add_private_compile_definitions_ifdef(CONFIG_WIFI_PKT_INPUT_HOOK -DPKT_INPUT_HOOK)
+sdk_add_private_compile_definitions_ifdef(CONFIG_WIFI_PKT_OUTPUT_HOOK -DPKT_OUTPUT_HOOK)
+
+sdk_add_compile_definitions(-DPLATFORM_PRIVDE_ERRNO)

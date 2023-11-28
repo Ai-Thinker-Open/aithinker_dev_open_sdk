@@ -1,0 +1,20 @@
+if(COMP_WIFI_SUPPORT)
+    add_subdirectory(wifi)
+endif()
+
+if(COMP_BLE_SUPPORT)
+    add_subdirectory(ble)
+endif()
+
+if(DEFINED THIRD_PARTY_LWIP AND (THIRD_PARTY_LWIP))
+    message(STATUS "LwIP: third-party build.")
+else()
+    message(STATUS "LwIP: LN SDK build as static library.")
+    if(COMP_LWIP_SUPPORT)
+        add_subdirectory(${COMP_LWIP_DIR})
+    endif()
+endif()
+
+if(COMP_DHCPD_SUPPORT)
+  add_subdirectory(${COMP_DHCPD_DIR})
+endif()

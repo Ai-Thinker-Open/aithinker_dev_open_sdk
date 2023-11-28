@@ -1,0 +1,15 @@
+#! armcc -E
+
+#include "..\..\..\..\mcu\ln882h\mem_map_ln882h.h"
+
+LOAD_BOOTRAM  BOOTRAM_BASE  BOOTRAM_LIMIT  {
+    BOOT_HEADER_SECTION +0{
+        *.o(boot_header_area);
+    }
+
+    BOOTRAM_EXEC_DECTION +0 ALIGN 0x100{
+        startup_*.o(RESET,+First);
+        *.o(InRoot$$Sections);
+        *.o(+RO,+RW,+ZI);
+    }
+}

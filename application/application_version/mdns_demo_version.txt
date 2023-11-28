@@ -1,0 +1,4 @@
+name:mdns_demo
+branch:master
+commit:96f6d109b5c8bc9965fcdc78ba8c185c90ec3b70
+repository:https://e.coding.net/axk/m_demo/mdns_demo.git

@@ -1,0 +1,5 @@
+name:aithink_cloud_xxj
+branch:master
+commit:fe54c5a6680352acfe55e25a0c10af575f832463
+repository:https://e.coding.net/axk/m_demo/aithink_cloud_xxj.git
+

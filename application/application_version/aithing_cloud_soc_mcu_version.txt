@@ -1,0 +1,5 @@
+name:aithing_cloud_soc_mcu
+branch:master
+commit:18a7e7c61859b5ebd7ddf768116535cf64f1d095
+repository:https://e.coding.net/axk/m_demo/aithing_cloud_soc_mcu.git
+

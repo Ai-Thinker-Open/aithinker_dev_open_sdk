@@ -1,0 +1,6 @@
+name:wifi_ble_demo
+branch:master
+commit:fc3835288263a4adb3afc0729d242a4e1f5e0821
+repository:https://e.coding.net/axk/m_demo/wifi_ble_demo.git
+
+

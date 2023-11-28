@@ -1,0 +1,4 @@
+df86bb18c67b118c1f02e17df34b64fe ./../os/bl618_sdk_lts/tools/toolchain_gcc_t-head_linux-master.zip
+8312c4c91799885f222f663fc81f9a31 ./../os/ln882h_sdk_lts/tools/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2
+154a995abdd1510826159cd1bcd518ad ./../os/bl602_sdk_lts/tools/flash_tool.tar.gz
+df86bb18c67b118c1f02e17df34b64fe ./../os/bl616_sdk_lts/tools/toolchain_gcc_t-head_linux-master.zip

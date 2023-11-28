@@ -1,0 +1,165 @@
+menu "application"
+    menu "wifi config"
+        config AXK_WIFI_STA_SSID
+            string "WiFi Connect SSID"
+            default "myssid"
+            help
+                SSID (network name) for the example to connect to.
+
+        config AXK_WIFI_STA_PASS
+            string "WiFi Connect Password"
+            default "mypassword"
+            help
+                WiFi password (WPA or WPA2) for the example to use.
+        config AXK_WIFI_STA_CHANNEL
+            int "WiFi Connect Channel"
+            range 1 13
+            default 1
+            help
+                WiFi channel (network channel) for the example to use.
+
+        config AXK_WIFI_MAX_STA_CONN
+            int "Maximal STA connections"
+            default 4
+            help
+                Max number of the STA connects to AP.
+
+        config AXK_WIFI_AP_SSID
+            string "WiFi AP SSID"
+            default "test_ap"
+
+        config AXK_WIFI_AP_PASS
+            string "WiFi AP PASSWORD"
+            default "12345678"
+
+        config AXK_WIFI_AP_CHANNEL
+            int "WIFI AP CHANNEL"
+            range 1 13
+            default 1
+
+        config AXK_WIFI_SSID_HIDDEN_ENABLE
+            bool "SSID HIDDEN ENABLE"
+            default n            
+
+        config AXK_WIFI_AP_IP
+            string "SET WiFi AP IP"
+            default "192.168.100.1"
+    endmenu
+
+    menu "button config"
+        config GPIO_BUTTON_PORT
+                string "set button led gpio port"
+                default AIIO_GPIO_A
+
+        config GPIO_BUTTON_PIN
+                string "set button led gpio pin"
+                default AIIO_GPIO_NUM_0
+    endmenu
+
+    menu "led config"
+        config GPIO_R_LED_PORT
+                string "set red led gpio port"
+                default AIIO_GPIO_A
+
+        config GPIO_R_LED_PIN
+                string "set red led gpio pin"
+                default AIIO_GPIO_NUM_0
+
+        config GPIO_G_LED_PORT
+                string "set green led gpio port"
+                default AIIO_GPIO_A
+
+        config GPIO_G_LED_PIN
+                string "set green led gpio pin"
+                default AIIO_GPIO_NUM_0
+
+        config GPIO_B_LED_PORT
+                string "set blue led gpio port"
+                default AIIO_GPIO_A
+
+        config GPIO_B_LED_PIN
+                string "set blue led gpio pin"
+                default AIIO_GPIO_NUM_0
+    endmenu
+
+    menu "Data start address"
+        config FLASH_RW_START_ADDR
+            hex "Flash rw start addr"
+            default 0x3F3000
+        
+        config FLASH_REGION_SIZE
+            hex "flash region size"
+            default 0x1000
+        config DEVICE_INFO_ADDR
+            hex "flash device info addr"
+            default 0x378000
+    endmenu
+
+    menu "chip platform"
+        config DEVICE_TYPE
+            string "chip platform"
+            default "bl618"
+    endmenu
+
+    menu "uart0 config"
+        config UART0_TX_PIN
+                string "set uart0 tx pin"
+                default AIIO_GPIO_NUM_0
+
+        config UART0_RX_PIN
+                string "set uart0 rx pin"
+                default AIIO_GPIO_NUM_0
+
+        config UART0_BAUDRATE
+            int "uart0 baudrate"
+            default 2000000
+
+        config UART0_RECEIVE_BUFFER_MAX_LEN
+            int "uart0 receive buffer max length"
+            default 1024
+    endmenu
+
+    menu "uart1 config"
+        config UART1_TX_PIN
+                string "set uart1 tx pin"
+                default AIIO_GPIO_NUM_0
+
+        config UART1_RX_PIN
+                string "set uart1 rx pin"
+                default AIIO_GPIO_NUM_0
+
+        config UART1_BAUDRATE
+            int "uart1 baudrate"
+            default 2000000
+
+        config UART1_RECEIVE_BUFFER_MAX_LEN
+            int "uart1 receive buffer max length"
+            default 1024
+    endmenu
+
+    menu "module config"
+        config WAN_NETWORK_MODULE
+                bool "wan network enable"
+                default y
+
+        config LAN_NETWORK_MODULE
+                bool "LAN network enable"
+                default y
+
+        config BLE_DISTRIBUTION_NETWORK
+                bool "ble distribution network enable"
+                default y
+
+        config AP_DISTRIBUTION_NETWORK
+                bool "ap distribution network enable"
+                default y
+
+        config OTA_MODULE
+                bool "ota module enable"
+                default y
+
+
+    endmenu
+
+endmenu
+

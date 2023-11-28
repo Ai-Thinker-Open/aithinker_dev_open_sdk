@@ -1,0 +1,61 @@
+#! armcc -E
+#include "..\cfg\flash_partition_table.h"
+#include "..\..\..\mcu\ln882h\mem_map_ln882h.h"
+
+
+LR_FLASH CACHE_FLASH_BASE+APP_SPACE_OFFSET+IMAGE_HEADER_SIZE (APP_SPACE_SIZE - IMAGE_HEADER_SIZE)
+{; load region size_region
+
+    ISR_VECTOR RAM_BASE ALIGN 0x100
+    {
+        startup_*.o (RESET, +First)
+    }
+
+    ER_FLASH CACHE_FLASH_BASE+APP_SPACE_OFFSET+IMAGE_HEADER_SIZE + ImageLength(ISR_VECTOR) (APP_SPACE_SIZE - IMAGE_HEADER_SIZE)
+    {; load address = execution address
+        *(InRoot$$Sections)
+        .ANY (+RO)
+    }
+
+    ER_CODE ImageLimit(ISR_VECTOR)
+    {
+        ;mandatory item
+        hal_qspi.o(+RO)
+        hal_cache.o(+RO)
+        hal_flash.o(+RO)
+        
+        ;hal_rtc.o(+RO)
+        
+        port.o(XIR)
+
+        ;optional item
+        ;hal_uart.o(+RO)
+        ;log.o(+RO)
+        ;serial.o(+RO)
+        ;serial_art2000.o(+RO)
+        ;fifobuf.o(+RO)
+    }
+
+    ER_STACK +0
+    {
+        startup_ln*(+RW +ZI)
+    }
+
+    ER_DATA0 +0 
+    {
+		*(wlan_mem_pkt)
+		*(wlan_mem_dscr)
+		.ANY (+RW +ZI)
+    }
+
+    HEAP_SPACE0 +0 EMPTY (RETENTION_MEM_BASE+RETENTION_MEM_SIZE-1024)-ImageLimit(ER_DATA0)
+    {; Heap region
+    }
+
+
+    NO_INIT_DATA (RETENTION_MEM_BASE+RETENTION_MEM_SIZE-1024) UNINIT 1024
+    {
+        *(.no_init_data)
+    }
+}
+

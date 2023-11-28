@@ -1,0 +1,5 @@
+menu "os"
+menu "hi3861 sdk"
+
+endmenu
+endmenu

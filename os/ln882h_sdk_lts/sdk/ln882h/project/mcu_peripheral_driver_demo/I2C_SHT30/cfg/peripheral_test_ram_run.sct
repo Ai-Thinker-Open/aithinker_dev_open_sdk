@@ -1,0 +1,12 @@
+#! armcc -E
+
+#include "..\..\..\mcu\ln882h\mem_map_ln882h.h"
+
+LOAD_RAM  RAM_BASE  (RAM_BLOCK0_SIZE + RAM_BLOCK1_SIZE + RETENTION_MEM_SIZE + CACHE_MEM_SIZE)  {
+
+    BOOTRAM_EXEC_DECTION +0 ALIGN 0x100{
+        startup_*.o(RESET,+First);
+        *.o(InRoot$$Sections);
+        *.o(+RO,+RW,+ZI);
+    }
+}

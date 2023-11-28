@@ -1,0 +1,5 @@
+name:aithink_cloud_rd01_floor
+branch:master
+commit:87f7a3c731ea6e2a876a90b38e9ec93c055a8a9d
+repository:https://e.coding.net/axk/m_demo/aithink_cloud_rd01_floor.git
+

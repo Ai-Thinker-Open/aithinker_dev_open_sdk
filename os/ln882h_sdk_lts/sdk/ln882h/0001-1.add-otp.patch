@@ -1,0 +1,230 @@
+From f27eee5e07da23bf2d9950f4b77b9f4d6be090ad Mon Sep 17 00:00:00 2001
+From: john_zhangsz <john.zhang@lightningsemi.com>
+Date: Mon, 10 Jul 2023 17:18:32 +0800
+Subject: [PATCH] 1.add-otp
+
+---
+ components/fs/nvds/ln_nvds.c                  | 71 +++++++++++++++++--
+ components/fs/nvds/ln_nvds.h                  | 28 ++++++++
+ project/combo_mcu_basic_example/app/usr_app.c | 21 +++++-
+ 3 files changed, 113 insertions(+), 7 deletions(-)
+
+diff --git a/components/fs/nvds/ln_nvds.c b/components/fs/nvds/ln_nvds.c
+index 8b988fe..fcd12c1 100644
+--- a/components/fs/nvds/ln_nvds.c
++++ b/components/fs/nvds/ln_nvds.c
+@@ -4,6 +4,7 @@
+ 
+ static uint32_t ln_nvds_base = 0;
+ static char     ln_nvds_ver[NV0_NVDS_VERSION_LEN] = {0,};
++static uint8_t  read_from_fotp_flag = 0;
+ 
+ #define USR_NVDS_SECT1_OFFSET    (ln_nvds_base)
+ #define USR_NVDS_SECT2_OFFSET    (USR_NVDS_SECT1_OFFSET + SIZE_4KB)
+@@ -183,7 +184,54 @@ int ln_nvds_init(uint32_t base) {
+         str_len = (NV0_NVDS_VERSION_LEN > str_len) ? str_len : NV0_NVDS_VERSION_LEN;
+         return ln_nvds_write(NV0_NVDS_VERSION_OFFST, (uint8_t *)NV0_NVDS_VERSION_STR, str_len);
+     }
++    
++    uint8_t flag = 0;
++    if (ln_fotp_get_param_flag(&flag) == NVDS_ERR_OK){
++        if(flag == FLASH_OTP_VAL_VAILD){
++            read_from_fotp_flag = 1;
++        }
++    }
++    return NVDS_ERR_OK;
++}
+ 
++int ln_get_read_param_from_fotp_flag()
++{
++    return read_from_fotp_flag;
++}
++
++int ln_fotp_get_param_flag(uint8_t *val)
++{
++    hal_flash_security_area_read(FLASH_OTP_PARAM_FLAG_POS,FLASH_OTP_PARAM_FLAG_LEN,val);
++    return NVDS_ERR_OK;
++}
++
++int ln_fotp_get_xtal_comp_val(uint8_t *val)
++{
++    hal_flash_security_area_read(FLASH_OTP_FREQ_OFFSET_POS,FLASH_OTP_FREQ_OFFSET_LEN,val);
++    return NVDS_ERR_OK;
++}
++
++int ln_fotp_get_tx_power_b_comp_val(uint8_t *val)
++{
++    hal_flash_security_area_read(FLASH_OTP_TX_POWER_B_POS,FLASH_OTP_TX_POWER_B_LEN,val);
++    return NVDS_ERR_OK;
++}
++
++int ln_fotp_get_tx_power_gn_comp_val(uint8_t *val)
++{
++    hal_flash_security_area_read(FLASH_OTP_TX_POWER_GN_POS,FLASH_OTP_TX_POWER_GN_LEN,val);
++    return NVDS_ERR_OK;
++}
++
++int ln_fotp_get_tx_power_bgn_comp_val(uint8_t *val)
++{
++    hal_flash_security_area_read(FLASH_OTP_TX_POWER_BGN_POS,FLASH_OTP_TX_POWER_BGN_LEN,val);
++    return NVDS_ERR_OK;
++}
++
++int ln_fotp_get_mac_val(uint8_t *val)
++{
++    hal_flash_security_area_read(FLASH_OTP_MAC_POS,FLASH_OTP_MAC_LEN,val);
+     return NVDS_ERR_OK;
+ }
+ 
+@@ -220,7 +268,10 @@ int ln_nvds_set_xtal_comp_val(uint8_t  val) {
+ }
+ 
+ int ln_nvds_get_xtal_comp_val(uint8_t *val) {
+-    return ln_nvds_read(NV2_XTAL_COMP_VAL_OFFST, val, NV2_XTAL_COMP_VAL_LEN);
++    if(read_from_fotp_flag == 1)
++        return ln_fotp_get_xtal_comp_val(val);
++    else
++        return ln_nvds_read(NV2_XTAL_COMP_VAL_OFFST, val, NV2_XTAL_COMP_VAL_LEN);
+ }
+ 
+ /* NV3_TX_POWER_COMP_OFFST, NV3_TX_POWER_COMP_LEN */
+@@ -236,7 +287,13 @@ int ln_nvds_set_tx_power_comp(uint8_t  val) {
+ }
+ 
+ int ln_nvds_get_tx_power_comp(uint8_t *val) {
+-    return ln_nvds_read(NV3_TX_POWER_COMP_OFFST, val, NV3_TX_POWER_COMP_LEN);
++    //FLASH OTP has no BGN parameter.
++    if(read_from_fotp_flag == 1){
++        *val = 0;
++        return NVDS_ERR_OK;
++    }
++    else
++        return ln_nvds_read(NV3_TX_POWER_COMP_OFFST, val, NV3_TX_POWER_COMP_LEN);
+ }
+ 
+ /* NV4_CHIP_SN_OFFSET, NV4_CHIP_SN_LEN */
+@@ -350,7 +407,10 @@ int ln_nvds_set_tx_power_b_comp(uint8_t  val) {
+ }
+ 
+ int ln_nvds_get_tx_power_b_comp(uint8_t *val) {
+-    return ln_nvds_read(NV10_TX_POWER_COMP_B_OFFST, val, NV10_TX_POWER_COMP_B_LEN);
++    if(read_from_fotp_flag == 1)
++        return ln_fotp_get_tx_power_b_comp_val(val);
++    else
++        return ln_nvds_read(NV10_TX_POWER_COMP_B_OFFST, val, NV10_TX_POWER_COMP_B_LEN);
+ }
+ 
+ /* NV11_TX_POWER_COMP_GN_OFFST, NV11_TX_POWER_COMP_GN_LEN */
+@@ -366,5 +426,8 @@ int ln_nvds_set_tx_power_gn_comp(uint8_t  val) {
+ }
+ 
+ int ln_nvds_get_tx_power_gn_comp(uint8_t *val) {
+-    return ln_nvds_read(NV11_TX_POWER_COMP_GN_OFFST, val, NV11_TX_POWER_COMP_GN_LEN);
++    if(read_from_fotp_flag == 1)
++        return ln_fotp_get_tx_power_gn_comp_val(val);
++    else
++        return ln_nvds_read(NV11_TX_POWER_COMP_GN_OFFST, val, NV11_TX_POWER_COMP_GN_LEN);
+ }
+diff --git a/components/fs/nvds/ln_nvds.h b/components/fs/nvds/ln_nvds.h
+index d11f98e..01993dd 100644
+--- a/components/fs/nvds/ln_nvds.h
++++ b/components/fs/nvds/ln_nvds.h
+@@ -63,6 +63,24 @@
+ #define NV11_TX_POWER_COMP_GN_OFFST    (NV10_TX_POWER_COMP_B_OFFST + NV10_TX_POWER_COMP_B_LEN)
+ #define NV11_TX_POWER_COMP_GN_LEN      (1)
+ 
++
++#define FLASH_OTP_VAL_VAILD        0x01
++
++#define FLASH_OTP_FREQ_OFFSET_POS  0
++#define FLASH_OTP_FREQ_OFFSET_LEN  1
++#define FLASH_OTP_TX_POWER_B_POS   1
++#define FLASH_OTP_TX_POWER_B_LEN   1
++#define FLASH_OTP_TX_POWER_GN_POS  2
++#define FLASH_OTP_TX_POWER_GN_LEN  1
++#define FLASH_OTP_TX_POWER_BGN_POS 3
++#define FLASH_OTP_TX_POWER_BGN_LEN 1
++
++#define FLASH_OTP_PARAM_FLAG_POS   4
++#define FLASH_OTP_PARAM_FLAG_LEN   1
++
++#define FLASH_OTP_MAC_POS  0x100
++#define FLASH_OTP_MAC_LEN  6
++
+ //If vendor add new macro into the nvds,please update it!
+ #if ((NV11_TX_POWER_COMP_GN_OFFST + NV11_TX_POWER_COMP_GN_LEN) > SIZE_4KB)
+   #error "NVDS area overflow!!!"
+@@ -117,6 +135,16 @@ int    ln_nvds_get_tx_power_b_comp(uint8_t *val);
+ int    ln_nvds_set_tx_power_gn_comp(uint8_t  val);
+ int    ln_nvds_get_tx_power_gn_comp(uint8_t *val);
+ 
++int    ln_get_read_param_from_fotp_flag();
++int    ln_fotp_get_param_flag(uint8_t *val);
++
++int    ln_fotp_get_xtal_comp_val(uint8_t *val);
++
++int    ln_fotp_get_tx_power_b_comp_val(uint8_t *val);
++int    ln_fotp_get_tx_power_gn_comp_val(uint8_t *val);
++int    ln_fotp_get_tx_power_bgn_comp_val(uint8_t *val);
++
++int    ln_fotp_get_mac_val(uint8_t *val);
+ #ifdef __cplusplus
+ }
+ #endif
+diff --git a/project/combo_mcu_basic_example/app/usr_app.c b/project/combo_mcu_basic_example/app/usr_app.c
+index 6aa832c..cce7aff 100644
+--- a/project/combo_mcu_basic_example/app/usr_app.c
++++ b/project/combo_mcu_basic_example/app/usr_app.c
+@@ -26,6 +26,7 @@
+ #include "usr_app.h"
+ #include "usr_ble_app.h"
+ 
++#include "ln_nvds.h"
+ 
+ 
+ static OS_Thread_t g_usr_app_thread;
+@@ -168,10 +169,18 @@ int wifi_mgmr_scan_adv(void *data, void (*cb)(void *arg), uint16_t *channels, ui
+ static void wifi_init_sta(void)
+ {
+     // ln_generate_random_mac(mac_addr);
++    
+     //1. sta mac get
+-     if (SYSPARAM_ERR_NONE != sysparam_sta_mac_get(mac_addr)) {
+-        LOG(LOG_LVL_ERROR, "[%s]sta mac get filed!!!\r\n", __func__);
+-        return;
++    if(ln_get_read_param_from_fotp_flag() == 0x01){
++        ln_fotp_get_mac_val(mac_addr);
++        sysparam_sta_mac_update((const uint8_t *)mac_addr);	
++    }
++    else
++    {
++         if (SYSPARAM_ERR_NONE != sysparam_sta_mac_get(mac_addr)) {
++            LOG(LOG_LVL_ERROR, "[%s]sta mac get filed!!!\r\n", __func__);
++            return;
++        }
+     }
+ 
+     if (mac_addr[0] == STA_MAC_ADDR0 &&
+@@ -207,6 +216,7 @@ static void wifi_init_sta(void)
+     wifi_sta_connect(&connect, &scan_cfg);
+ }
+ 
++
+ static void ap_startup_cb(void * arg)
+ {
+     netdev_set_state(NETIF_IDX_AP, NETDEV_UP);
+@@ -216,6 +226,11 @@ static void wifi_init_ap(void)
+ {
+     tcpip_ip_info_t  ip_info;
+     server_config_t  server_config;
++    
++    if(ln_get_read_param_from_fotp_flag() == 0x01){
++        ln_fotp_get_mac_val(mac_addr);
++        sysparam_sta_mac_update((const uint8_t *)mac_addr);	
++    }
+ 
+     ip_info.ip.addr      = ipaddr_addr((const char *)"192.168.4.1");
+     ip_info.gw.addr      = ipaddr_addr((const char *)"192.168.4.1");
+-- 
+2.37.1.windows.1
+

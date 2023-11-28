@@ -1,0 +1,826 @@
+{
+    "apps": [
+        {
+            "enable": true,
+            "name": "audioplayer",
+            "path": "examples/audioplayer",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "bflb_block_pool",
+            "path": "examples/bflb_block_pool",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "barebone_sync",
+            "path": "examples/bflog/barebone_sync",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "freertos_async",
+            "path": "examples/bflog/freertos_async",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "helloworld_d0",
+            "path": "examples/bl808_triplecore/helloworld_d0",
+            "cmd": "make CHIP=bl808 BOARD=bl808dk CPU_ID=d0"
+        },
+        {
+            "enable": true,
+            "name": "helloworld_lp",
+            "path": "examples/bl808_triplecore/helloworld_lp",
+            "cmd": "make CHIP=bl808 BOARD=bl808dk CPU_ID=lp"
+        },
+        {
+            "enable": true,
+            "name": "helloworld_m0",
+            "path": "examples/bl808_triplecore/helloworld_m0",
+            "cmd": "make CHIP=bl808 BOARD=bl808dk CPU_ID=m0"
+        },
+        {
+            "enable": true,
+            "name": "boot2_isp",
+            "path": "examples/boot2_isp",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "ble_mesh_cli",
+            "path": "examples/btble/blemesh_cli",
+            "cmd": "make CHIP=bl616 BOARD=bl616dk"
+        },
+        {
+            "enable": true,
+            "name": "btble_cli",
+            "path": "examples/btble/btble_cli",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "btble_vela",
+            "path": "examples/btble/btble_vela",
+            "cmd": "make CHIP=bl616 BOARD=bl616dk"
+        },
+        {
+            "enable": true,
+            "name": "btblecontroller_test",
+            "path": "examples/btble/btblecontroller_test",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "peripheral",
+            "path": "examples/btble/peripheral",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "coremark_v1.01",
+            "path": "examples/coremark_v1.01",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "dsp",
+            "path": "examples/dsp",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "fatfs",
+            "path": "examples/fatfs",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "freertos",
+            "path": "examples/freertos",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "helloworld",
+            "path": "examples/helloworld",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "littlefs",
+            "path": "examples/littlefs",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "log_dbg_assert",
+            "path": "examples/log_dbg_assert",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "lua",
+            "path": "examples/lua",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "lvgl",
+            "path": "examples/lvgl",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "mbedtls",
+            "path": "examples/mbedtls",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "memheap",
+            "path": "examples/memheap",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "partition",
+            "path": "examples/partition",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "adc_dma",
+            "path": "examples/peripherals/adc/adc_dma",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "adc_int",
+            "path": "examples/peripherals/adc/adc_int",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "adc_poll",
+            "path": "examples/peripherals/adc/adc_poll",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "adc_poll_diff_mode",
+            "path": "examples/peripherals/adc/adc_poll_diff_mode",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "adc_tsen",
+            "path": "examples/peripherals/adc/adc_tsen",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "adc_vbat",
+            "path": "examples/peripherals/adc/adc_vbat",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "auadc_record_to_mem",
+            "path": "examples/peripherals/audio/auadc_record_to_mem",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "audac_play_from_mem",
+            "path": "examples/peripherals/audio/audac_play_from_mem",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "cam_crop",
+            "path": "examples/peripherals/cam/cam_crop",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "cam_int",
+            "path": "examples/peripherals/cam/cam_int",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "cam_normal",
+            "path": "examples/peripherals/cam/cam_normal",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "cam_yuv420",
+            "path": "examples/peripherals/cam/cam_yuv420",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "cks_dma",
+            "path": "examples/peripherals/cks/cks_dma",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "cks_normal",
+            "path": "examples/peripherals/cks/cks_normal",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "csi_normal",
+            "path": "examples/peripherals/csi/csi_normal",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "dac_dma",
+            "path": "examples/peripherals/dac/dac_dma",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "dac_polling",
+            "path": "examples/peripherals/dac/dac_polling",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "dma_normal",
+            "path": "examples/peripherals/dma/dma_normal",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "dma_normal_cycle",
+            "path": "examples/peripherals/dma/dma_normal_cycle",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "dma_reduce_or_add",
+            "path": "examples/peripherals/dma/dma_reduce_or_add",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "efuse_rw",
+            "path": "examples/peripherals/efuse/efuse_rw",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "efuse_trim",
+            "path": "examples/peripherals/efuse/efuse_trim",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "emac_basic",
+            "path": "examples/peripherals/emac/emac_basic",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "lwip_http_server",
+            "path": "examples/peripherals/emac/lwip_http_server",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "lwip_tcp",
+            "path": "examples/peripherals/emac/lwip_tcp",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "lwip_udp",
+            "path": "examples/peripherals/emac/lwip_udp",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "flash_dma",
+            "path": "examples/peripherals/flash/flash_dma",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "flash_get_image_hash",
+            "path": "examples/peripherals/flash/flash_get_image_hash",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "flash_iomode",
+            "path": "examples/peripherals/flash/flash_iomode",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "flash_read_write",
+            "path": "examples/peripherals/flash/flash_read_write",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "flash_secure_read_write",
+            "path": "examples/peripherals/flash/flash_secure_read_write",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "flash_xip_read",
+            "path": "examples/peripherals/flash/flash_xip_read",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "gpio_input_output",
+            "path": "examples/peripherals/gpio/gpio_input_output",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "gpio_interrupt",
+            "path": "examples/peripherals/gpio/gpio_interrupt",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "i2c_10_bit",
+            "path": "examples/peripherals/i2c/i2c_10_bit",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "i2c_eeprom",
+            "path": "examples/peripherals/i2c/i2c_eeprom",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "i2c_eeprom_dma",
+            "path": "examples/peripherals/i2c/i2c_eeprom_dma",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "i2c_eeprom_interrupt",
+            "path": "examples/peripherals/i2c/i2c_eeprom_interrupt",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "i2s_dma",
+            "path": "examples/peripherals/i2s/i2s_dma",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "i2s_es8388",
+            "path": "examples/peripherals/i2s/i2s_es8388",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "i2s_wm8978",
+            "path": "examples/peripherals/i2s/i2s_wm8978",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "ir_nec",
+            "path": "examples/peripherals/ir/ir_nec",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "ir_rc5",
+            "path": "examples/peripherals/ir/ir_rc5",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "ir_swm",
+            "path": "examples/peripherals/ir/ir_swm",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "ir_tx_dma",
+            "path": "examples/peripherals/ir/ir_tx_dma",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "mjpeg_cam_normal",
+            "path": "examples/peripherals/mjpeg/mjpeg_cam_normal",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "mjpeg_no_camera",
+            "path": "examples/peripherals/mjpeg/mjpeg_no_camera",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "mtimer",
+            "path": "examples/peripherals/mtimer",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "platform_dma",
+            "path": "examples/peripherals/platform_dma",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "psram",
+            "path": "examples/peripherals/psram",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "pwm_all_channels",
+            "path": "examples/peripherals/pwm_v1/pwm_all_channels",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "pwm_basic",
+            "path": "examples/peripherals/pwm_v1/pwm_basic",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "pwm_int",
+            "path": "examples/peripherals/pwm_v1/pwm_int",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "pwm_6step",
+            "path": "examples/peripherals/pwm_v2/pwm_6step",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "pwm_all_channels",
+            "path": "examples/peripherals/pwm_v2/pwm_all_channels",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "pwm_basic",
+            "path": "examples/peripherals/pwm_v2/pwm_basic",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "pwm_config_channel",
+            "path": "examples/peripherals/pwm_v2/pwm_config_channel",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "pwm_deadtime",
+            "path": "examples/peripherals/pwm_v2/pwm_deadtime",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "pwm_foc_curr",
+            "path": "examples/peripherals/pwm_v2/pwm_foc_curr",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "pwm_foc_hall",
+            "path": "examples/peripherals/pwm_v2/pwm_foc_hall",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "pwm_int",
+            "path": "examples/peripherals/pwm_v2/pwm_int",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "pwm_spwm",
+            "path": "examples/peripherals/pwm_v2/pwm_spwm",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "pwm_svpwm",
+            "path": "examples/peripherals/pwm_v2/pwm_svpwm",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "rtc",
+            "path": "examples/peripherals/rtc",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "sec_eng_aes_link_sw_key",
+            "path": "examples/peripherals/sec_eng/sec_eng_aes_link_sw_key",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "sec_eng_aes_sw_key",
+            "path": "examples/peripherals/sec_eng/sec_eng_aes_sw_key",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "sec_eng_aes_sw_key_costtime",
+            "path": "examples/peripherals/sec_eng/sec_eng_aes_sw_key_costtime",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "sec_eng_dsa",
+            "path": "examples/peripherals/sec_eng/sec_eng_dsa",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "sec_eng_ecdh",
+            "path": "examples/peripherals/sec_eng/sec_eng_ecdh",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "sec_eng_ecdsa",
+            "path": "examples/peripherals/sec_eng/sec_eng_ecdsa",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "sec_eng_sha",
+            "path": "examples/peripherals/sec_eng/sec_eng_sha",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "sec_eng_sha_costtime",
+            "path": "examples/peripherals/sec_eng/sec_eng_sha_costtime",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "sec_eng_sha_link",
+            "path": "examples/peripherals/sec_eng/sec_eng_sha_link",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "trng_random",
+            "path": "examples/peripherals/sec_eng/trng_random",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "spi_dma",
+            "path": "examples/peripherals/spi/spi_dma",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "spi_int",
+            "path": "examples/peripherals/spi/spi_int",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "spi_poll",
+            "path": "examples/peripherals/spi/spi_poll",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "timer_clksource_check",
+            "path": "examples/peripherals/timer/timer_clksource_check",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "timer_int",
+            "path": "examples/peripherals/timer/timer_int",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "uart_auto_baudrate",
+            "path": "examples/peripherals/uart/uart_auto_baudrate",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "uart_dma",
+            "path": "examples/peripherals/uart/uart_dma",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "uart_dma_rto",
+            "path": "examples/peripherals/uart/uart_dma_rto",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "uart_end_interrupt",
+            "path": "examples/peripherals/uart/uart_end_interrupt",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "uart_error_interrupt",
+            "path": "examples/peripherals/uart/uart_error_interrupt",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "uart_feature_control",
+            "path": "examples/peripherals/uart/uart_feature_control",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "uart_fifo_interrupt",
+            "path": "examples/peripherals/uart/uart_fifo_interrupt",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "uart_ir",
+            "path": "examples/peripherals/uart/uart_ir",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "uart_lin",
+            "path": "examples/peripherals/uart/uart_lin",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "uart_poll",
+            "path": "examples/peripherals/uart/uart_poll",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "uart_rs485",
+            "path": "examples/peripherals/uart/uart_rs485",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "uart_sw_rts",
+            "path": "examples/peripherals/uart/uart_sw_rts",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "usbd_audio_v1_mic_speaker_multichan",
+            "path": "examples/peripherals/usbdev/usbd_audio_v1_mic_speaker_multichan",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "usbd_cdc_acm",
+            "path": "examples/peripherals/usbdev/usbd_cdc_acm",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "usbd_hid_keyboard",
+            "path": "examples/peripherals/usbdev/usbd_hid_keyboard",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "usbd_msc_ram",
+            "path": "examples/peripherals/usbdev/usbd_msc_ram",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "usbd_static_video",
+            "path": "examples/peripherals/usbdev/usbd_static_video",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "usbhost",
+            "path": "examples/peripherals/usbhost",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "wdg_clksource_check",
+            "path": "examples/peripherals/wdg/wdg_clksource_check",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "wdg_int",
+            "path": "examples/peripherals/wdg/wdg_int",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "wdg_reset",
+            "path": "examples/peripherals/wdg/wdg_reset",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "wl_lp",
+            "path": "examples/pmu/wl_lp",
+            "cmd": "./genlp"
+        },
+        {
+            "enable": true,
+            "name": "freertos",
+            "path": "examples/posix/freertos",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "printf",
+            "path": "examples/printf",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "shell_no_os",
+            "path": "examples/shell/shell_no_os",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "shell_os",
+            "path": "examples/shell/shell_os",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "image_transmission",
+            "path": "examples/synthetic/image_transmission",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": false,
+            "name": "sinx",
+            "path": "examples/tensorflowlite/sinx",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": false,
+            "name": "tinymaix",
+            "path": "examples/tinymaix",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "DailyTest",
+            "path": "examples/wifi/DailyTest",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "wifi_http",
+            "path": "examples/wifi/sta/wifi_http",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "wifi_tcp",
+            "path": "examples/wifi/sta/wifi_tcp",
+            "cmd": "make ninja"
+        },
+        {
+            "enable": true,
+            "name": "wifi_udp",
+            "path": "examples/wifi/sta/wifi_udp",
+            "cmd": "make ninja"
+        }
+    ]
+}

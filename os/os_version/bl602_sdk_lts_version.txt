@@ -1,0 +1,4 @@
+name:bl602_sdk_lts
+branch:master
+commit:d0e68de3e091e57eeb12f15e85fd910686792712
+repository:https://e.coding.net/axk/2023niansdkweihuguihua/bl602_sdk_lts.git

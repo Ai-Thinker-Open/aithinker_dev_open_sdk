@@ -1,0 +1,25 @@
+From a529e2ae065de1ad116e4b27aa9287a98595c511 Mon Sep 17 00:00:00 2001
+From: zifengchenll <zifengchen_ll@163.com>
+Date: Thu, 3 Aug 2023 10:23:34 +0800
+Subject: [PATCH 2/2] change CMakeLists.txt to patch
+
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 01404b0..6791be8 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -58,7 +58,7 @@ if(NOT DEFINED VENDOR_SDK_ADAPTED)
+         #set(USER_PROJECT  ble_mcu_prf_hid_mouse)
+         #set(USER_PROJECT  ble_mcu_prf_battery)
+         #set(USER_PROJECT  ble_mcu_scan)
+-        set(USER_PROJECT  combo_mcu_at_example)
++        set(USER_PROJECT   dev_project)
+         #set(USER_PROJECT  mcu_peripheral_driver_test)
+         message(STATUS "<SET> USER_PROJECT = ${USER_PROJECT}")
+     else()
+-- 
+2.25.1
+

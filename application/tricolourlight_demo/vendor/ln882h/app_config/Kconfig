@@ -1,0 +1,204 @@
+menu "application"
+menu "tricolourlight_demo"
+menu "AIIO_GPIO_CFG"
+choice GPIO_RED_PORT
+   	bool "aiio_gpio_red_port"
+   	default GPIO_RED_PORTB
+config GPIO_RED_PORTA
+   	bool "AIIO_GPIO_A"
+config GPIO_RED_PORTB
+   	bool "AIIO_GPIO_B"
+endchoice
+config GPIO_RED_PORT
+    	string
+    	default AIIO_GPIO_A if GPIO_RED_PORTA
+    	default AIIO_GPIO_B if GPIO_RED_PORTB
+choice GPIO_RED_PIN
+   	bool "aiio_gpio_red_pin"
+   	default GPIO_RED_PIN5
+config GPIO_RED_PIN0
+   	bool "AIIO_GPIO_NUM_0"
+config GPIO_RED_PIN1
+   	bool "AIIO_GPIO_NUM_1"
+config GPIO_RED_PIN2
+   	bool "AIIO_GPIO_NUM_2"
+config GPIO_RED_PIN3
+   	bool "AIIO_GPIO_NUM_3"
+config GPIO_RED_PIN4
+   	bool "AIIO_GPIO_NUM_4"
+config GPIO_RED_PIN5
+   	bool "AIIO_GPIO_NUM_5"
+config GPIO_RED_PIN6
+   	bool "AIIO_GPIO_NUM_6"
+config GPIO_RED_PIN7
+   	bool "AIIO_GPIO_NUM_7"
+config GPIO_RED_PIN8
+   	bool "AIIO_GPIO_NUM_8"
+config GPIO_RED_PIN9
+   	bool "AIIO_GPIO_NUM_9"
+config GPIO_RED_PIN10
+   	bool "AIIO_GPIO_NUM_10"
+config GPIO_RED_PIN11
+   	bool "AIIO_GPIO_NUM_11"
+config GPIO_RED_PIN12
+   	bool "AIIO_GPIO_NUM_12"
+config GPIO_RED_PIN13
+   	bool "AIIO_GPIO_NUM_13"
+config GPIO_RED_PIN14
+   	bool "AIIO_GPIO_NUM_14"
+config GPIO_RED_PIN15
+   	bool "AIIO_GPIO_NUM_15"
+endchoice
+config GPIO_RED_PIN
+    	string
+    	default AIIO_GPIO_NUM_0   if GPIO_RED_PIN0
+    	default AIIO_GPIO_NUM_1   if GPIO_RED_PIN1
+        default AIIO_GPIO_NUM_2   if GPIO_RED_PIN2
+        default AIIO_GPIO_NUM_3   if GPIO_RED_PIN3
+        default AIIO_GPIO_NUM_4   if GPIO_RED_PIN4
+        default AIIO_GPIO_NUM_5   if GPIO_RED_PIN5
+        default AIIO_GPIO_NUM_6   if GPIO_RED_PIN6
+        default AIIO_GPIO_NUM_7   if GPIO_RED_PIN7
+    	default AIIO_GPIO_NUM_8   if GPIO_RED_PIN8
+    	default AIIO_GPIO_NUM_9   if GPIO_RED_PIN9
+        default AIIO_GPIO_NUM_10  if GPIO_RED_PIN10
+        default AIIO_GPIO_NUM_11  if GPIO_RED_PIN11
+        default AIIO_GPIO_NUM_12  if GPIO_RED_PIN12
+        default AIIO_GPIO_NUM_13  if GPIO_RED_PIN13
+        default AIIO_GPIO_NUM_14  if GPIO_RED_PIN14
+        default AIIO_GPIO_NUM_15  if GPIO_RED_PIN15
+choice GPIO_YELLOW_PORT
+   	bool "aiio_gpio_yellow_port"
+   	default GPIO_YELLOW_PORTB
+config GPIO_YELLOW_PORTA
+   	bool "AIIO_GPIO_A"
+config GPIO_YELLOW_PORTB
+   	bool "AIIO_GPIO_B"
+endchoice
+config GPIO_YELLOW_PORT
+    	string
+    	default AIIO_GPIO_A if GPIO_YELLOW_PORTA
+    	default AIIO_GPIO_B if GPIO_YELLOW_PORTB
+choice GPIO_YELLOW_PIN
+   	bool "aiio_gpio_yellow_pin"
+   	default GPIO_YELLOW_PIN4
+config GPIO_YELLOW_PIN0
+   	bool "AIIO_GPIO_NUM_0"
+config GPIO_YELLOW_PIN1
+   	bool "AIIO_GPIO_NUM_1"
+config GPIO_YELLOW_PIN2
+   	bool "AIIO_GPIO_NUM_2"
+config GPIO_YELLOW_PIN3
+   	bool "AIIO_GPIO_NUM_3"
+config GPIO_YELLOW_PIN4
+   	bool "AIIO_GPIO_NUM_4"
+config GPIO_YELLOW_PIN5
+   	bool "AIIO_GPIO_NUM_5"
+config GPIO_YELLOW_PIN6
+   	bool "AIIO_GPIO_NUM_6"
+config GPIO_YELLOW_PIN7
+   	bool "AIIO_GPIO_NUM_7"
+config GPIO_YELLOW_PIN8
+   	bool "AIIO_GPIO_NUM_8"
+config GPIO_YELLOW_PIN9
+   	bool "AIIO_GPIO_NUM_9"
+config GPIO_YELLOW_PIN10
+   	bool "AIIO_GPIO_NUM_10"
+config GPIO_YELLOW_PIN11
+   	bool "AIIO_GPIO_NUM_11"
+config GPIO_YELLOW_PIN12
+   	bool "AIIO_GPIO_NUM_12"
+config GPIO_YELLOW_PIN13
+   	bool "AIIO_GPIO_NUM_13"
+config GPIO_YELLOW_PIN14
+   	bool "AIIO_GPIO_NUM_14"
+config GPIO_YELLOW_PIN15
+   	bool "AIIO_GPIO_NUM_15"
+endchoice
+config GPIO_YELLOW_PIN
+    	string
+    	default AIIO_GPIO_NUM_0   if GPIO_YELLOW_PIN0
+    	default AIIO_GPIO_NUM_1   if GPIO_YELLOW_PIN1
+        default AIIO_GPIO_NUM_2   if GPIO_YELLOW_PIN2
+        default AIIO_GPIO_NUM_3   if GPIO_YELLOW_PIN3
+        default AIIO_GPIO_NUM_4   if GPIO_YELLOW_PIN4
+        default AIIO_GPIO_NUM_5   if GPIO_YELLOW_PIN5
+        default AIIO_GPIO_NUM_6   if GPIO_YELLOW_PIN6
+        default AIIO_GPIO_NUM_7   if GPIO_YELLOW_PIN7
+    	default AIIO_GPIO_NUM_8   if GPIO_YELLOW_PIN8
+    	default AIIO_GPIO_NUM_9   if GPIO_YELLOW_PIN9
+        default AIIO_GPIO_NUM_10  if GPIO_YELLOW_PIN10
+        default AIIO_GPIO_NUM_11  if GPIO_YELLOW_PIN11
+        default AIIO_GPIO_NUM_12  if GPIO_YELLOW_PIN12
+        default AIIO_GPIO_NUM_13  if GPIO_YELLOW_PIN13
+        default AIIO_GPIO_NUM_14  if GPIO_YELLOW_PIN14
+        default AIIO_GPIO_NUM_15  if GPIO_YELLOW_PIN15
+choice GPIO_BLUE_PORT
+   	bool "aiio_gpio_blue_port"
+   	default GPIO_BLUE_PORTB
+config GPIO_BLUE_PORTA
+   	bool "AIIO_GPIO_A"
+config GPIO_BLUE_PORTB
+   	bool "AIIO_GPIO_B"
+endchoice
+config GPIO_BLUE_PORT
+    	string
+    	default AIIO_GPIO_A if GPIO_BLUE_PORTA
+    	default AIIO_GPIO_B if GPIO_BLUE_PORTB
+choice GPIO_BLUE_PIN
+   	bool "aiio_gpio_blue_pin"
+   	default GPIO_BLUE_PIN3
+config GPIO_BLUE_PIN0
+   	bool "AIIO_GPIO_NUM_0"
+config GPIO_BLUE_PIN1
+   	bool "AIIO_GPIO_NUM_1"
+config GPIO_BLUE_PIN2
+   	bool "AIIO_GPIO_NUM_2"
+config GPIO_BLUE_PIN3
+   	bool "AIIO_GPIO_NUM_3"
+config GPIO_BLUE_PIN4
+   	bool "AIIO_GPIO_NUM_4"
+config GPIO_BLUE_PIN5
+   	bool "AIIO_GPIO_NUM_5"
+config GPIO_BLUE_PIN6
+   	bool "AIIO_GPIO_NUM_6"
+config GPIO_BLUE_PIN7
+   	bool "AIIO_GPIO_NUM_7"
+config GPIO_BLUE_PIN8
+   	bool "AIIO_GPIO_NUM_8"
+config GPIO_BLUE_PIN9
+   	bool "AIIO_GPIO_NUM_9"
+config GPIO_BLUE_PIN10
+   	bool "AIIO_GPIO_NUM_10"
+config GPIO_BLUE_PIN11
+   	bool "AIIO_GPIO_NUM_11"
+config GPIO_BLUE_PIN12
+   	bool "AIIO_GPIO_NUM_12"
+config GPIO_BLUE_PIN13
+   	bool "AIIO_GPIO_NUM_13"
+config GPIO_BLUE_PIN14
+   	bool "AIIO_GPIO_NUM_14"
+config GPIO_BLUE_PIN15
+   	bool "AIIO_GPIO_NUM_15"
+endchoice
+config GPIO_BLUE_PIN
+    	string
+    	default AIIO_GPIO_NUM_0   if GPIO_BLUE_PIN0
+    	default AIIO_GPIO_NUM_1   if GPIO_BLUE_PIN1
+        default AIIO_GPIO_NUM_2   if GPIO_BLUE_PIN2
+        default AIIO_GPIO_NUM_3   if GPIO_BLUE_PIN3
+        default AIIO_GPIO_NUM_4   if GPIO_BLUE_PIN4
+        default AIIO_GPIO_NUM_5   if GPIO_BLUE_PIN5
+        default AIIO_GPIO_NUM_6   if GPIO_BLUE_PIN6
+        default AIIO_GPIO_NUM_7   if GPIO_BLUE_PIN7
+    	default AIIO_GPIO_NUM_8   if GPIO_BLUE_PIN8
+    	default AIIO_GPIO_NUM_9   if GPIO_BLUE_PIN9
+        default AIIO_GPIO_NUM_10  if GPIO_BLUE_PIN10
+        default AIIO_GPIO_NUM_11  if GPIO_BLUE_PIN11
+        default AIIO_GPIO_NUM_12  if GPIO_BLUE_PIN12
+        default AIIO_GPIO_NUM_13  if GPIO_BLUE_PIN13
+        default AIIO_GPIO_NUM_14  if GPIO_BLUE_PIN14
+        default AIIO_GPIO_NUM_15  if GPIO_BLUE_PIN15
+endmenu
+endmenu
+endmenu

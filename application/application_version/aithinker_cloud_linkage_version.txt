@@ -1,0 +1,4 @@
+name:aithinker_cloud_linkage
+branch:master
+commit: 770d1c942218faf81e121433be1ccef4c31174eb
+repository:https://e.coding.net/axk/m_demo/aithinker_cloud_linkage.git

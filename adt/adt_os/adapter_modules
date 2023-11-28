@@ -1,0 +1,48 @@
+{
+	"adapter_chip": [{
+			"name": "chip",
+			"path": "adapter_chip/chip"
+		},
+		{
+			"name": "chip_common",
+			"path": "adapter_chip/chip_common"
+		}
+	],
+	"adapter_core": [{
+			"name": "at_cmd",
+			"path": "adapter_core/components/at_cmd"
+		},
+		{
+			"name": "cloud",
+			"path": "adapter_core/components/cloud"
+		},
+		{
+			"name": "factory",
+			"path": "adapter_core/components/factory"
+		},
+		{
+			"name": "heap_check",
+			"path": "adapter_core/components/heap_check"
+		},
+		{
+			"name": "net_connect",
+			"path": "adapter_core/components/net_connect"
+		},
+		{
+			"name": "sensor",
+			"path": "adapter_core/components/sensor"
+		},
+		{
+			"name": "lib1",
+			"path": "adapter_core/components_lib/lib1"
+		},
+		{
+			"name": "lib2",
+			"path": "adapter_core/components_lib/lib2"
+		},
+		{
+			"name": "3rdparty",
+			"path": "adapter_core/components_lib/3rdparty"
+		}
+	]
+}

@@ -1,0 +1,4 @@
+name:nfcconfig
+branch:master
+commit:301e9cc7d2c7de1bd4fb69ddba35af75696f6c68
+repository:https://e.coding.net/axk/m_demo/nfcconfig.git

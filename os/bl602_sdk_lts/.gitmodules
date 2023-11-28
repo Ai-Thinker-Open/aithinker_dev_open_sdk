@@ -1,0 +1,3 @@
+[submodule "sdk/bl_iot_sdk"]
+	path = sdk/bl_iot_sdk
+	url = https://e.coding.net/axk/2023niansdkweihuguihua/bl_iot_sdk.git

@@ -1,0 +1,36 @@
+#! armcc -E
+
+#include "../cfg/flash_partition_table.h"
+#include "../../../../mcu/ln882h/mem_map_ln882h.h"
+	
+
+LR_FLASH  CACHE_FLASH_BASE+APP_SPACE_OFFSET+IMAGE_HEADER_SIZE (APP_SPACE_SIZE - IMAGE_HEADER_SIZE)
+{
+    ISR_VECTOR RAM_BASE ALIGN 0x100
+    {
+        startup_*.o (RESET, +First)
+    }
+
+
+    ER_FLASH CACHE_FLASH_BASE+APP_SPACE_OFFSET+IMAGE_HEADER_SIZE + ImageLength(ISR_VECTOR) (APP_SPACE_SIZE - IMAGE_HEADER_SIZE)
+    {
+        *(InRoot$$Sections)
+        .ANY (+RO)
+    }
+
+	ER_CODE ImageLimit(ISR_VECTOR) 
+    {
+        hal_flash.o(+RO)
+        hal_cache.o(+RO)
+        hal_qspi.o(+RO)
+    }
+	ER_STACK +0
+    {
+        startup_ln*(+RW +ZI)
+    }
+
+    ER_DATA +0
+    {
+		.ANY (+RW +ZI)
+    }
+}	

@@ -1,0 +1,5 @@
+menu "os"
+menu "ln882h sdk"
+
+endmenu
+endmenu

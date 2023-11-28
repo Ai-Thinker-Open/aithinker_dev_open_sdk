@@ -1,0 +1,6 @@
+﻿sdk_generate_library()
+sdk_add_include_directories(.)
+sdk_library_add_sources(TestProductionCode.c)
+sdk_library_add_sources(TestProductionCode2.c)
+sdk_library_add_sources(test_runners/TestProductionCode_Runner.c)
+sdk_library_add_sources(test_runners/TestProductionCode2_Runner.c)

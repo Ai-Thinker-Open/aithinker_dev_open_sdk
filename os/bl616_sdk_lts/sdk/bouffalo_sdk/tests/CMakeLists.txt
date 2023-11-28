@@ -1,0 +1,7 @@
+﻿sdk_generate_library(unity_test)
+sdk_add_include_directories(unity/src)
+sdk_library_add_sources(unity/src/unity.c)
+sdk_add_include_directories(unity/extras/fixture/src)
+sdk_library_add_sources(unity/extras/fixture/src/unity_fixture.c)
+sdk_add_compile_definitions(-DUNITY_OUTPUT_COLOR=1)
+sdk_add_compile_definitions(-DUNITY_FIXTURE_NO_EXTRAS=1)

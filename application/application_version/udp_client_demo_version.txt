@@ -1,0 +1,4 @@
+name:udp_client_demo
+branch:master
+commit:
+repository:https://e.coding.net/axk/m_demo/udp_client_demo.git

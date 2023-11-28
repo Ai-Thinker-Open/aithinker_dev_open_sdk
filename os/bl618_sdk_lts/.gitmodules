@@ -1,0 +1,3 @@
+[submodule "sdk/bouffalo_sdk"]
+	path = sdk/bouffalo_sdk
+	url = https://e.coding.net/axk/2023niansdkweihuguihua/bouffalo_sdk.git

@@ -1,0 +1,6 @@
+﻿sdk_generate_library()
+sdk_add_include_directories(.)
+
+sdk_library_add_sources(test_uart_fifo_interrupt_rx.c)
+
+sdk_library_add_sources(test_runners/test_uart_fifo_interrupt_runner.c)

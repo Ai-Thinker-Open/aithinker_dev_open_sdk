@@ -1,0 +1,4 @@
+name:airkiss_demo
+branch:master
+commit:
+repository:https://e.coding.net/axk/m_demo/airkiss_demo.git

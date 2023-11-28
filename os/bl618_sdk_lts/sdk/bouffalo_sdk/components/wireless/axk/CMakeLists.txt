@@ -1,0 +1,2 @@
+sdk_add_static_library(libat_bl618.a)
+sdk_add_static_library(libcloud_618.a)

@@ -1,0 +1,4 @@
+name:bl618_sdk_lts
+branch:master
+commit:4872544e9df22ad1dce8e961aba63a024d00ed15
+repository:https://e.coding.net/axk/2023niansdkweihuguihua/bl618_sdk_lts.git

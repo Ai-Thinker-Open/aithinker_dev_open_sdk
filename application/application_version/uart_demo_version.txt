@@ -1,0 +1,5 @@
+name:uart_demo
+branch:master
+commit:65026496e08270e2a7588a8002f436b26987661a
+repository:https://e.coding.net/axk/m_demo/uart_demo.git
+

@@ -1,0 +1,59 @@
+diff --git a/components/net/lwip-2.1.3/src/apps/sntp/sntp.c b/components/net/lwip-2.1.3/src/apps/sntp/sntp.c
+index c034c3f..098f62c 100644
+--- a/components/net/lwip-2.1.3/src/apps/sntp/sntp.c
++++ b/components/net/lwip-2.1.3/src/apps/sntp/sntp.c
+@@ -281,6 +281,8 @@ sntp_format_time(s32_t sec)
+ }
+ #endif /* LWIP_DEBUG && !sntp_format_time */
+ 
++static uint32_t ntp_sec, ntp_frag, time_obtained;
++
+ /**
+  * SNTP processing of received timestamp
+  */
+@@ -329,6 +331,11 @@ sntp_process(const struct sntp_timestamps *timestamps)
+ #endif /* SNTP_COMP_ROUNDTRIP */
+ 
+   SNTP_SET_SYSTEM_TIME_NTP(sec, frac);
++  taskENTER_CRITICAL();
++  ntp_sec = sec + DIFF_SEC_1970_2036;
++  ntp_frag = frac;
++  time_obtained = xTaskGetTickCount();
++  taskEXIT_CRITICAL();
+   LWIP_UNUSED_ARG(frac); /* might be unused if only seconds are set */
+   LWIP_DEBUGF(SNTP_DEBUG_TRACE, ("sntp_process: %s, %" U32_F " us\n",
+                                  sntp_format_time(sec), SNTP_FRAC_TO_US(frac)));
+@@ -872,6 +879,33 @@ sntp_getserver(u8_t idx)
+   return IP_ADDR_ANY;
+ }
+ 
++int sntp_get_time(uint32_t *seconds, uint32_t *frags)
++{
++    uint32_t seconds_now, frags_now;
++    int ms_diff;
++
++    taskENTER_CRITICAL();
++
++    if (0 == ntp_sec) {
++        *seconds = 0;
++        *frags = 0;
++    } else {
++        ms_diff = ((int32_t)xTaskGetTickCount()) - ((int32_t)time_obtained);
++
++        seconds_now = ntp_sec;
++        frags_now = ntp_frag / 1000;
++
++        seconds_now += (ms_diff / 1000);
++        frags_now += (ms_diff % 1000);
++
++        *seconds = seconds_now;
++        *frags = frags_now;
++    }
++
++    taskEXIT_CRITICAL();
++    return 0;
++}
++
+ #if SNTP_SERVER_DNS
+ /**
+  * Initialize one of the NTP servers by name
