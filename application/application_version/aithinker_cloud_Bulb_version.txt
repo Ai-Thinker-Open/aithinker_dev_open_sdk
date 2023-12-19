@@ -1,0 +1,4 @@
+name:aithinker_cloud_Bulb
+branch:master
+commit:ae19401382a39f257d5c53ac3e70fc9535c07688
+repository:https://e.coding.net/axk/c-hi-obj/aithinker_cloud_Bulb.git
