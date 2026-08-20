@@ -2,6 +2,8 @@
 
 # Ai-Thinker Unified Development SDK
 
+## Overview
+
 This repository provides a common application-development layer for multiple Ai-Thinker module platforms. It keeps application code under `application/`, abstracts chip and RTOS differences under `adt/`, and delegates final firmware generation to the selected vendor SDK under `os/`.
 
 The top-level build integration currently contains adapters for BL602, BL616, BL618, and LN882H. Other vendor-named directories may exist in individual applications, but their presence alone does not mean that the top-level build supports or validates them.
