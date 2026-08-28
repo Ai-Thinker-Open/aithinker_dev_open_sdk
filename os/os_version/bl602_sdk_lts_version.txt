@@ -1,0 +1,4 @@
+name:bl602_sdk_lts/sdk/bl_iot_sdk
+branch:main
+commit:ec3dc3dbb170efd3f5f2b25d9e016fbc7d379933
+repository:https://github.com/Ai-Thinker-Open/Ai-Thinker-WB2.git

@@ -1,0 +1,41 @@
+menu "application"
+
+menuconfig BSP_USING_PERIPHERAL
+    bool "Enable peripheral"
+    default y
+    if BSP_USING_PERIPHERAL
+        config BSP_USING_CONFIG
+            bool "Use menuconfig to generate the configuration"
+            default y
+    endif
+    if BSP_USING_PERIPHERAL
+        config TEST_INOUT_GPIO
+            string "gpio in-out function"
+            default AIIO_GPIO_NUM_4
+            depends on BSP_USING_CONFIG
+            help 
+            test gpio function
+        config TEST_PORT_INOUT
+            string "gpio in-out port"
+            default AIIO_GPIO_B
+            depends on BSP_USING_CONFIG
+            help 
+            test gpio port function
+    endif
+    if BSP_USING_PERIPHERAL
+        config TEST_OUT_GPIO
+            string "gpio out function"
+            default AIIO_GPIO_NUM_5
+            depends on BSP_USING_CONFIG
+            help 
+            test gpio function
+        config TEST_PORT_OUT
+            string "gpio out port"
+            default AIIO_GPIO_B
+            depends on BSP_USING_CONFIG
+            help 
+            test gpio port function
+    endif
+
+endmenu
+

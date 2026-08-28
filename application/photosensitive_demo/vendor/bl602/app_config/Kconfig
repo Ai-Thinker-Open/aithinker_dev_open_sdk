@@ -1,0 +1,93 @@
+menu "application"
+menu "adc_demo"
+menu "AIIO_ADC_CFG"
+choice ADC_CHANNEL
+   	bool "ADC_CHANNEL"
+   	default AIIO_ADC_CH4
+config AIIO_ADC_CH0
+   	bool "AIIO_ADC_CH0"
+config AIIO_ADC_CH1
+   	bool "AIIO_ADC_CH1"
+config AIIO_ADC_CH2
+   	bool "AIIO_ADC_CH2"
+config AIIO_ADC_CH3
+   	bool "AIIO_ADC_CH3"
+config AIIO_ADC_CH4
+   	bool "AIIO_ADC_CH4"
+config AIIO_ADC_CH5
+   	bool "AIIO_ADC_CH5"
+config AIIO_ADC_CH6
+   	bool "AIIO_ADC_CH6"
+config AIIO_ADC_CH7
+   	bool "AIIO_ADC_CH7"
+endchoice
+config ADC_CHANNEL
+    	int
+    	default 0 if AIIO_ADC_CH0
+    	default 1 if AIIO_ADC_CH1
+    	default 2 if AIIO_ADC_CH2
+    	default 3 if AIIO_ADC_CH3
+    	default 4 if AIIO_ADC_CH4
+    	default 5 if AIIO_ADC_CH5
+    	default 6 if AIIO_ADC_CH6
+        default 7 if AIIO_ADC_CH7
+        
+choice ADC_MODE
+   	bool "ADC_MODE"
+   	default AIIO_ADC_CONTIUE
+config AIIO_ADC_CONTIUE
+   	bool "AIIO_ADC_CONTIUE"
+config AIIO_ADC_ONE_SHOT
+   	bool "AIIO_ADC_ONE_SHOT"
+endchoice
+config ADC_MODE
+    	int
+    	default 1     if AIIO_ADC_CONTIUE
+    	default 0     if AIIO_ADC_ONE_SHOT
+
+choice ADC_RESOLUTION
+   	bool "ADC_RESOLUTION"
+   	default AIIO_ADC_RESOLUTION_12
+config AIIO_ADC_RESOLUTION_8
+   	bool "AIIO_ADC_RESOLUTION_8"
+config AIIO_ADC_RESOLUTION_9
+   	bool "AIIO_ADC_RESOLUTION_9"
+config AIIO_ADC_RESOLUTION_10
+   	bool "AIIO_ADC_RESOLUTION_10"
+config AIIO_ADC_RESOLUTION_11
+   	bool "AIIO_ADC_RESOLUTION_11"
+config AIIO_ADC_RESOLUTION_12
+   	bool "AIIO_ADC_RESOLUTION_12"
+endchoice
+config ADC_RESOLUTION
+    	int
+    	default 0 if AIIO_ADC_RESOLUTION_8
+    	default 1 if AIIO_ADC_RESOLUTION_9
+    	default 2 if AIIO_ADC_RESOLUTION_10
+    	default 3 if AIIO_ADC_RESOLUTION_11
+    	default 4 if AIIO_ADC_RESOLUTION_12
+
+choice ADC_VREF
+   	bool "ADC_VREF"
+   	default AIIO_ADC_VREF_1_0_5_V
+config AIIO_ADC_VREF_0_8_V
+   	bool "AIIO_ADC_VREF_0_8_V"
+config AIIO_ADC_VREF_0_8_5_V
+   	bool "AIIO_ADC_VREF_0_8_5_V"
+config AIIO_ADC_VREF_0_9_5_V
+   	bool "AIIO_ADC_VREF_0_9_5_V"
+config AIIO_ADC_VREF_1_0_5_V
+   	bool "AIIO_ADC_VREF_1_0_5_V"
+config AIIO_ADC_VREF_VCC
+   	bool "AIIO_ADC_VREF_VCC"
+endchoice
+config ADC_VREF
+    	int
+    	default 0 if AIIO_ADC_VREF_0_8_V
+    	default 1 if AIIO_ADC_VREF_0_8_5_V
+    	default 2 if AIIO_ADC_VREF_0_9_5_V
+    	default 3 if AIIO_ADC_VREF_1_0_5_V
+    	default 255 if AIIO_ADC_VREF_VCC
+endmenu
+endmenu
+endmenu

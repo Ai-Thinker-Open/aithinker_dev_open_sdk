@@ -1,0 +1,6 @@
+menu "application"
+    config FLASH_RW_START_ADDR
+            hex "Flash rw start addr"
+            default 0x2C2000
+endmenu
+

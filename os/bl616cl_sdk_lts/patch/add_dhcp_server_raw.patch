@@ -1,0 +1,32 @@
+diff --git a/components/net/lwip/lwip/src/apps/dhcpd/dhcp_server_raw.c b/components/net/lwip/lwip/src/apps/dhcpd/dhcp_server_raw.c
+index ccb13ecf..9693faef 100644
+--- a/components/net/lwip/lwip/src/apps/dhcpd/dhcp_server_raw.c
++++ b/components/net/lwip/lwip/src/apps/dhcpd/dhcp_server_raw.c
+@@ -11,6 +11,9 @@
+ #include <dhcp_server.h>
+ #include <lwip/netifapi.h>
+ #include <lwip/tcpip.h>
++#include "wifi_mgmr_ext.h"
++#include "wifi_mgmr.h"
++#include "platform_al.h"
+ 
+ #define DHCPD_MAX_DNS_SERVER_NUM    2
+ 
+@@ -95,6 +98,8 @@ static u8_t *dhcp_server_option_find(u8_t *buf, u16_t len, u8_t option);
+ */
+ static struct dhcp_server *lw_dhcp_server;
+ 
++struct dhcp_client_node *g_aiio_node;
++
+ /**
+ * Find a dhcp client node by mac address
+ *
+@@ -537,6 +542,8 @@ dhcp_server_recv(void *arg, struct udp_pcb *pcb, struct pbuf *p, const ip_addr_t
+ 
+                         ip_2_ip4(&addr)->addr = INADDR_BROADCAST;
+                         udp_sendto_if(pcb, q, &addr, port, dhcp_server->netif);
++                        g_aiio_node = node;
++                        platform_post_event(EV_WIFI, CODE_WIFI_ON_AP_STA_GOT_IP, node);
+                     }
+                     else
+                     {

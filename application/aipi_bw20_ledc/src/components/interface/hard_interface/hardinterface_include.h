@@ -1,0 +1,6 @@
+#ifndef __HARDINTERFACE_INCLUDE_H_
+#define __HARDINTERFACE_INCLUDE_H_
+
+
+
+#endif

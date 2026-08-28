@@ -1,0 +1,12 @@
+diff --git a/components/wireless/wifi6/fhost/include/wifi_mgmr_ext.h b/components/wireless/wifi6/fhost/include/wifi_mgmr_ext.h
+index dfc80d16..25e4c015 100644
+--- a/components/wireless/wifi6/fhost/include/wifi_mgmr_ext.h
++++ b/components/wireless/wifi6/fhost/include/wifi_mgmr_ext.h
+@@ -49,6 +49,7 @@
+ #define  CODE_WIFI_ON_LOST_IP           26
+ #define  CODE_WIFI_ON_LOST_IP6          27
+ #define  CODE_WIFI_ON_GOT_IP_TIMEOUT    28
+ #define  CODE_WIFI_ON_GOT_IP_ABORT      29
++#define  CODE_WIFI_ON_AP_STA_GOT_IP     30
+ #define  CODE_WIFI_ON_SCAN_DONE_CONNECTING  31
+ #define  CODE_WIFI_ON_PARAMS_ERROR      32

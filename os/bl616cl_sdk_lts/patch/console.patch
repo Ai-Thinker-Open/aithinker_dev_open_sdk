@@ -1,0 +1,13 @@
+diff --git a/bsp/board/bl616cldk/board.c b/bsp/board/bl616cldk/board.c
+index 461b6f85..40bc1ab7 100644
+--- a/bsp/board/bl616cldk/board.c
++++ b/bsp/board/bl616cldk/board.c
+@@ -283,7 +283,7 @@ static void console_init()
+     uart0 = bflb_device_get_by_name("uart0");
+ 
+     bflb_uart_init(uart0, &cfg);
+-    bflb_uart_set_console(uart0);
++    // bflb_uart_set_console(uart0);
+ #endif
+ }
+ 

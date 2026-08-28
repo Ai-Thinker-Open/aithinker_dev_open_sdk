@@ -1,0 +1,78 @@
+diff --git a/components/wireless/wifi6/fhost/include/net_al.h b/components/wireless/wifi6/fhost/include/net_al.h
+index ee47fb4a..68c3bb8b 100644
+--- a/components/wireless/wifi6/fhost/include/net_al.h
++++ b/components/wireless/wifi6/fhost/include/net_al.h
+@@ -74,6 +74,7 @@
+ #include <stdint.h>
+ #include <stdbool.h>
+ #include "net_def.h"
++#include "fhost_api.h"
+ 
+ // abstract layer
+ typedef void *  net_al_if_t;
+@@ -163,6 +164,17 @@ net_al_if_t net_if_find_from_name(const char *name);
+  */
+ int net_if_get_name(net_al_if_t net_if, char *buf, int len);
+ 
++/**
++ ****************************************************************************************
++ * @brief Set hostname of network interface
++ *
++ * @param[in] hostname Buffer to the interface hostname
++ ****************************************************************************************
++ */
++#if LWIP_NETIF_HOSTNAME
++int net_set_hostname(const char *hostname);
++#endif
++
+ /**
+  ****************************************************************************************
+  * @brief Indicate that the network interface is now up (i.e. able to do traffic)
+diff --git a/components/wireless/wifi6/wifi6_lwip_adapter/net_al.c b/components/wireless/wifi6/wifi6_lwip_adapter/net_al.c
+index 0954d619..65af0e04 100644
+--- a/components/wireless/wifi6/wifi6_lwip_adapter/net_al.c
++++ b/components/wireless/wifi6/wifi6_lwip_adapter/net_al.c
+@@ -240,6 +240,27 @@ static err_t net_if_linkoutput(struct netif *net_if, struct pbuf *p_buf)
+ /* CONFIG_MAT */
+ #endif
+ 
++#if LWIP_NETIF_HOSTNAME
++#include "wifi_mgmr_ext.h"
++typedef struct host_name
++{
++    #define MAX_HOSTNAME_LEN_CHECK 32
++
++    bool flag_usrhostname;
++    char hostname[MAX_HOSTNAME_LEN_CHECK];
++}host_name_t;
++
++host_name_t axk_host_name;
++
++int net_set_hostname(const char *hostname)
++{
++    axk_host_name.flag_usrhostname = true;
++    snprintf(axk_host_name.hostname, MAX_HOSTNAME_LEN_CHECK, "%s", hostname);
++    axk_host_name.hostname[MAX_HOSTNAME_LEN_CHECK - 1] = '\0';
++    return 0;
++}
++#endif
++
+ /**
+  ****************************************************************************************
+  * @brief Callback used by the networking stack to setup the network interface.
+@@ -258,7 +279,14 @@ static err_t net_if_init(struct netif *net_if)
+     #if LWIP_NETIF_HOSTNAME
+     {
+         /* Initialize interface hostname */
+-        net_if->hostname = "wlan";
++        // net_if->hostname = "wlan";
++        if (!axk_host_name.flag_usrhostname) {
++            uint8_t mac[6];
++            wifi_mgmr_sta_mac_get(mac);
++            snprintf(axk_host_name.hostname, MAX_HOSTNAME_LEN_CHECK, "BL%s_%02x%02x%02x", "616CL", mac[3], mac[4], mac[5]);
++            axk_host_name.hostname[MAX_HOSTNAME_LEN_CHECK - 1] = '\0';
++        }
++        net_if->hostname = axk_host_name.hostname;
+     }
+     #endif /* LWIP_NETIF_HOSTNAME */
+ 

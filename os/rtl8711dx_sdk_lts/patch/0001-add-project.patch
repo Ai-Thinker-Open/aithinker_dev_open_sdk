@@ -1,0 +1,56 @@
+diff --git a/amebadplus_gcc_project/project_km4/src/CMakeLists.txt b/amebadplus_gcc_project/project_km4/src/CMakeLists.txt
+index b2f907cb3..4d5a6c2d8 100644
+--- a/amebadplus_gcc_project/project_km4/src/CMakeLists.txt
++++ b/amebadplus_gcc_project/project_km4/src/CMakeLists.txt
+@@ -10,7 +10,7 @@ set(public_libraries)               #public libraries(files), NOTE: linked with
+ # Component public part, user config begin
+ 
+ # You may use if-else condition to set or update predefined variable above
+-
++ameba_list_append(public_libraries ${c_SDK_LIB_APPLICATION_DIR}/libdev_rtl8711dn.a)
+ # Component public part, user config end
+ #----------------------------------------#
+ 
+@@ -37,7 +37,41 @@ set(private_compile_options)         #private compile_options
+ #------------------------------#
+ # Component private part, user config begin
+ 
+-ameba_list_append(private_sources main.c)
++#ameba_list_append(private_sources main.c)
++file(GLOB PRIVATE_C_FILES "dev_project/src/*.c")
++ameba_list_append(private_sources ${PRIVATE_C_FILES})
++ameba_list_append(private_includes dev_project/src/)
++ameba_list_append(private_compile_options
++    -Wno-unused-parameter
++    -Wno-incompatible-pointer-types
++    -Wno-format
++    -Wno-strict-prototypes
++    -Wno-pointer-arith
++    -Wno-int-to-pointer-cast
++    -Wno-sign-compare
++    -Wno-unused-variable
++    -Wno-undef
++    -Wno-discarded-qualifiers
++    -Wno-unused-function
++    -Wno-int-conversion
++    -Wno-unused-but-set-variable
++    -Wno-implicit-fallthrough
++    -Wno-type-limits
++    -Wno-address-of-packed-member
++    -Wno-implicit-function-declaration
++    -Wno-pointer-to-int-cast
++    -Wno-enum-conversion
++    -Wno-pointer-sign
++    -Wno-switch
++    -Wno-main
++    -Wno-return-type
++    -Wno-missing-field-initializers
++    -Wno-parentheses
++    -Wno-old-style-declaration
++    -Wno-attribute-alias
++    -Wno-error)
++# for netdb.h
++ameba_list_append(private_includes ${c_BASEDIR}/component/lwip/lwip_v2.1.2/src/include/lwip)
+ 
+ # Component private part, user config end
+ #------------------------------#

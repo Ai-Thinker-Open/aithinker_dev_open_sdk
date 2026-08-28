@@ -1,0 +1,32 @@
+menu "application"
+    config AT_WIFI_CMD_ENABLE
+        bool "ENABLE AT WIFI"
+        default y
+    config AT_BLE_CMD_ENABLE
+        bool "ENABLE AT BLE"
+        default y
+    config AT_HTTP_CMD_ENABLE
+        bool "ENABLE AT HTTP"
+        default y
+    config AT_MQTT_CMD_ENABLE
+        bool "ENABLE AT MQTT"
+        default y
+    config AT_SOCKET_CMD_ENABLE
+        bool "ENABLE AT SOCKET"
+        default y
+
+    choice RADAR_CMD_MODE
+        bool "Radar CMD Mode config"
+        default CMD_RADAR_MODE
+
+    config CMD_RADAR_MODE
+        bool "RADAR_MODE"
+    config CMD_AT_MODE
+        bool "AT_MODE"
+    endchoice
+
+    config RADAR_CMD_MODE
+        int
+        default 0 	if CMD_RADAR_MODE
+        default 1 	if CMD_AT_MODE
+endmenu

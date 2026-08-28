@@ -1,0 +1,118 @@
+diff --git a/components/network/ble/blestack/src/port/include/config.h b/components/network/ble/blestack/src/port/include/config.h
+index ad94b20a..e47a6737 100644
+--- a/components/network/ble/blestack/src/port/include/config.h
++++ b/components/network/ble/blestack/src/port/include/config.h
+@@ -63,7 +63,8 @@
+ #if defined(CONFIG_BT_MESH)
+ #define CONFIG_BT_CO_STACK_SIZE  3072//2048//1536//1024
+ #else
+-#define CONFIG_BT_CO_STACK_SIZE  2048//2048//1536//1024
++// #define CONFIG_BT_CO_STACK_SIZE  2048//2048//1536//1024
++#define CONFIG_BT_CO_STACK_SIZE  3072
+ #endif
+ #endif
+ 
+@@ -368,13 +369,13 @@
+ #define CONFIG_BT_DEVICE_NAME "AUTO_PTS_TEST0123456789012345"
+ #else
+ #if defined(BL602)
+-#define CONFIG_BT_DEVICE_NAME "BL602-BLE-DEV"
++#define CONFIG_BT_DEVICE_NAME "BLUFI_DEVICE"
+ #elif defined(BL702)
+ #define CONFIG_BT_DEVICE_NAME "BL702-BLE-DEV"
+ #elif defined(BL702L)
+ #define CONFIG_BT_DEVICE_NAME "BL702L-BLE-DEV"
+ #else
+-#define CONFIG_BT_DEVICE_NAME "BTBLE-DEV"
++#define CONFIG_BT_DEVICE_NAME "BLUFI_DEVICE"
+ #endif
+ #endif
+ #endif
+@@ -383,7 +384,7 @@
+ */
+ #ifndef CONFIG_BT_CONTROLLER_NAME
+ #if defined(BL602)
+-#define CONFIG_BT_CONTROLLER_NAME "BL602-BLE-DEV"
++#define CONFIG_BT_CONTROLLER_NAME "BLUFI_DEVICE"
+ #else
+ #define CONFIG_BT_CONTROLLER_NAME "BL702-BLE-DEV"
+ #endif
+diff --git a/components/network/wifi_manager/bl60x_wifi_driver/wifi_mgmr_ext.c b/components/network/wifi_manager/bl60x_wifi_driver/wifi_mgmr_ext.c
+index e05c567b..adff0f91 100644
+--- a/components/network/wifi_manager/bl60x_wifi_driver/wifi_mgmr_ext.c
++++ b/components/network/wifi_manager/bl60x_wifi_driver/wifi_mgmr_ext.c
+@@ -899,7 +899,7 @@ int wifi_mgmr_scan(void *data, scan_complete_cb_t cb)
+     scan_params.scan_mode = SCAN_ACTIVE;
+     /*if 0, use default scan time in fw,
+      * unit:us*/
+-    scan_params.duration_scan = 0;
++    scan_params.duration_scan = 500000;
+ 
+     wifi_mgmr_api_fw_scan(scan_params);
+ 
+diff --git a/components/platform/soc/bl602/bl602/bfl_main.c b/components/platform/soc/bl602/bl602/bfl_main.c
+index 979a36af..da40c473 100755
+--- a/components/platform/soc/bl602/bl602/bfl_main.c
++++ b/components/platform/soc/bl602/bl602/bfl_main.c
+@@ -36,12 +36,19 @@
+ #endif
+ 
+ #ifdef CUSTOM_LOG_IO
+-HOSAL_UART_DEV_DECL(uart_stdio, 0, CUSTOM_LOG_TX_IO, CUSTOM_LOG_RX_IO, CUSTOM_LOG_RX_BAUD);
++// HOSAL_UART_DEV_DECL(uart_stdio, 0, CUSTOM_LOG_TX_IO, CUSTOM_LOG_RX_IO, CUSTOM_LOG_RX_BAUD);
+ #else
+-HOSAL_UART_DEV_DECL(uart_stdio, 0, 16, 7, 2000000);
++// HOSAL_UART_DEV_DECL(uart_stdio, 0, 16, 7, 2000000);
+ // HOSAL_UART_DEV_DECL(uart_stdio, 0, 4, 0xff, 921600);
+ #endif
+ 
++#include "aiio_adapter_include.h"
++#if (CONFIG_LOG_UART == __AIIO_UART0)
++    HOSAL_UART_DEV_DECL(uart_stdio, __AIIO_UART0, AIIO_UART0_TX, AIIO_UART0_RX, CONFIG_LOG_BAUDRATE);
++#elif (CONFIG_LOG_UART == __AIIO_UART1)
++    HOSAL_UART_DEV_DECL(uart_stdio, __AIIO_UART1, AIIO_UART1_TX, AIIO_UART1_RX, CONFIG_LOG_BAUDRATE);
++#endif
++
+ extern uint8_t _heap_start;
+ extern uint8_t _heap_size; // @suppress("Type cannot be resolved")
+ extern uint8_t _heap_wifi_start;
+diff --git a/components/platform/soc/bl602/bl602/evb/src/debug.c b/components/platform/soc/bl602/bl602/evb/src/debug.c
+index f88867bc..0c4be929 100755
+--- a/components/platform/soc/bl602/bl602/evb/src/debug.c
++++ b/components/platform/soc/bl602/bl602/evb/src/debug.c
+@@ -5,6 +5,8 @@
+ #include <stdarg.h>
+ #include <limits.h>
+ 
++#include "aiio_autoconf.h"
++
+ //#define CHAR_BIT	8
+ //FIXME no ugly declare
+ extern int bl_uart_data_send(uint8_t id, uint8_t data);
+@@ -830,7 +832,7 @@ void vprint(const char *fmt, va_list argp)
+         if (0 < vsprintf(string, fmt, argp)) {
+             while ('\0' != (ch = *(str++))) {
+ #if !defined(DISABLE_PRINT)
+-                bl_uart_data_send(0, ch);
++                bl_uart_data_send(CONFIG_LOG_UART, ch);
+ #endif
+             }
+         }
+@@ -840,7 +842,7 @@ void vprint(const char *fmt, va_list argp)
+ int bl_putchar(int c)
+ {
+ #if !defined(DISABLE_PRINT)
+-    bl_uart_data_send(0, c);
++    bl_uart_data_send(CONFIG_LOG_UART, c);
+ #endif
+     return 0;
+ }
+@@ -853,7 +855,7 @@ int puts(const char *s)
+     if (sys_log_all_enable) {
+         while ('\0' != (c = *(s++))) {
+ #if !defined(DISABLE_PRINT)
+-            bl_uart_data_send(0, c);
++            bl_uart_data_send(CONFIG_LOG_UART, c);
+ #endif
+             counter++;
+         }

@@ -1,0 +1,5 @@
+menu "os"
+menu "bl616_iot sdk"
+
+endmenu
+endmenu

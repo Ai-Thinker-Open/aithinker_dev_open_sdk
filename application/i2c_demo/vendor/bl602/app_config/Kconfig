@@ -1,0 +1,163 @@
+menu "application"
+menu "i2c_demo"
+menu "AIIO_I2C_PIN_CFG"
+choice I2C_SCL_PORT
+   	bool "aiio_gpio_scl_port"
+   	default I2C_SCL_PORTB
+config I2C_SCL_PORTA
+   	bool "AIIO_GPIO_A"
+config I2C_SCL_PORTB
+   	bool "AIIO_GPIO_B"
+endchoice
+config I2C_SCL_PORT
+    	int
+    	default 0 if I2C_SCL_PORTA
+    	default 1 if I2C_SCL_PORTB
+choice I2C_SCL_PIN
+   	bool "aiio_gpio_scl_pin"
+   	default I2C_SCL_PIN4
+config I2C_SCL_PIN0
+   	bool "AIIO_GPIO_NUM_0"
+config I2C_SCL_PIN1
+   	bool "AIIO_GPIO_NUM_1"
+config I2C_SCL_PIN2
+   	bool "AIIO_GPIO_NUM_2"
+config I2C_SCL_PIN3
+   	bool "AIIO_GPIO_NUM_3"
+config I2C_SCL_PIN4
+   	bool "AIIO_GPIO_NUM_4"
+config I2C_SCL_PIN5
+   	bool "AIIO_GPIO_NUM_5"
+config I2C_SCL_PIN6
+   	bool "AIIO_GPIO_NUM_6"
+config I2C_SCL_PIN7
+   	bool "AIIO_GPIO_NUM_7"
+config I2C_SCL_PIN8
+   	bool "AIIO_GPIO_NUM_8"
+config I2C_SCL_PIN9
+   	bool "AIIO_GPIO_NUM_9"
+config I2C_SCL_PIN10
+   	bool "AIIO_GPIO_NUM_10"
+config I2C_SCL_PIN11
+   	bool "AIIO_GPIO_NUM_11"
+config I2C_SCL_PIN12
+   	bool "AIIO_GPIO_NUM_12"
+config I2C_SCL_PIN13
+   	bool "AIIO_GPIO_NUM_13"
+config I2C_SCL_PIN14
+   	bool "AIIO_GPIO_NUM_14"
+config I2C_SCL_PIN15
+   	bool "AIIO_GPIO_NUM_15"
+config I2C_SCL_PIN16
+   	bool "AIIO_GPIO_NUM_16"
+config I2C_SCL_PIN17
+   	bool "AIIO_GPIO_NUM_17"
+endchoice
+config I2C_SCL_PIN
+    	int
+    	default 0 if I2C_SCL_PIN0
+    	default 1 if I2C_SCL_PIN1
+        default 2 if I2C_SCL_PIN2
+        default 3 if I2C_SCL_PIN3
+        default 4 if I2C_SCL_PIN4
+        default 5 if I2C_SCL_PIN5
+        default 6 if I2C_SCL_PIN6
+        default 7 if I2C_SCL_PIN7
+    	default 8 if I2C_SCL_PIN8
+    	default 9 if I2C_SCL_PIN9
+        default 10 if I2C_SCL_PIN10
+        default 11 if I2C_SCL_PIN11
+        default 12 if I2C_SCL_PIN12
+        default 13 if I2C_SCL_PIN13
+        default 14 if I2C_SCL_PIN14
+        default 15 if I2C_SCL_PIN15
+        default 16 if I2C_SCL_PIN16
+        default 17 if I2C_SCL_PIN17
+choice I2C_SDA_PORT
+   	bool "aiio_gpio_sda_port"
+   	default I2C_SDA_PORTB
+config I2C_SDA_PORTA
+   	bool "AIIO_GPIO_A"
+config I2C_SDA_PORTB
+   	bool "AIIO_GPIO_B"
+endchoice
+config I2C_SDA_PORT
+    	int
+    	default 0 if I2C_SDA_PORTA
+    	default 1 if I2C_SDA_PORTB
+choice I2C_SDA_PIN
+   	bool "aiio_gpio_sda_pin"
+   	default I2C_SDA_PIN17
+config I2C_SDA_PIN0
+   	bool "AIIO_GPIO_NUM_0"
+config I2C_SDA_PIN1
+   	bool "AIIO_GPIO_NUM_1"
+config I2C_SDA_PIN2
+   	bool "AIIO_GPIO_NUM_2"
+config I2C_SDA_PIN3
+   	bool "AIIO_GPIO_NUM_3"
+config I2C_SDA_PIN4
+   	bool "AIIO_GPIO_NUM_4"
+config I2C_SDA_PIN5
+   	bool "AIIO_GPIO_NUM_5"
+config I2C_SDA_PIN6
+   	bool "AIIO_GPIO_NUM_6"
+config I2C_SDA_PIN7
+   	bool "AIIO_GPIO_NUM_7"
+config I2C_SDA_PIN8
+   	bool "AIIO_GPIO_NUM_8"
+config I2C_SDA_PIN9
+   	bool "AIIO_GPIO_NUM_9"
+config I2C_SDA_PIN10
+   	bool "AIIO_GPIO_NUM_10"
+config I2C_SDA_PIN11
+   	bool "AIIO_GPIO_NUM_11"
+config I2C_SDA_PIN12
+   	bool "AIIO_GPIO_NUM_12"
+config I2C_SDA_PIN13
+   	bool "AIIO_GPIO_NUM_13"
+config I2C_SDA_PIN14
+   	bool "AIIO_GPIO_NUM_14"
+config I2C_SDA_PIN15
+   	bool "AIIO_GPIO_NUM_15"
+config I2C_SDA_PIN16
+   	bool "AIIO_GPIO_NUM_16"
+config I2C_SDA_PIN17
+   	bool "AIIO_GPIO_NUM_17"
+endchoice
+config I2C_SDA_PIN
+    	int
+    	default 0 if I2C_SDA_PIN0
+    	default 1 if I2C_SDA_PIN1
+        default 2 if I2C_SDA_PIN2
+        default 3 if I2C_SDA_PIN3
+        default 4 if I2C_SDA_PIN4
+        default 5 if I2C_SDA_PIN5
+        default 6 if I2C_SDA_PIN6
+        default 7 if I2C_SDA_PIN7
+    	default 8 if I2C_SDA_PIN8
+    	default 9 if I2C_SDA_PIN9
+        default 10 if I2C_SDA_PIN10
+        default 11 if I2C_SDA_PIN11
+        default 12 if I2C_SDA_PIN12
+        default 13 if I2C_SDA_PIN13
+        default 14 if I2C_SDA_PIN14
+        default 15 if I2C_SDA_PIN15
+        default 16 if I2C_SDA_PIN16
+        default 17 if I2C_SDA_PIN17
+choice I2C_PERIOD
+   	bool "aiio_i2c_period"
+   	default I2C_PERIOD_100000
+config I2C_PERIOD_100000
+   	bool "100000"
+config I2C_PERIOD_400000
+   	bool "400000"
+endchoice
+config I2C_PERIOD
+    	int
+        default 100000 if I2C_PERIOD_100000
+    	default 400000 if I2C_PERIOD_400000
+endmenu
+endmenu
+endmenu
+

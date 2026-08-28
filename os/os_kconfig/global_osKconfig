@@ -1,0 +1,11 @@
+menu "project config"                                    
+
+        config DIRECTORY_NAME                        	
+            string  "DIRECTORY_NAME"                  	
+            default "app"
+            
+       	config MAIN_ENTRY_FUNC                        	
+            string  "MAIN_ENTRY_FUNC"                  	
+            default "main"         			
+endmenu                                                 	
+

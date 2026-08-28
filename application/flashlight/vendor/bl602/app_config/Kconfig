@@ -1,0 +1,73 @@
+menu "application"
+    menu "wifi config"
+        config AXK_WIFI_MAX_STA_CONN
+            int "Maximal STA connections"
+            default 2
+            help
+                Max number of the STA connects to AP.
+
+        config AXK_WIFI_AP_SSID
+            string "WiFi AP SSID"
+            default "\"flashlight\""
+
+        config AXK_WIFI_AP_PASS
+            string "WiFi AP PASSWORD"
+            default "\"12345678\""
+
+        config AXK_WIFI_AP_CHANNEL
+            int "WIFI AP CHANNEL"
+            range 1 13
+            default 1
+
+        config AXK_WIFI_SSID_HIDDEN_ENABLE
+            bool "SSID HIDDEN ENABLE"
+            default n            
+
+        config AXK_WIFI_AP_IP
+            string "SET WiFi AP IP"
+            default "\"192.168.100.1\""
+    endmenu
+    menu "mqtt config"
+        config AXK_MQTT_URI
+            string "MQTT URI"
+            default "\"mqtt://120.77.179.113:1883\""
+
+        config AXK_MQTT_HOST
+            string "MQTT HOST"
+            default "\"mqtt://120.77.179.113\""
+
+        config AXK_MQTT_PORT
+            int "MQTT PORT"
+            default 1883
+
+        config AXK_MQTT_USERNAME
+            string "WiFi MQTT USERNAME"
+            default "\"admin\""
+
+        config AXK_MQTT_PASSWORD
+            string "WiFi MQTT PASSWORD"
+            default "\"public\""
+
+        config AXK_MQTT_CLIENTID
+            string "WiFi MQTT CLIENT ID"
+            default "\"provider-id\""
+
+        config AXK_MQTT_USER_TOPIC
+            string "WiFi MQTT USER TOPIC"
+            default "\"flashlightTopic\""
+    endmenu
+    menu "at config"
+        config AXK_AT_ECHO
+            bool "AT ECHO ENABLE"
+            default y
+        config AXK_AT_UART_BAUD
+            int "AT UART BAUD"
+            default 1000000
+    endmenu
+    menu "auto sleep config"
+        config AXK_AUTO_SLEEP
+            bool "AUTO SLEEP ENABLE"
+            default y
+    endmenu
+endmenu
+

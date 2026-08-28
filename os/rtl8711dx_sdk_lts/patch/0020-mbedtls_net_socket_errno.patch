@@ -1,0 +1,13 @@
+diff --git a/component/ssl/mbedtls-3.6.2/library/net_sockets.c b/component/ssl/mbedtls-3.6.2/library/net_sockets.c
+index 82b7b87ec..a99cd3e51 100644
+--- a/component/ssl/mbedtls-3.6.2/library/net_sockets.c
++++ b/component/ssl/mbedtls-3.6.2/library/net_sockets.c
+@@ -72,7 +72,7 @@ static int wsa_init_done = 0;
+ #if LWIP_DNS
+ #include "lwip/netdb.h"
+ #endif
+-#include <errno.h>
++#include "lwip/errno.h"
+ 
+ #define net_htons(n) htons(n)
+ #define net_htonl(n) htonl(n)

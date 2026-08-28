@@ -1,0 +1,15 @@
+#更新sdk app version(用于OTA升级识别的版本号，高版本会优先启动)
+
+diff --git a/amebadplus_gcc_project/manifest.json5 b/amebadplus_gcc_project/manifest.json5
+index 89fcf7c19..a093a7dba 100644
+--- a/amebadplus_gcc_project/manifest.json5
++++ b/amebadplus_gcc_project/manifest.json5
+@@ -26,7 +26,7 @@
+   image2: {
+     img_id: 1,
+     img_ver_major: 1,
+-    img_ver_minor: 1,
++    img_ver_minor: 6,
+     huk_epoch: 1,
+     rsip_iv: "213253647586a7b8",
+     sboot_private_key: "9FC60C4CB6162E49C54FB94511497E16F5EB605167836F15DECBB8363B18E243",

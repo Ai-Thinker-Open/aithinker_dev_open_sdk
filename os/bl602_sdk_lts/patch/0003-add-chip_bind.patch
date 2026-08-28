@@ -1,0 +1,17 @@
+diff --git a/components/utils/bouffalo.mk b/components/utils/bouffalo.mk
+index 66ec51a7..fb1b4493 100755
+--- a/components/utils/bouffalo.mk
++++ b/components/utils/bouffalo.mk
+@@ -94,6 +94,12 @@ COMPONENT_OBJS := $(patsubst %.c,%.o, $(COMPONENT_SRCS))
+ COMPONENT_SRCDIRS := src src/test
+ 
+ 
++# COMPONENT_LIB_ONLY := 1
++LIBS ?= chip_bind
++COMPONENT_ADD_LDFLAGS += -L$(COMPONENT_PATH) $(addprefix -l,$(LIBS))
++ALL_LIB_FILES := $(patsubst %,$(COMPONENT_PATH)/lib%.a,$(LIBS))
++COMPONENT_ADD_LINKER_DEPS := $(ALL_LIB_FILES)
++
+ ##
+ #CPPFLAGS +=
+ ifeq ($(CONFIG_UTIL_BASE64_ENABLE),1)

@@ -1,0 +1,22 @@
+menu "application"
+
+    config AXK_WIFI_STA_SSID
+        string "WiFi Connect SSID"
+        default "\"myssid\""
+        help
+            SSID (network name) for the example to connect to.
+
+    config AXK_WIFI_STA_PASS
+        string "WiFi Connect Password"
+        default "\"mypassword\""
+        help
+            WiFi password (WPA or WPA2) for the example to use.
+    config AXK_WIFI_STA_CHANNEL
+        int "WiFi Connect Channel"
+        range 1 13
+        default 1
+        help
+            WiFi channel (network channel) for the example to use.
+
+endmenu
+

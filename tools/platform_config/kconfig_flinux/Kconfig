@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: GPL-2.0
+#
+# For a description of the syntax of this configuration file,
+# see Documentation/kbuild/kconfig-language.rst.
+#
+mainmenu "aithinker_dev_sdk Platform Configuration"
+
+
+source "scripts/Kconfig.include"
+
+
+source "../../../tmp/kconfig/adt_kconfig/Kconfig"
+
+source "../../../tmp/kconfig/adt_kconfig/MKconfig"
+
+source "../../../tmp/kconfig/application_kconfig/Kconfig"
+
+source "../../../tmp/kconfig/common_kconfig/Kconfig"
+
+
+
+
+

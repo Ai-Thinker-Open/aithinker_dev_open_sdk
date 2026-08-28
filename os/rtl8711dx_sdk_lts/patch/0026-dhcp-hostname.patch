@@ -1,0 +1,13 @@
+diff --git a/component/lwip/api/lwipopts.h b/component/lwip/api/lwipopts.h
+index 642c1dcac..b132d4d03 100644
+--- a/component/lwip/api/lwipopts.h
++++ b/component/lwip/api/lwipopts.h
+@@ -171,4 +171,7 @@ extern unsigned int sys_now(void);
+ #define LWIP_NETCONN_THREAD_SEM_FREE()    sys_thread_sem_deinit()
+ #endif
+ 
++
++#define LWIP_NETIF_HOSTNAME  1
++
+ #endif /* LWIP_HDR_LWIPOPTS_H */
+\ No newline at end of file

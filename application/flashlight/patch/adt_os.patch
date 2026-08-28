@@ -1,0 +1,410 @@
+diff --git a/adapter_chip/chip/include/aiio_os_port.h b/adapter_chip/chip/include/aiio_os_port.h
+index 40bd145..c3ca606 100644
+--- a/adapter_chip/chip/include/aiio_os_port.h
++++ b/adapter_chip/chip/include/aiio_os_port.h
+@@ -98,7 +98,7 @@ typedef enum os_timer_activate {
+ } aiio_os_timer_activate_t;
+ 
+ CHIP_API int32_t aiio_os_timer_create(aiio_os_timer_handle_t *ptimer, const char *name, uint32_t ms,
+-		    void (*call_back)(arch_os_timer_handle_t), void *context,
++		    void (*call_back)(aiio_os_timer_handle_t), void *context,
+ 		    aiio_os_timer_reload_t reload,
+ 		    aiio_os_timer_activate_t activate);
+ 
+diff --git a/adapter_core/components/net_connect/bleconfig/blufi/aiio_blufi_api.c b/adapter_core/components/net_connect/bleconfig/blufi/aiio_blufi_api.c
+index ca37119..2f0f738 100755
+--- a/adapter_core/components/net_connect/bleconfig/blufi/aiio_blufi_api.c
++++ b/adapter_core/components/net_connect/bleconfig/blufi/aiio_blufi_api.c
+@@ -17,6 +17,8 @@
+ #include "aiio_btc.h"
+ #include "blufi_prf.h"
+ 
++#define SCAN_ITEMS_MAX  (50)
++
+ int32_t aiio_blufi_register_callbacks(aiio_blufi_callbacks_t *callbacks)
+ {
+     if (callbacks == NULL) {
+@@ -60,6 +62,16 @@ int32_t aiio_blufi_send_wifi_conn_report(aiio_wifi_mode_t opmode, aiio_blufi_sta
+     return btc_transfer_context(&msg, &arg, sizeof(btc_blufi_args_t), btc_blufi_call_deep_copy);
+ }
+ 
++int32_t aiio_blufi_send_wifi_list(uint16_t apCount, aiio_blufi_ap_record_t *list)
++{
++    btc_msg_t msg;
++    btc_blufi_args_t arg;
++    msg.sig = BTC_SIG_API_CALL;
++    msg.act = BTC_BLUFI_ACT_SEND_WIFI_LIST;
++    arg.wifi_list.apCount = apCount;
++    arg.wifi_list.list = list;
++    return (btc_transfer_context(&msg, &arg, sizeof(btc_blufi_args_t), btc_blufi_call_deep_copy));
++}
+ 
+ int32_t aiio_blufi_send_error_info(aiio_blufi_error_state_t state)
+ {
+@@ -87,4 +99,83 @@ int32_t aiio_blufi_send_custom_data(uint8_t *data, uint32_t data_len)
+ 
+     return btc_transfer_context(&msg, &arg, sizeof(btc_blufi_args_t), btc_blufi_call_deep_copy);
+ 
++}
++
++
++extern uint16_t scan_counter;
++extern aiio_blufi_ap_record_t *scan_ap_list;
++aiio_wifi_ap_item_t *scan_ap_ary_p = NULL;
++
++
++static void cb_scan_item_parse(void *env, uint32_t *param1, aiio_wifi_ap_item_t *item)
++{
++  uint32_t counter = (*param1);
++
++    /*scan overflow check*/
++    if (counter >= SCAN_ITEMS_MAX)
++    {
++        /*XXX maybe we should warning here*/
++        return;
++    }
++    aiio_wifi_ap_item_t *ap_ary_ptr = (aiio_wifi_ap_item_t *)env + counter; // get and move the ptr to the next item
++    counter++;
++
++    /*copy out scan data*/
++    ap_ary_ptr->channel = item->channel;
++    ap_ary_ptr->rssi = item->rssi;
++    memcpy(ap_ary_ptr->bssid, item->bssid, sizeof(ap_ary_ptr->bssid));
++    memcpy(ap_ary_ptr->ssid, item->ssid, sizeof(ap_ary_ptr->ssid)); // XXX boundary attack, copy too much data from wifi manager internal?
++    ap_ary_ptr->ssid_tail[0] = '\0';
++    ap_ary_ptr->ssid_len = strlen((char *)ap_ary_ptr->ssid);
++    ap_ary_ptr->auth = item->auth;
++    ap_ary_ptr->cipher = item->cipher;
++
++    // scan_ap_list[counter-1].ssid= ap_ary_ptr->ssid;
++    memcpy(scan_ap_list[counter-1].ssid, ap_ary_ptr->ssid, sizeof(ap_ary_ptr->ssid));
++    scan_ap_list[counter-1].rssi= ap_ary_ptr->rssi;
++
++
++    // aiio_log_i("index[%02d]: channel %02u, bssid %02X:%02X:%02X:%02X:%02X:%02X, rssi %3d, auth %d, SSID %s",
++    //            counter,
++    //            ap_ary_ptr->channel,
++    //            ap_ary_ptr->bssid[0],
++    //            ap_ary_ptr->bssid[1],
++    //            ap_ary_ptr->bssid[2],
++    //            ap_ary_ptr->bssid[3],
++    //            ap_ary_ptr->bssid[4],
++    //            ap_ary_ptr->bssid[5],
++    //            ap_ary_ptr->rssi,
++    //            ap_ary_ptr->auth,
++    //            ap_ary_ptr->ssid);
++    /*store back counter*/
++    (*param1) = counter;
++}
++
++static void cb_scan_complete(void *data, void *param)
++{
++    scan_counter = 0;
++    aiio_wifi_scan_ap_all(scan_ap_ary_p, &scan_counter, cb_scan_item_parse);
++    aiio_log_i("scan complete:%d", scan_counter);
++}
++
++int32_t aiio_blufi_scan_wifi_list(void)
++{
++    if (scan_ap_ary_p == NULL)
++    {
++        scan_ap_ary_p = (aiio_wifi_ap_item_t *)aiio_os_malloc(sizeof(aiio_wifi_ap_item_t) * SCAN_ITEMS_MAX);
++        if (scan_ap_ary_p == NULL)
++        {
++            aiio_log_e("malloc falied");
++            return -1;
++        }
++        memset(scan_ap_ary_p, 0, sizeof(aiio_wifi_ap_item_t) * SCAN_ITEMS_MAX);
++    }
++
++    scan_ap_list = (aiio_blufi_ap_record_t *)malloc(SCAN_ITEMS_MAX * sizeof(aiio_blufi_ap_record_t));
++    if (!scan_ap_list)
++    {
++        aiio_log_e("ap_list malloc fail");
++        return -1;
++    }
++    return aiio_wifi_scan(scan_ap_ary_p, cb_scan_complete, 1);
+ }
+\ No newline at end of file
+diff --git a/adapter_core/components/net_connect/bleconfig/blufi/aiio_blufi_api.h b/adapter_core/components/net_connect/bleconfig/blufi/aiio_blufi_api.h
+index 6e12cb3..92f37f1 100755
+--- a/adapter_core/components/net_connect/bleconfig/blufi/aiio_blufi_api.h
++++ b/adapter_core/components/net_connect/bleconfig/blufi/aiio_blufi_api.h
+@@ -440,6 +440,16 @@ int32_t aiio_blufi_send_error_info(aiio_blufi_error_state_t state);
+  *
+  */
+ int32_t aiio_blufi_send_custom_data(uint8_t *data, uint32_t data_len);
++
++/**
++ * @brief           Blufi scan wifi list
++ * @param
++ *
++ * @return          AIIO_OK - success, other - failed
++ *
++ */
++int32_t aiio_blufi_scan_wifi_list(void);
++
+ #ifdef __cplusplus
+ }
+ #endif
+diff --git a/adapter_core/components/net_connect/bleconfig/blufi/blufi_main.c b/adapter_core/components/net_connect/bleconfig/blufi/blufi_main.c
+index 163cd12..fa22cc7 100755
+--- a/adapter_core/components/net_connect/bleconfig/blufi/blufi_main.c
++++ b/adapter_core/components/net_connect/bleconfig/blufi/blufi_main.c
+@@ -22,6 +22,9 @@
+ #include "aiio_blufi.h"
+ 
+ aiio_wifi_sta_config_t aiio_blufi_sta_config={0};
++uint16_t scan_counter;
++aiio_blufi_ap_record_t *scan_ap_list;
++static uint8_t blufi_config_flag = 0;
+ 
+ typedef struct
+ {
+@@ -69,6 +72,25 @@ int32_t aiio_blufi_register_cb(aiio_blufi_cb_t cb)
+     return AIIO_OK;
+ }
+ 
++static void bubbleSort(aiio_blufi_ap_record_t *arr, int n)
++{
++    int i, j;
++    for (i = 0; i < n - 1; i++)
++    {
++        // 最后的 i 个元素已经排好序，不需要再比较
++        for (j = 0; j < n - i - 1; j++)
++        {
++            // 如果相邻的元素逆序，则交换它们
++            if (arr[j].rssi < arr[j + 1].rssi)
++            {
++                aiio_blufi_ap_record_t temp = arr[j];
++                arr[j] = arr[j + 1];
++                arr[j + 1] = temp;
++            }
++        }
++    }
++}
++
+ void aiio_blufi_wifi_event(int32_t evt_code, void *param)
+ {
+     if(g_blufi_init_flag){
+@@ -96,6 +118,14 @@ void aiio_blufi_wifi_event(int32_t evt_code, void *param)
+                 info.sta_ssid_len = strlen((char *)aiio_blufi_sta_config.ssid);
+                 info.sta_passwd=(uint8_t *)aiio_blufi_sta_config.password;
+ 
++                if (!blufi_config_flag)
++                {
++                    aiio_log_w("is not blufi config!");
++                    return;
++                }
++
++                blufi_config_flag = 0;
++
+                 if (ble_is_connected == true)
+                 {
+                     aiio_blufi_send_wifi_conn_report(mode, AIIO_BLUFI_STA_CONN_SUCCESS, 0, &info);
+@@ -103,11 +133,34 @@ void aiio_blufi_wifi_event(int32_t evt_code, void *param)
+                 else
+                 {
+                     aiio_log_i("BLUFI BLE is not connected yet\r\n");
++                    return;
+                 }
+ 
+                 if (blufi_cb.wifi_event_cb)
+                 {
+-                    blufi_cb.wifi_event_cb((char *)info.sta_ssid, (char *)info.sta_passwd);
++                    if (strlen((const char*)info.sta_ssid) > 0)
++                    {
++                        blufi_cb.wifi_event_cb((char *)info.sta_ssid, (char *)info.sta_passwd);
++                    }
++                }
++            }
++            break;
++            case AIIO_WIFI_EVENT_SCAN_DONE:
++            {
++                if (ble_is_connected == true)
++                {
++                    if (scan_ap_list != NULL)
++                    {
++                        bubbleSort(scan_ap_list,scan_counter);
++                        /* code */
++                        aiio_blufi_send_wifi_list(scan_counter, scan_ap_list);
++                        free(scan_ap_list);
++                        scan_ap_list = NULL;
++                    }
++                }
++                else
++                {
++                    aiio_log_w("BLUFI BLE is not connected yet\n");
+                 }
+             }
+             break;
+@@ -179,6 +232,8 @@ static void example_event_callback(aiio_blufi_cb_event_t event, aiio_blufi_cb_pa
+         memcpy(wifi_sta_config.sta.password,aiio_blufi_sta_config.password,sizeof(aiio_blufi_sta_config.password));
+         memcpy(wifi_sta_config.sta.bssid,aiio_blufi_sta_config.bssid,sizeof(aiio_blufi_sta_config.bssid));
+ 
++        blufi_config_flag = 1;
++
+         aiio_wifi_set_config(AIIO_WIFI_IF_STA,&wifi_sta_config);
+ 
+         if (aiio_wifi_start() != AIIO_OK)
+@@ -259,6 +314,7 @@ static void example_event_callback(aiio_blufi_cb_event_t event, aiio_blufi_cb_pa
+     case AIIO_BLUFI_EVENT_RECV_SOFTAP_CHANNEL:
+         break;
+     case AIIO_BLUFI_EVENT_GET_WIFI_LIST:
++        aiio_blufi_scan_wifi_list();
+         break;
+     case AIIO_BLUFI_EVENT_RECV_CUSTOM_DATA:
+         aiio_log_i("Recv Custom Data %d\n", param->custom_data.data_len);
+diff --git a/adapter_core/components/net_connect/bleconfig/blufi/blufi_prf.c b/adapter_core/components/net_connect/bleconfig/blufi/blufi_prf.c
+index 41fdd93..4d49107 100755
+--- a/adapter_core/components/net_connect/bleconfig/blufi/blufi_prf.c
++++ b/adapter_core/components/net_connect/bleconfig/blufi/blufi_prf.c
+@@ -756,6 +756,42 @@ static void btc_blufi_wifi_conn_report(uint8_t opmode, uint8_t sta_conn_state, u
+     free(data);
+ }
+ 
++void btc_blufi_send_wifi_list(uint16_t apCount, aiio_blufi_ap_record_t *list)
++{
++    uint8_t type;
++    uint8_t *data;
++    int data_len;
++    uint8_t *p;
++    // malloc size: (len + RSSI + ssid buffer) * apCount;
++    uint malloc_size = (1 + 1 + sizeof(list->ssid)) * apCount;
++    p = data = malloc(malloc_size);
++    if (data == NULL)
++    {
++        aiio_log_e("malloc error");
++        return;
++    }
++    type = BLUFI_BUILD_TYPE(BLUFI_TYPE_DATA, BLUFI_TYPE_DATA_SUBTYPE_WIFI_LIST);
++    for (int i = 0; i < apCount; ++i)
++    {
++        uint len = strlen((const char *)list[i].ssid);
++        data_len = (p - data);
++        // current_len + ssid + rssi + total_len_value
++        if ((data_len + len + 1 + 1) > malloc_size)
++        {
++            aiio_log_e("%s len error", __func__);
++            free(data);
++            return;
++        }
++        *p++ = len + 1; // length of ssid + rssi
++        *p++ = list[i].rssi;
++        memcpy(p, list[i].ssid, len);
++        p = p + len;
++    }
++    data_len = (p - data);
++    btc_blufi_send_encap(type, data, data_len);
++    free(data);
++}
++
+ static uint8_t btc_blufi_profile_deinit(void)
+ {
+     if (!blufi_env.enabled) {
+@@ -785,10 +821,9 @@ void btc_blufi_call_handler(btc_msg_t *msg)
+                                        arg->wifi_conn_report.extra_info,
+                                        arg->wifi_conn_report.extra_info_len);
+             break;
+-        // case BTC_BLUFI_ACT_SEND_WIFI_LIST:{
+-        //     btc_blufi_send_wifi_list(arg->wifi_list.apCount, arg->wifi_list.list);
+-        //     break;
+-        // }
++        case BTC_BLUFI_ACT_SEND_WIFI_LIST:
++            btc_blufi_send_wifi_list(arg->wifi_list.apCount, arg->wifi_list.list);
++            break;
+         case BTC_BLUFI_ACT_SEND_ERR_INFO:
+             btc_blufi_send_error_info(arg->blufi_err_infor.state);
+             break;
+diff --git a/adapter_core/components_lib/3rdparty/aiio/aiio_tls/aiio_tls_mbedtls.c b/adapter_core/components_lib/3rdparty/aiio/aiio_tls/aiio_tls_mbedtls.c
+index e83fa4c..7267312 100644
+--- a/adapter_core/components_lib/3rdparty/aiio/aiio_tls/aiio_tls_mbedtls.c
++++ b/adapter_core/components_lib/3rdparty/aiio/aiio_tls/aiio_tls_mbedtls.c
+@@ -80,7 +80,7 @@ int aiio_create_mbedtls_handle(const char *hostname, size_t hostlen, const void
+     mbedtls_entropy_init(&tls->entropy);
+ 
+     if (tls->role == AIIO_TLS_CLIENT) {
+-        aiio_ret = set_client_config(hostname, hostlen, (aiio_tls_cfg_t *)cfg, tls);
++        aiio_ret = aiio_set_client_config(hostname, hostlen, (aiio_tls_cfg_t *)cfg, tls);
+         if (aiio_ret != AIIO_OK) {
+             aiio_log_e( "Failed to set client configurations, returned [0x%04X] (%s)", aiio_ret, aiio_err_to_name(aiio_ret));
+             goto exit;
+@@ -571,7 +571,7 @@ int set_server_config(aiio_tls_cfg_server_t *cfg, aiio_tls_t *tls)
+ }
+ #endif /* ! CONFIG_TLS_SERVER */
+ 
+-int set_client_config(const char *hostname, size_t hostlen, aiio_tls_cfg_t *cfg, aiio_tls_t *tls)
++int aiio_set_client_config(const char *hostname, size_t hostlen, aiio_tls_cfg_t *cfg, aiio_tls_t *tls)
+ {
+     assert(cfg != NULL);
+     assert(tls != NULL);
+diff --git a/adapter_core/components_lib/3rdparty/aiio/aiio_tls/aiio_tls_mbedtls.h b/adapter_core/components_lib/3rdparty/aiio/aiio_tls/aiio_tls_mbedtls.h
+index dd114c9..8aad2c1 100644
+--- a/adapter_core/components_lib/3rdparty/aiio/aiio_tls/aiio_tls_mbedtls.h
++++ b/adapter_core/components_lib/3rdparty/aiio/aiio_tls/aiio_tls_mbedtls.h
+@@ -93,7 +93,7 @@ void aiio_mbedtls_server_session_ticket_ctx_free(aiio_tls_server_session_ticket_
+ /**
+  * Internal Callback for set_client_config_function
+  */
+-int set_client_config(const char *hostname, size_t hostlen, aiio_tls_cfg_t *cfg, aiio_tls_t *tls);
++int aiio_set_client_config(const char *hostname, size_t hostlen, aiio_tls_cfg_t *cfg, aiio_tls_t *tls);
+ 
+ #ifdef CONFIG_TLS_CLIENT_SESSION_TICKETS
+ /**
+diff --git a/adapter_core/components_lib/3rdparty/aiio/tcp_transport/private_include/aiio_transport_internal.h b/adapter_core/components_lib/3rdparty/aiio/tcp_transport/private_include/aiio_transport_internal.h
+index d161a9c..e982ac8 100644
+--- a/adapter_core/components_lib/3rdparty/aiio/tcp_transport/private_include/aiio_transport_internal.h
++++ b/adapter_core/components_lib/3rdparty/aiio/tcp_transport/private_include/aiio_transport_internal.h
+@@ -57,7 +57,7 @@ enum tcp_transport_errors {
+  * @param[in] error Internal tcp-transport's error
+  *
+  */
+-void capture_tcp_transport_error(aiio_transport_handle_t t, enum tcp_transport_errors error);
++void aiio_capture_tcp_transport_error(aiio_transport_handle_t t, enum tcp_transport_errors error);
+ 
+ /**
+  * @brief Returns underlying socket for the supplied transport handle
+diff --git a/adapter_core/components_lib/3rdparty/aiio/tcp_transport/transport.c b/adapter_core/components_lib/3rdparty/aiio/tcp_transport/transport.c
+index cee9eea..fdc843a 100644
+--- a/adapter_core/components_lib/3rdparty/aiio/tcp_transport/transport.c
++++ b/adapter_core/components_lib/3rdparty/aiio/tcp_transport/transport.c
+@@ -312,7 +312,7 @@ int aiio_transport_get_errno(aiio_transport_handle_t t)
+     return -1;
+ }
+ 
+-void capture_tcp_transport_error(aiio_transport_handle_t t, enum tcp_transport_errors error)
++void aiio_capture_tcp_transport_error(aiio_transport_handle_t t, enum tcp_transport_errors error)
+ {
+     aiio_tls_last_error_t *err_handle = aiio_transport_get_error_handle(t);
+     switch (error) {
+diff --git a/adapter_core/components_lib/3rdparty/aiio/tcp_transport/transport_ssl.c b/adapter_core/components_lib/3rdparty/aiio/tcp_transport/transport_ssl.c
+index 92493e4..1840afc 100644
+--- a/adapter_core/components_lib/3rdparty/aiio/tcp_transport/transport_ssl.c
++++ b/adapter_core/components_lib/3rdparty/aiio/tcp_transport/transport_ssl.c
+@@ -100,7 +100,7 @@ static int ssl_connect(aiio_transport_handle_t t, const char *host, int port, in
+     ssl->tls = aiio_tls_init();
+     if (ssl->tls == NULL) {
+         aiio_log_e( "Failed to initialize new connection object");
+-        capture_tcp_transport_error(t, ERR_TCP_TRANSPORT_NO_MEM);
++        aiio_capture_tcp_transport_error(t, ERR_TCP_TRANSPORT_NO_MEM);
+         return -1;
+     }
+     if (aiio_tls_conn_new_sync(host, strlen(host), port, &ssl->cfg, ssl->tls) <= 0) {
+@@ -233,7 +233,7 @@ static int ssl_read(aiio_transport_handle_t t, char *buffer, int len, int timeou
+     if (ret == 0) {
+         if (poll > 0) {
+             // no error, socket reads 0 while previously detected as readable -> connection has been closed cleanly
+-            capture_tcp_transport_error(t, ERR_TCP_TRANSPORT_CONNECTION_CLOSED_BY_FIN);
++            aiio_capture_tcp_transport_error(t, ERR_TCP_TRANSPORT_CONNECTION_CLOSED_BY_FIN);
+         }
+         ret = -1;
+     }
+@@ -256,7 +256,7 @@ static int tcp_read(aiio_transport_handle_t t, char *buffer, int len, int timeou
+     if (ret == 0) {
+         if (poll > 0) {
+             // no error, socket reads 0 while previously detected as readable -> connection has been closed cleanly
+-            capture_tcp_transport_error(t, ERR_TCP_TRANSPORT_CONNECTION_CLOSED_BY_FIN);
++            aiio_capture_tcp_transport_error(t, ERR_TCP_TRANSPORT_CONNECTION_CLOSED_BY_FIN);
+         }
+         ret = -1;
+     }

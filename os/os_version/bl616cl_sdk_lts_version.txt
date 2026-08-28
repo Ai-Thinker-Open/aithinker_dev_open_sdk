@@ -1,0 +1,4 @@
+name:bl616cl_sdk_lts/sdk/bouffalo_sdk
+branch:master
+commit:c26532cc989bd145be29677e78507affde0dc5fe
+repository:https://github.com/bouffalolab/bouffalo_sdk.git

@@ -1,0 +1,16 @@
+# 添加wifi初始化状态标志位
+
+diff --git a/component/wifi/rtk_app/wifi_init/wifi_init.c b/component/wifi/rtk_app/wifi_init/wifi_init.c
+index 6d1f4090b..ee70910e3 100644
+--- a/component/wifi/rtk_app/wifi_init/wifi_init.c
++++ b/component/wifi/rtk_app/wifi_init/wifi_init.c
+@@ -69,7 +69,8 @@ void wifi_init_thread(void *param)
+ 
+ #ifndef CONFIG_WHC_BRIDGE_HOST
+ 	wifi_on(RTW_MODE_STA);
+-
++	extern uint8_t ai_wifi_init_ok;
++	ai_wifi_init_ok=1;
+ 	RTK_LOGI(TAG_WLAN_DRV, "Available heap after wifi init %d\n", rtos_mem_get_free_heap_size() + WIFI_STACK_SIZE_INIT);
+ #endif
+ 

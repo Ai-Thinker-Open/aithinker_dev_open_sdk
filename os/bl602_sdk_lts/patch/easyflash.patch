@@ -1,0 +1,25 @@
+diff --git a/components/stage/easyflash4/src/easyflash.c b/components/stage/easyflash4/src/easyflash.c
+index a9b4130d..4aa1cc22 100644
+--- a/components/stage/easyflash4/src/easyflash.c
++++ b/components/stage/easyflash4/src/easyflash.c
+@@ -99,5 +99,7 @@ EfErrCode easyflash_init(void) {
+     }
+     EF_INFO("You can get the latest version on https://github.com/armink/EasyFlash .\r\n");
+ 
++    ef_prefetch_cache_env();
++
+     return result;
+ }
+diff --git a/components/stage/easyflash4/src/ef_env.c b/components/stage/easyflash4/src/ef_env.c
+index 8d16e373..d6219a49 100644
+--- a/components/stage/easyflash4/src/ef_env.c
++++ b/components/stage/easyflash4/src/ef_env.c
+@@ -67,7 +67,7 @@
+ 
+ /* the ENV cache table size, it will improve ENV search speed when using cache */
+ #ifndef EF_ENV_CACHE_TABLE_SIZE
+-#define EF_ENV_CACHE_TABLE_SIZE                  16
++#define EF_ENV_CACHE_TABLE_SIZE                  32
+ #endif
+ 
+ /* the sector cache table size, it will improve ENV save speed when using cache */

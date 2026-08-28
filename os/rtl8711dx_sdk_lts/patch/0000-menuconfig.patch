@@ -1,0 +1,13 @@
+diff --git a/amebadplus_gcc_project/default.conf b/amebadplus_gcc_project/default.conf
+index eaacd0477..0bda14cde 100644
+--- a/amebadplus_gcc_project/default.conf
++++ b/amebadplus_gcc_project/default.conf
+@@ -4,3 +4,8 @@ CONFIG_ATCMD_NETWORK=y
+ CONFIG_VFS_LITTLEFS_INCLUDED=y
+ CONFIG_KERNEL=y
+ CONFIG_MBEDTLS_ENABLED_MENU=y
++CONFIG_WIFI_EAP_ENABLE=y
++CONFIG_WIFI_11K_ENABLE=y
++CONFIG_WIFI_11V_ENABLE=y
++CONFIG_WIFI_11R_ENABLE=y
++CONFIG_BT_MENU=y

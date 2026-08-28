@@ -1,0 +1,24 @@
+# 1.1版本sdk存在sntp printf跑飞的问题
+
+diff --git a/component/network/sntp/sntp.c b/component/network/sntp/sntp.c
+index 4bbdcf56f..08d33a4e1 100644
+--- a/component/network/sntp/sntp.c
++++ b/component/network/sntp/sntp.c
+@@ -530,7 +530,7 @@ sntp_try_next_server(void *arg)
+ static void
+ sntp_recv(void *arg, struct udp_pcb *pcb, struct pbuf *p, ip_addr_t *addr, u16_t port)
+ {
+-	printf("%s\n", __func__);
++	// printf("%s\n", __func__);
+ 	u8_t mode;
+ 	u8_t stratum;
+ 	u32_t receive_timestamp[SNTP_RECEIVE_TIME_SIZE];
+@@ -616,7 +616,7 @@ sntp_recv(void *arg, struct udp_pcb *pcb, struct pbuf *p, ip_addr_t *addr, u16_t
+ static void
+ sntp_send_request(ip_addr_t *server_addr)
+ {
+-	printf("%s\n", __func__);
++	// printf("%s\n", __func__);
+ 	struct pbuf *p;
+ 	p = pbuf_alloc(PBUF_TRANSPORT, SNTP_MSG_LEN, PBUF_RAM);
+ 	if (p != NULL) {

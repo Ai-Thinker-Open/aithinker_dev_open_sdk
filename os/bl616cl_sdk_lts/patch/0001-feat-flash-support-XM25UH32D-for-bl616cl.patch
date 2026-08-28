@@ -1,0 +1,76 @@
+From 06462b9b49f27ed30b1da1f8cae93b820e6555ea Mon Sep 17 00:00:00 2001
+From: sliu <sliu@bouffalolab.com>
+Date: Mon, 20 Jul 2026 17:29:39 +0800
+Subject: [PATCH] feat(flash): support XM25UH32D for bl616cl
+
+Jira-Id: BL616AITK-54
+
+Change-Id: Ib8d6bb7bdb666d32af91070a088458f73b82b483
+---
+ drivers/lhal/config/bl616cl/bflb_lhal_romapi_patch.c | 9 +++++++++
+ drivers/lhal/src/flash/bflb_flash_secreg.c           | 5 +++++
+ drivers/lhal/src/flash/bflb_sf_cfg.c                 | 5 +++++
+ 3 files changed, 19 insertions(+)
+
+diff --git a/drivers/lhal/config/bl616cl/bflb_lhal_romapi_patch.c b/drivers/lhal/config/bl616cl/bflb_lhal_romapi_patch.c
+index 457c405..2c13b85 100644
+--- a/drivers/lhal/config/bl616cl/bflb_lhal_romapi_patch.c
++++ b/drivers/lhal/config/bl616cl/bflb_lhal_romapi_patch.c
+@@ -288,6 +288,11 @@ static const ATTR_TCM_CONST_SECTION Flash_Info_t flash_infos[] = {
+         //.name="ZB_WQ80A_08_33",
+         .cfg = &flash_cfg_winb_16jv,
+     },
++    {
++        .jedec_id = 0x164046,
++        //.name="xm_uh32d_32_33",
++        .cfg = &flash_cfg_winb_16jv,
++    },
+ };
+ 
+ static const ATTR_TCM_CONST_SECTION struct flash_params_s flash_secreg_infos[] = {
+@@ -299,6 +304,10 @@ static const ATTR_TCM_CONST_SECTION struct flash_params_s flash_secreg_infos[] =
+         .jedec_id = 0x14345e,
+         .param = flash_secreg_param_gd_le80c,
+     },
++    {
++        .jedec_id = 0x164046,
++        .param = flash_secreg_param_gd_wq32e_q128e,
++    },
+ };
+ 
+ /****************************************************************************/ /**
+diff --git a/drivers/lhal/src/flash/bflb_flash_secreg.c b/drivers/lhal/src/flash/bflb_flash_secreg.c
+index d869f66..f7aee8e 100644
+--- a/drivers/lhal/src/flash/bflb_flash_secreg.c
++++ b/drivers/lhal/src/flash/bflb_flash_secreg.c
+@@ -809,6 +809,11 @@ __UNUSED static const ATTR_TCM_CONST_SECTION struct flash_params_s flash_params[
+         .jedec_id = 0x14345e,
+         .param = flash_secreg_param_gd_le80c,
+     },
++    {
++        /*!< XM25UH32D */
++        .jedec_id = 0x164046,
++        .param = flash_secreg_param_gd_wq32e_q128e,
++    },
+ };
+ /*@} end of group Flash_Secreg_Private_Variables */
+ 
+diff --git a/drivers/lhal/src/flash/bflb_sf_cfg.c b/drivers/lhal/src/flash/bflb_sf_cfg.c
+index 205f26b..58333d4 100644
+--- a/drivers/lhal/src/flash/bflb_sf_cfg.c
++++ b/drivers/lhal/src/flash/bflb_sf_cfg.c
+@@ -2682,6 +2682,11 @@ __UNUSED static const ATTR_TCM_CONST_SECTION flash_info_t flash_infos[] = {
+         //.name="zb_wq80a_08_33",
+         .cfg = &flash_cfg_gd_q32e_q128e,
+     },
++    {
++        .jedec_id = 0x164046,
++        //.name="xm_uh32d_32_33",
++        .cfg = &flash_cfg_winb_16jv,
++    },
+ #endif
+     {
+         .jedec_id = 0x176085,
+-- 
+2.25.1
+

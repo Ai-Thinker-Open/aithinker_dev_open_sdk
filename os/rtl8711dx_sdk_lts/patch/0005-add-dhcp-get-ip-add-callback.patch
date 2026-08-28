@@ -1,0 +1,13 @@
+diff --git a/component/lwip/api/lwip_netconf.c b/component/lwip/api/lwip_netconf.c
+index 397762e28..26ad95698 100644
+--- a/component/lwip/api/lwip_netconf.c
++++ b/component/lwip/api/lwip_netconf.c
+@@ -278,6 +278,8 @@ uint8_t LwIP_DHCP(uint8_t idx, uint8_t dhcp_state)
+ 				iptab[3] = (uint8_t)(IPaddress);
+ 
+ 				at_printf_indicate("wifi got ip:\"%d.%d.%d.%d\"\r\n", iptab[3], iptab[2], iptab[1], iptab[0]);
++				void rtl_dhcp_get_ip_event(void);
++				rtl_dhcp_get_ip_event();
+ 
+ #if defined(CONFIG_FAST_DHCP) && CONFIG_FAST_DHCP
+ 				dhcp = ((struct dhcp *)netif_get_client_data(pnetif, LWIP_NETIF_CLIENT_DATA_INDEX_DHCP));

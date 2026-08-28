@@ -1,0 +1,12 @@
+diff --git a/component/lwip/CMakeLists.txt b/component/lwip/CMakeLists.txt
+index 22584bcae..849405156 100644
+--- a/component/lwip/CMakeLists.txt
++++ b/component/lwip/CMakeLists.txt
+@@ -100,6 +100,7 @@ ameba_list_append(private_sources
+     lwip_${v_LWIP_VER}/src/api/api_lib.c
+     lwip_${v_LWIP_VER}/src/api/netifapi.c
+     lwip_${v_LWIP_VER}/src/apps/mdns/mdns.c
++    lwip_${v_LWIP_VER}/src/apps/netbiosns/netbiosns.c
+ )
+ 
+ 

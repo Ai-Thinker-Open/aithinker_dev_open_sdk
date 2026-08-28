@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale-1.0,user-scalable-no,maximum-scale-1.0,minimum-scale-1.0">
+    <title>绑定设备WIFI</title></head>
+<body>
+<div class="login-form"><p class="login-title">设备配网</p>
+    <p class="login-title-tip"></p>
+    <div class="login-item">
+        <input type="text" id="username" class="show-input login-input top-input"
+                                   placeholder="请输入WIFI用户名"/>
+        <select name="" id="device-select" class="show-select login-select top-select"></select>
+    </div>
+    <div class="login-item">
+        <input type="password" id="password" class="login-input" placeholder="请输入WIFI密码"/>
+    </div>
+    <div class="login-item">
+        <input type="text" id="mqttUrl" class="login-input" placeholder="请输入MQTT服务器地址"/>
+    </div>
+    <div class="login-item">
+        <input type="text" id="topic" class="login-input" placeholder="请输入MQTT主题"/>
+    </div>
+    <div class="login-item">
+        <input type="text" id="mqtt_username" class="login-input" placeholder="请输入MQTT服务器用户名"/>
+    </div>
+    <div class="login-item">
+        <input type="password" id="mqtt_password" class="login-input" placeholder="请输入MQTT服务器密码"/>
+    </div>
+    <div class="login-item">
+        <button class="login-btn" id="connect">连接</button>
+        <div><span class="span-change" style="line-height: 39px;"><a href="javascript:void(0)" class="show-input"
+                                                                     id="a-username">切换自动获取WIFI名称</a><a
+                href="javascript:void(0)" class="show-select" id="a-device-select">切换手动输入WIFI名称</a></span></div>
+    </div>
+    <div class="login-item" style="font-size: 20;font-family: 'Courier New', Courier, monospace;left: calc(50% - 67px);">
+        <p style="margin-bottom: 0px;margin-top: 40px;">偶然科技有限公司V1.0.0</p>
+    </div>
+</div>
+<!--<div style="font-size: 20;font-family: 'Courier New', Courier, monospace;left: calc(50% - 67px);">
+    <p style="margin-bottom: 0px;">偶然科技有限公司</p>
+    <p style="margin-top:0px;">V1.0.0</p>
+</div>-->
+</body>
+</html>
+<script type="text/javascript">var Ajax = {
+    get: function (url, fn) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200 || xhr.status == 304) {
+                fn.call(this, xhr.responseText);
+            }
+        };
+        xhr.send();
+    }, post: function (url, data, fn) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 304)) {
+                fn.call(this, xhr.responseText);
+            }
+        };
+        xhr.send(data);
+    }
+}
+var timerHandle;
+
+function checkConnectStatus(result) {
+    console.log(result)
+    if (result == "OK") {
+        var connect = document.getElementById("connect");
+        connect.style.backgroundColor = "#58c247";
+        connect.innerText = "已连接";
+        clearInterval(timerHandle);
+    }
+}
+
+var common = (function () {
+    var strEmpty = function (value) {
+        if (value == undefined || value == null || value == '') {
+            return true;
+        }
+    }
+    return {strEmpty: strEmpty}
+}())
+var buzi = (function () {
+    var result = function (value) {
+        console.log(value)
+        var connect = document.getElementById("connect");
+        connect.style.backgroundColor = "#47c29a";
+        connect.innerText = "开始连接";
+        timerHandle = setInterval(() => {
+            var url = '/getStatus';
+            Ajax.get(url, checkConnectStatus)
+        }, 3000);
+    }
+    var initRt = function (value) {
+    }
+    var init = function () {
+        let url = '/scan';
+        Ajax.get(url, buzi.initRt)
+    }
+    var getNetWork = function () {
+        let url = '/getNetWork';
+        let deviceSelect = document.getElementById('device-select')
+        Ajax.get(url, function (result) {
+            console.log(result)
+            let payload = JSON.parse(result)
+            let data = payload.data
+            if (payload.ssid != null && payload.length > 0) {
+                data.unshift(payload.ssid)
+            }
+            if (payload.length > 0) {
+                showSelect()
+                for (i in data) {
+                    deviceSelect.add(new Option(data[i], data[i]))
+                }
+            }
+        })
+    }
+    return {result: result, init: init, initRt: initRt, getNetWork: getNetWork}
+}())
+buzi.init()
+setTimeout(function () {
+    buzi.getNetWork()
+}, 3000)
+var isConnect = false
+var connect = document.getElementById("connect");
+connect.onclick = function () {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    var mqttUrl = document.getElementById("mqttUrl").value;
+    var topic = document.getElementById("topic").value;
+    var mqtt_username = document.getElementById("mqtt_username").value;
+    var mqtt_password = document.getElementById("mqtt_password").value;
+    var deviceName = document.getElementById("device-select").value;
+    if (common.strEmpty(username) && common.strEmpty(deviceName)) {
+        alert("请填写WIFI用户名");
+        return false;
+    }
+    if (common.strEmpty(password)) {
+        alert("请填写WIFI密码");
+        return false;
+    }
+    if (isConnect) {
+        alert("正在连接中......");
+        return false
+    }
+    let Network = isInput ? username : deviceName
+    isConnect = true
+    let data = {"Network": Network, "Password": password, "mqttUrl": mqttUrl, "topic": topic, "mqtt_username": mqtt_username, "mqtt_password": mqtt_password}
+    var url = '/saveInfo';
+    let payload = JSON.stringify(data);
+    Ajax.post(url, payload, buzi.result)
+    isConnect = false
+};
+var isInput = true
+var username = document.getElementById("a-username");
+username.onclick = function () {
+    showSelect()
+}
+
+function showSelect() {
+    var select = document.getElementsByClassName("show-select")
+    var i
+    for (i = 0; i < select.length; i++) {
+        select[i].style.display = 'inline-block'
+    }
+    var input = document.getElementsByClassName("show-input")
+    var y
+    for (y = 0; y < select.length; y++) {
+        input[y].style.display = 'none'
+    }
+    isInput = false
+}
+
+var username = document.getElementById("a-device-select");
+username.onclick = function () {
+    var select = document.getElementsByClassName("show-select")
+    var i
+    for (i = 0; i < select.length; i++) {
+        select[i].style.display = 'none'
+    }
+    var input = document.getElementsByClassName("show-input")
+    var y
+    for (y = 0; y < select.length; y++) {
+        input[y].style.display = 'inline-block'
+    }
+    isInput = true
+}</script>
+<style>body {
+    width: 100%;
+    margin: 0 auto;
+    min-width: 320px;
+    max-width: 640px;
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+    color: #666;
+    line-height: 1.5;
+    background-color: #fff;
+    height: 100vh;
+}
+
+.login-form {
+    text-align: center;
+    margin: 0 auto;
+    width: 90%;
+    padding-top: 50px;
+}
+
+.login-form .login-item {
+    height: 70px;
+}
+
+.login-form a {
+    text-decoration: none;
+}
+
+.login-form .login-title {
+    text-align: center;
+    font-size: 24px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #333;
+    line-height: 34px;
+    margin-bottom: 0;
+}
+
+.login-form .login-title-tip {
+    font-size: 9px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #333;
+    line-height: 13px;
+    margin-top: 5px;
+    margin-bottom: 38px;
+}
+
+.login-form .login-label {
+    display: inline-block;
+    font-size: 16px;
+    width: 70px;
+}
+
+.login-form .login-select {
+    border: 1px solid #F6F7F9;
+    height: 51px;
+    border-radius: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background: #F6F7F9;
+    width: calc(100%);
+    font-size: 14px;
+    float: left;
+}
+
+.show-select {
+    display: none;
+}
+
+.login-form .login-input {
+    border: 1px solid #F6F7F9;
+    height: 51px;
+    border-radius: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background: #F6F7F9;
+    border-radius: 5px;
+    width: calc(100% - 22px);
+    font-size: 14px;
+    float: left;
+}
+
+.login-form .login-btn {
+    width: 100%;
+    border: 1px solid #1677FF;
+    background-color: #1677FF;
+    color: #fff;
+    border-radius: 8px;
+    height: 51px;
+}
+
+.span-change {
+    font-size: 15px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #1677FF;
+}
+
+.span-change a {
+    color: #1677FF;
+}
+
+.login-bottom {
+    position: fixed;
+    bottom: 0;
+    font-size: 12px;
+    font-family: 'Courier New', Courier, monospace;
+    left: calc(50% - 67px);
+}
+
+option {
+    border: 1px solid #5a75ee;
+}
+
+option:hover {
+    background-color: #5a75ee;
+}</style>

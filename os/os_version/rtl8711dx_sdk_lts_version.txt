@@ -1,0 +1,4 @@
+name:rtl8711dx_sdk_lts/sdk/ameba-rtos
+branch:master
+commit:e0e235109657ba451250e1948756190c6b55391a
+repository:https://github.com/Ameba-AIoT/ameba-rtos.git

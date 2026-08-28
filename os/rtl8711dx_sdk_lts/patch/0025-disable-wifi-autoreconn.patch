@@ -1,0 +1,44 @@
+diff --git a/component/wifi/driver/include/rtw_autoconf.h b/component/wifi/driver/include/rtw_autoconf.h
+index fcd1abe5a..1e858d3a1 100644
+--- a/component/wifi/driver/include/rtw_autoconf.h
++++ b/component/wifi/driver/include/rtw_autoconf.h
+@@ -34,7 +34,7 @@
+ 
+ #if !(defined(ZEPHYR_WIFI) && defined(CONFIG_AS_INIC_AP))
+ /* no IOT chip supports 80M now, so close it in common */
+-#define CONFIG_AUTO_RECONNECT 1
++#define CONFIG_AUTO_RECONNECT 0
+ #endif
+ 
+ /* For WPA3 */
+diff --git a/component/wifi/rtk_app/wifi_auto_reconnect/wifi_auto_reconnect.c b/component/wifi/rtk_app/wifi_auto_reconnect/wifi_auto_reconnect.c
+index 3d574472b..4aeeddc98 100644
+--- a/component/wifi/rtk_app/wifi_auto_reconnect/wifi_auto_reconnect.c
++++ b/component/wifi/rtk_app/wifi_auto_reconnect/wifi_auto_reconnect.c
+@@ -167,6 +167,26 @@ int wifi_stop_autoreconnect(void)
+ 	return RTK_SUCCESS;
+ }
+ 
++#else
++struct rtw_auto_reconn_t {
++	struct rtw_network_info  conn_param;
++	rtos_timer_t        timer;
++	u8                  pwd[RTW_MAX_PSK_LEN + 1];
++	u8                  cnt;
++	u8                  eap_method;
++	u8                  b_infinite: 1;
++	u8                  b_enable: 1;
++	u8                  b_waiting: 1;
++};
++struct rtw_auto_reconn_t  rtw_reconn;
++void rtw_reconn_new_conn(struct rtw_network_info *connect_param)
++{
++	(void) connect_param;
++}
++int wifi_stop_autoreconnect(void)
++{
++	return RTK_SUCCESS;
++}
+ #endif
+ 
+ s32 wifi_set_autoreconnect(u8 enable)

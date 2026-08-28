@@ -1,0 +1,89 @@
+{
+	"adapter_chip": [{
+			"name": "chip",
+			"path": "adapter_chip/chip"
+		},
+		{
+			"name": "chip_common",
+			"path": "adapter_chip/chip_common"
+		}
+	],
+	"adapter_core": [
+		{
+			"name": "CJSON",
+			"path": "adapter_core/components/CJSON"
+		},
+		{
+			"name": "at_cmd",
+			"path": "adapter_core/components/at_cmd"
+		},
+		{
+			"name": "aithing_cloud",
+			"path": "adapter_core/components/cloud/aithing_cloud"
+		},
+		{
+			"name": "aliyun_cloud",
+			"path": "adapter_core/components/cloud/aliyun_cloud/aliyun"
+		},
+		{
+			"name": "smartliving_cloud",
+			"path": "adapter_core/components/cloud/aliyun_cloud/smartliving"
+		},
+		{
+			"name": "factory",
+			"path": "adapter_core/components/factory"
+		},
+		{
+			"name": "heap_check",
+			"path": "adapter_core/components/heap_check"
+		},
+		{
+			"name": "airkiss",
+			"path": "adapter_core/components/net_connect/airkiss"
+		},
+		{
+			"name": "apconfig",
+			"path": "adapter_core/components/net_connect/apconfig"
+		},
+		{
+			"name": "bleconfig",
+			"path": "adapter_core/components/net_connect/bleconfig"
+		},
+		{
+			"name": "nfcconfig",
+			"path": "adapter_core/components/net_connect/nfcconfig"
+		},
+		{
+			"name": "smartconfig",
+			"path": "adapter_core/components/net_connect/smartconfig"
+		},
+		{
+			"name": "webconfig",
+			"path": "adapter_core/components/net_connect/webconfig"
+		},
+		{
+			"name": "sensor",
+			"path": "adapter_core/components/sensor"
+		},
+		{
+			"name": "lib1",
+			"path": "adapter_core/components_3lib/lib1"
+		},
+		{
+			"name": "lib2",
+			"path": "adapter_core/components_3lib/lib2"
+		},
+		{
+			"name": "3rdparty",
+			"path": "adapter_core/components_3lib/3rdparty"
+		},
+		{
+			"name": "syn_user_info",
+			"path": "adapter_core/components/syn_user_info"
+		},
+		{
+			"name": "HarmonyOs_BLE",
+			"path": "adapter_core/components/HarmonyOs_BLE"
+		}
+	]
+}

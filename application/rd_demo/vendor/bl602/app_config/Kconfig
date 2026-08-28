@@ -1,0 +1,14 @@
+menu "application"
+    config AIIO_RADAR
+        bool "ENABLE RADAR"
+        default y
+    config RADAR_UART_ENABLE
+        bool "ENABLE RADAR UART"
+        default y
+    config RADAR_UART
+        int "RADAR UART NUM"
+    default 1
+    config RADAR_UART_BAUDRATE
+        int "RADAR UART BAUDRATE"
+    default 256000
+endmenu

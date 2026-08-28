@@ -1,0 +1,24 @@
+From 74f7f3baf4f8ad3587d7a87f8210b510719d047e Mon Sep 17 00:00:00 2001
+From: hongjz <hongjz@tech-now.com>
+Date: Wed, 10 Jan 2024 09:06:07 +0800
+Subject: [PATCH] add MBEDTLS_PKCS5_C define
+
+---
+ components/security/mbedtls_lts/mbedtls_sample_config.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/components/security/mbedtls_lts/mbedtls_sample_config.h b/components/security/mbedtls_lts/mbedtls_sample_config.h
+index 3e5066a8..709a1fc1 100644
+--- a/components/security/mbedtls_lts/mbedtls_sample_config.h
++++ b/components/security/mbedtls_lts/mbedtls_sample_config.h
+@@ -74,6 +74,7 @@
+ #if defined(CFG_CHIP_BL606P) || defined(CFG_CHIP_BL808)
+ #define MBEDTLS_PKCS5_C
+ #endif
++#define MBEDTLS_PKCS5_C
+ #define MBEDTLS_PKCS1_V15
+ #define MBEDTLS_PKCS1_V21
+ 
+-- 
+2.34.1
+

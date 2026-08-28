@@ -1,0 +1,26 @@
+diff --git a/component/lwip/lwip_v2.1.2/src/include/lwip/errno.h b/component/lwip/lwip_v2.1.2/src/include/lwip/errno.h
+index 6dba01db0..e86365864 100644
+--- a/component/lwip/lwip_v2.1.2/src/include/lwip/errno.h
++++ b/component/lwip/lwip_v2.1.2/src/include/lwip/errno.h
+@@ -42,7 +42,7 @@
+ #ifdef __cplusplus
+ extern "C" {
+ #endif
+-
++#define LWIP_PROVIDE_ERRNO
+ #ifdef LWIP_PROVIDE_ERRNO
+ 
+ #define  EPERM            1  /* Operation not permitted */
+diff --git a/component/network/CMakeLists.txt b/component/network/CMakeLists.txt
+index b4694c105..7f9ce97a7 100644
+--- a/component/network/CMakeLists.txt
++++ b/component/network/CMakeLists.txt
+@@ -7,7 +7,7 @@ if(CONFIG_CORE_AS_AP)
+     ameba_add_subdirectory(dhcp)
+     ameba_add_subdirectory(dnrd/src)
+     ameba_add_subdirectory(coap)
+-    ameba_add_subdirectory(iperf3)
++    # ameba_add_subdirectory(iperf3)
+     ameba_add_subdirectory(cJSON)
+     ameba_add_subdirectory(httplite)
+     ameba_add_subdirectory(iperf)
